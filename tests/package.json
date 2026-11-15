@@ -1,0 +1,12 @@
+{
+  "name": "mm-websites-tests",
+  "private": true,
+  "description": "Regression, accessibility and behavior tests for the M&M Websites site",
+  "scripts": {
+    "test": "node site.test.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.0",
+    "playwright": "^1.48.0"
+  }
+}
