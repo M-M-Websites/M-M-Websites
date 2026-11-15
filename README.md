@@ -22,7 +22,7 @@ This is the only file the owner needs to edit. **Every value ships empty**, and 
 
 Also still placeholder, outside `config.js`:
 
-- **The domain.** Absolute URLs use `https://mm-websites.example`. Run `scripts/set-domain.sh` (step 3 below).
+- **The domain** is set: every absolute URL uses `https://mnmwebsitesforyou.com` (the bare domain; `www` should redirect to it, see *Hosting on Cloudflare Pages*).
 - **A live link to the Legendary Detailing site.** The case study doesn't link to the live site yet. Once it has its permanent domain, add a link in `work/legendary-detailing/index.html` and in the project block in `index.html`.
 
 Nothing on the site states client counts, years in business, testimonials, addresses or awards. Keep it that way unless they're real.
@@ -43,6 +43,19 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 **Not handled by the site:** sales tax (no Stripe Tax yet; check with an accountant), and clients managing their subscription. For that, turn on Stripe's no-code Customer Portal login link (Stripe Dashboard → Settings → Billing → Customer portal) and share it with clients.
 
 ---
+
+## Hosting on Cloudflare Pages (mnmwebsitesforyou.com)
+
+The site is hosted on Cloudflare Pages straight from this repo: every push to `main` redeploys it. One-time setup:
+
+1. **Add the domain to Cloudflare.** Cloudflare dashboard → *Add a domain* → `mnmwebsitesforyou.com` → Free plan. Cloudflare lists two nameservers (like `xxx.ns.cloudflare.com`).
+2. **Point Namecheap at Cloudflare.** Namecheap → Domain List → *Manage* → *Nameservers* → change *Namecheap BasicDNS* to **Custom DNS**, paste the two Cloudflare nameservers and save. Namecheap's redirect and parking page stop applying once this takes effect, which can take up to a day (usually under an hour). Cloudflare emails you when the domain is active.
+3. **Create the Pages project.** Cloudflare → *Workers & Pages* → *Create* → *Pages* → *Connect to Git* → authorise GitHub → pick `M-M-Websites/M-M-Websites`. Production branch: `main`. Framework preset: **None**. Build command: **empty**. Build output directory: **`/`**. Save and deploy. You get a `*.pages.dev` preview address.
+4. **Attach the domain.** In the Pages project → *Custom domains* → add `mnmwebsitesforyou.com`, then add `www.mnmwebsitesforyou.com`. Cloudflare creates the DNS records and the HTTPS certificate.
+5. **Redirect www to the bare domain.** Cloudflare → the domain → *Rules* → *Redirect Rules* → *Create rule* from the template **Redirect from WWW to root** (301, keep the path and query string).
+6. **Check it:** open `https://mnmwebsitesforyou.com`, `https://www.mnmwebsitesforyou.com` (should land on the bare domain) and a made-up address like `/nope` (should show the branded 404).
+
+`_headers` (security policy and caching) is applied automatically by Cloudflare Pages. `CNAME` is only for GitHub Pages and is ignored here.
 
 ## Launch checklist
 

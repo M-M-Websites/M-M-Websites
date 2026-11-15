@@ -3,4 +3,4 @@ Allow: /
 Disallow: /tests/
 Disallow: /scripts/
 
-Sitemap: https://mm-websites.example/sitemap.xml
+Sitemap: https://mnmwebsitesforyou.com/sitemap.xml
