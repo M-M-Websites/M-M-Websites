@@ -1,0 +1,21 @@
+# Files that must not be published with the Worker static assets.
+# Wrangler reads this when assets.directory is the repo root.
+.git
+.gitignore
+.assetsignore
+.nojekyll
+.DS_Store
+.cursor
+node_modules
+tests
+scripts
+README.md
+CNAME
+wrangler.toml
+wrangler.json
+wrangler.jsonc
+worker.js
+package.json
+package-lock.json
+*.md
+*.log

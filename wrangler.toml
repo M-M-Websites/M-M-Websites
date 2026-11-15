@@ -1,0 +1,15 @@
+# Cloudflare Worker + Static Assets config for the M&M Websites studio site.
+# Account: 04589d44a6a692ce9e19c79c60a0e284
+# Custom domains (already attached): mnmwebsitesforyou.com and www.mnmwebsitesforyou.com
+name = "mnm-websites"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[assets]
+directory = "./"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+# Needed so worker.js can redirect www.* before assets are served.
+run_worker_first = true

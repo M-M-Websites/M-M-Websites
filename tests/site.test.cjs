@@ -184,10 +184,12 @@ async function launch() {
     await ctx.close();
   });
 
-  /* 3. Honest content with the default (empty) settings */
-  await test('content: real prices only, no contact details and nothing invented while settings are empty', async () => {
+  /* 3. Honest content with the shipped settings */
+  await test('content: real prices and contact emails, nothing invented, other settings stay empty', async () => {
     const cfg = fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8');
-    for (const key of ['formEmail', 'businessEmail', 'phone', 'phoneDisplay', 'bookingUrl', 'instagram', 'facebook', 'linkedin', 'tiktok', 'x', 'youtube', 'googleBusiness']) {
+    assert(/\bformEmail: 'mnmwebsitesforyou@gmail\.com'/.test(cfg), 'config.js formEmail should be the business Gmail');
+    assert(/\bbusinessEmail: 'hello@mnmwebsitesforyou\.com'/.test(cfg), 'config.js businessEmail should be hello@mnmwebsitesforyou.com');
+    for (const key of ['phone', 'phoneDisplay', 'bookingUrl', 'instagram', 'facebook', 'linkedin', 'tiktok', 'x', 'youtube', 'googleBusiness']) {
       assert(new RegExp(`\\b${key}: ''`).test(cfg), `config.js ${key} should ship empty`);
     }
 
@@ -196,23 +198,29 @@ async function launch() {
     const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].sort();
     eq(JSON.stringify(amounts), JSON.stringify(['$45', '$600', '$645']), 'only the real prices appear');
     assert(!/lorem|ipsum|TODO|FIXME|testimonial|award|years in business/i.test(text), 'placeholder or invented-claim text found');
-    eq(await page.locator('a[href^="tel:"], a[href^="mailto:"], a[href^="sms:"]').count(), 0, 'contact links while unset');
-    for (const sel of ['#direct', '#footer-contact']) assert(!(await page.locator(sel).isVisible()), `${sel} should be hidden`);
+    eq(await page.locator('a[href^="tel:"], a[href^="sms:"]').count(), 0, 'no phone links while unset');
+    assert((await page.locator('a[href="mailto:hello@mnmwebsitesforyou.com"]').count()) >= 1, 'business email link shown');
+    for (const sel of ['#direct', '#footer-contact']) assert(await page.locator(sel).isVisible(), `${sel} should be visible when email is set`);
+    assert(!(await page.locator('#form-offline').isVisible()), 'form should show as connected');
+    eq((await page.locator('#f-submit').innerText()).trim(), 'Send project details', 'submit label when connected');
     eq(await page.locator('.project').count(), 1, 'exactly one portfolio project');
     eq((await page.locator('.project__name').innerText()).trim(), 'Legendary Detailing', 'portfolio project');
     const ld = JSON.parse(await page.locator('#org-jsonld').textContent());
     eq(ld['@type'], 'ProfessionalService', 'JSON-LD type');
     eq(ld.name, 'M&M Websites', 'JSON-LD name');
-    for (const k of ['address', 'telephone', 'email', 'aggregateRating', 'review', 'priceRange', 'foundingDate', 'numberOfEmployees', 'sameAs']) assert(!(k in ld), `JSON-LD must not contain ${k} while unconfirmed`);
+    eq(ld.email, 'hello@mnmwebsitesforyou.com', 'JSON-LD email');
+    for (const k of ['address', 'telephone', 'aggregateRating', 'review', 'priceRange', 'foundingDate', 'numberOfEmployees', 'sameAs']) assert(!(k in ld), `JSON-LD must not contain ${k} while unconfirmed`);
     const offers = ld.hasOfferCatalog.itemListElement;
     eq(offers.find((o) => o.price)?.price, '600.00', 'JSON-LD setup price');
     eq(offers.find((o) => o.priceSpecification)?.priceSpecification.price, '45.00', 'JSON-LD monthly price');
-    // no personal or client contact details anywhere in the published files
+    // no unexpected personal or client contact details in published files
+    const allowedEmail = /mnmwebsitesforyou@gmail\.com/g;
     const published = execFileSync('git', ['ls-files', '--others', '--cached', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' })
       .split('\n').filter((f) => /\.(html|js|css|txt|xml|md)$/.test(f) && !f.startsWith('tests/'));
     for (const f of published) {
       const body = fs.readFileSync(path.join(ROOT, f), 'utf8');
-      assert(!/@gmail\.com|@yahoo\.com|@outlook\.com|@hotmail\.com/i.test(body), `${f} contains a personal email address`);
+      const leftover = body.replace(allowedEmail, '');
+      assert(!/@gmail\.com|@yahoo\.com|@outlook\.com|@hotmail\.com/i.test(leftover), `${f} contains a personal email address`);
       assert(!/\(?\d{3}\)?[ .-]\d{3}-\d{4}/.test(body.replace(/\(901\) 555-0123/g, '')), `${f} contains a phone number`);
     }
     eq(problems.length, 0, `errors: ${problems.join('; ')}`);
@@ -260,7 +268,7 @@ async function launch() {
 
   /* 5. The form while no form email is set */
   await test('form (not connected): says so up front and never pretends to send', async () => {
-    const { ctx, page, problems, formRequests } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } });
+    const { ctx, page, problems, formRequests } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }, config: { formEmail: '', businessEmail: '' } });
     assert(await page.locator('#form-offline').isVisible(), 'not-connected notice visible');
     assert(/isn.t connected yet/i.test(await page.locator('#form-offline').innerText()), 'notice wording');
     eq((await page.locator('#f-submit').innerText()).trim(), 'Check my details', 'button does not say "Send" while unconnected');

@@ -1,7 +1,7 @@
 /* ==========================================================================
    M&M Websites: site settings (the only file you need to edit)
    --------------------------------------------------------------------------
-   Every value starts empty. Anything left empty is simply hidden on the site,
+   formEmail and businessEmail are set. Anything left empty is hidden on the site,
    so nothing broken or fake ever shows. Fill a value in, save, and deploy:
    the matching link, button or section appears by itself.
    ========================================================================== */
@@ -13,10 +13,10 @@ window.MM_CONFIG = {
      emails this address an "Activate Form" link: click it once.
      Optional: after activation you can put FormSubmit's random alias here
      instead of the address, to hide the address from spam bots. */
-  formEmail: '',
+  formEmail: 'mnmwebsitesforyou@gmail.com',
 
   /* Public business email, shown as a contact link. Example: 'hello@yourdomain.com' */
-  businessEmail: '',
+  businessEmail: 'hello@mnmwebsitesforyou.com',
 
   /* Business phone. `phone` is the dialable form with country code
      (example: '+19015550123'); `phoneDisplay` is how it reads on the page

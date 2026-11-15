@@ -2,7 +2,7 @@
 
 The studio website for **M&M Websites**, a small web design studio that designs and hand-builds fast, mobile-first websites for local service businesses: detailers, trades, salons, restaurants and similar.
 
-- **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Deploys as-is to Netlify, Cloudflare Pages or GitHub Pages.
+- **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Live as a Cloudflare Worker with Static Assets (`mnm-websites`). Wrangler can deploy it; Netlify still works as an alternative.
 - **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), and a branded `404.html`.
 - **Quality:** 23-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
 
@@ -10,19 +10,19 @@ The studio website for **M&M Websites**, a small web design studio that designs 
 
 ## Settings still to fill in → `assets/js/config.js`
 
-This is the only file the owner needs to edit. **Every value ships empty**, and the site hides anything that isn't set, so it looks finished as it is. Fill a value in, save, deploy, and the matching link or section appears on its own.
+This is the only file the owner needs to edit. **`formEmail` and `businessEmail` are already set.** Anything left empty is hidden, so the site looks finished as it is. Fill a value in, save, deploy, and the matching link or section appears on its own.
 
 | Setting | What it does while empty | What it does once set |
 |---|---|---|
-| `formEmail` | The *Start a project* form says plainly **"This form isn't connected yet"**, the button reads *Check my details*, and submitting shows *Not sent* (it never pretends to send) | Requests go to this inbox through [FormSubmit](https://formsubmit.co). See *Launch checklist* step 4 |
-| `businessEmail` | No email link anywhere | Email link in *Prefer to talk first?* and the footer; added to structured data. Also offered as a pre-filled email if the form isn't connected |
+| `formEmail` | The *Start a project* form says plainly **"This form isn't connected yet"**, the button reads *Check my details*, and submitting shows *Not sent* (it never pretends to send) | Set to `mnmwebsitesforyou@gmail.com`. Requests go to that inbox through [FormSubmit](https://formsubmit.co). See *Launch checklist* step 4 |
+| `businessEmail` | No email link anywhere | Set to `hello@mnmwebsitesforyou.com`. Email link in *Prefer to talk first?* and the footer; added to structured data. (Cloudflare Email Routing should forward that address to the Gmail inbox; that step still needs the right Cloudflare permissions.) |
 | `phone` + `phoneDisplay` | No phone link anywhere | Tap-to-call link; `phone` (like `+19015550123`) is added to structured data |
 | `bookingUrl` | No booking link | *Book a call* link (Calendly, Cal.com, etc.). Must start with `https://` |
 | `social.instagram`, `social.facebook`, `social.linkedin`, `social.tiktok`, `social.x`, `social.youtube`, `social.googleBusiness` | Hidden | Footer links, plus `sameAs` in structured data. Must start with `https://` |
 
 Also still placeholder, outside `config.js`:
 
-- **The domain** is set: every absolute URL uses `https://mnmwebsitesforyou.com` (the bare domain; `www` should redirect to it, see *Hosting on Cloudflare Pages*).
+- **The domain** is set: every absolute URL uses `https://mnmwebsitesforyou.com` (the bare domain; `www` should redirect to it, see *Hosting on Cloudflare*).
 - **A live link to the Legendary Detailing site.** The case study doesn't link to the live site yet. Once it has its permanent domain, add a link in `work/legendary-detailing/index.html` and in the project block in `index.html`.
 
 Nothing on the site states client counts, years in business, testimonials, addresses or awards. Keep it that way unless they're real.
@@ -44,34 +44,41 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 
 ---
 
-## Hosting on Cloudflare Pages (mnmwebsitesforyou.com)
+## Hosting on Cloudflare (mnmwebsitesforyou.com)
 
-The site is hosted on Cloudflare Pages straight from this repo: every push to `main` redeploys it. One-time setup:
+The site is a Cloudflare Worker named `mnm-websites` with Static Assets. The Worker serves the pages and redirects `www` to the bare domain. Live addresses:
 
-1. **Add the domain to Cloudflare.** Cloudflare dashboard → *Add a domain* → `mnmwebsitesforyou.com` → Free plan. Cloudflare lists two nameservers (like `xxx.ns.cloudflare.com`).
-2. **Point Namecheap at Cloudflare.** Namecheap → Domain List → *Manage* → *Nameservers* → change *Namecheap BasicDNS* to **Custom DNS**, paste the two Cloudflare nameservers and save. Namecheap's redirect and parking page stop applying once this takes effect, which can take up to a day (usually under an hour). Cloudflare emails you when the domain is active.
-3. **Create the Pages project.** Cloudflare → *Workers & Pages* → *Create* → *Pages* → *Connect to Git* → authorise GitHub → pick `M-M-Websites/M-M-Websites`. Production branch: `main`. Framework preset: **None**. Build command: **empty**. Build output directory: **`/`**. Save and deploy. You get a `*.pages.dev` preview address.
-4. **Attach the domain.** In the Pages project → *Custom domains* → add `mnmwebsitesforyou.com`, then add `www.mnmwebsitesforyou.com`. Cloudflare creates the DNS records and the HTTPS certificate.
-5. **Redirect www to the bare domain.** Cloudflare → the domain → *Rules* → *Redirect Rules* → *Create rule* from the template **Redirect from WWW to root** (301, keep the path and query string).
-6. **Check it:** open `https://mnmwebsitesforyou.com`, `https://www.mnmwebsitesforyou.com` (should land on the bare domain) and a made-up address like `/nope` (should show the branded 404).
+- `https://mnmwebsitesforyou.com`
+- `https://www.mnmwebsitesforyou.com` (301 to the bare domain, handled in `worker.js`)
+- Preview: `https://mnm-websites.mnmwebsitesforyou.workers.dev`
 
-`_headers` (security policy and caching) is applied automatically by Cloudflare Pages. `CNAME` is only for GitHub Pages and is ignored here.
+Config is in `wrangler.toml` and `worker.js`. `.assetsignore` keeps `tests/`, `scripts/`, the README, Wrangler files and similar off the live site. `_headers` is applied as the Worker's asset headers (CSP and caching). `CNAME` is only for GitHub Pages and is ignored here.
+
+Pushes to GitHub do **not** redeploy the Worker automatically. After a change, either run `npx wrangler deploy` from this repo (needs a Cloudflare login with access to the account), or use the redeploy kit documented alongside this project.
+
+One-time setup already done:
+
+1. The domain is on Cloudflare (Free plan). Namecheap nameservers are Cloudflare's: `mimi.ns.cloudflare.com` and `sterling.ns.cloudflare.com`.
+2. The Worker was created with Static Assets, `not_found_handling = "404-page"`, `html_handling = "auto-trailing-slash"`, and `run_worker_first = true` so `worker.js` can see `www` requests.
+3. Both custom domains were attached to the Worker. Cloudflare created the proxied DNS records and issues HTTPS.
+
+**Check it:** open `https://mnmwebsitesforyou.com`, `https://www.mnmwebsitesforyou.com` (should land on the bare domain) and a made-up address like `/nope` (should show the branded 404).
 
 ## Launch checklist
 
-1. **Host it.**
+1. **Host it.** This site is already live as the `mnm-websites` Cloudflare Worker (see *Hosting on Cloudflare*). To start over or deploy a copy:
+   - **Cloudflare Workers:** `npx wrangler deploy` from this repo (uses `wrangler.toml`).
    - **Netlify:** *Add new site → Import from Git →* this repo. Build command: empty. Publish directory: `/`.
-   - **Cloudflare Pages:** *Create → Pages → Connect to Git →* this repo. Framework preset: None. Build command: empty. Output directory: `/`.
 
    Both read `_headers` (caching and security headers, including the Content-Security-Policy). GitHub Pages also works but ignores `_headers`, and its terms say Pages isn't meant for running a business's website.
-2. **Connect the domain** in the host's domain settings.
+2. **Connect the domain** in the host's domain settings (already done for `mnmwebsitesforyou.com`).
 3. **Point the site at the domain:**
    ```bash
    bash scripts/set-domain.sh yourdomain.com
    ```
-   This rewrites every absolute URL (canonical, Open Graph, structured data) in every page, plus `sitemap.xml` and `robots.txt`, refreshes the sitemap dates and writes `CNAME`. Safe to run again. Commit and push.
-4. **Connect the form.** Put the inbox in `formEmail`, deploy, and submit one real test request on the live site. FormSubmit emails that inbox an *Activate Form* link: click it once. Mark the first FormSubmit email *Not spam*. Optional: after activation FormSubmit offers a random alias; put that in `formEmail` instead to keep the address away from spam bots.
-5. **Fill in the rest of `config.js`** (email, phone, booking link, socials) as each is ready.
+   This rewrites every absolute URL (canonical, Open Graph, structured data) in every page, plus `sitemap.xml` and `robots.txt`, refreshes the sitemap dates and writes `CNAME`. Safe to run again. Commit and push. Then redeploy the Worker.
+4. **Connect the form.** `formEmail` is already set to `mnmwebsitesforyou@gmail.com`. After a deploy, submit one real test request on the live site. FormSubmit emails that inbox an *Activate Form* link: click it once. Mark the first FormSubmit email *Not spam*. Optional: after activation FormSubmit offers a random alias; put that in `formEmail` instead to keep the address away from spam bots.
+5. **Fill in the rest of `config.js`** (phone, booking link, socials) as each is ready.
 6. **Submit the sitemap** in Google Search Console: `https://yourdomain.com/sitemap.xml`.
 
 ---
@@ -109,7 +116,7 @@ The suite starts its own static server and checks:
 
 - **Layout** at 320, 390, 768, 1024, 1440 and 1920px on every page: no sideways scrolling, every image loads, one H1, no console errors or failed requests, and tap targets at least 44×44px.
 - **Links:** every in-page anchor has a target and every internal link loads.
-- **Honest content:** `config.js` ships empty, the only dollar amounts are the real prices, no contact links, hidden contact sections, one portfolio project, JSON-LD with no unconfirmed fields, and no personal email addresses or phone numbers in published files.
+- **Honest content:** `formEmail` and `businessEmail` are the real inboxes, other `config.js` values stay empty, the only dollar amounts are the real prices, one portfolio project, JSON-LD has no unconfirmed fields, and published files don't contain unexpected personal email addresses or phone numbers.
 - **SEO:** unique titles, description lengths, absolute canonicals, Open Graph, heading order, valid JSON-LD, robots.txt and sitemap.
 - **The form, not connected:** the notice shows, nothing is sent, typed details are kept, and the email fallback works when only `businessEmail` is set.
 - **The form, connected** (FormSubmit is always mocked, so tests never send real email): validation and recovery, the exact payload on success, and both server-error and network-error failures with call/email/booking fallbacks.
@@ -141,11 +148,14 @@ index.html                      home page
 work/legendary-detailing/       case study
 404.html                        branded not-found page (root-relative paths)
 assets/css/site.css             all styles and design tokens
-assets/js/config.js             owner settings (all empty by default)
+assets/js/config.js             owner settings (form and business email are set)
 assets/js/main.js               settings, menu, reveals, the project form
 assets/fonts/                   self-hosted fonts + OFL.txt
 assets/img/                     favicon, touch icon, Open Graph image, case study screenshots
-_headers                        caching + security headers (Netlify, Cloudflare Pages)
+_headers                        caching + security headers (Netlify, Cloudflare Workers)
+wrangler.toml                   Cloudflare Worker + Static Assets config
+worker.js                       www → bare-domain redirect, then static assets
+.assetsignore                   keeps tests, scripts, README and similar off the live site
 robots.txt, sitemap.xml
 scripts/set-domain.sh           switches every absolute URL to the real domain
 tests/                          Playwright + axe-core suite

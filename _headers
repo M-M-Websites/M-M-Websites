@@ -1,4 +1,4 @@
-# Response headers for Netlify and Cloudflare Pages (GitHub Pages ignores this file).
+# Response headers for Netlify and Cloudflare Workers Static Assets (GitHub Pages ignores this file).
 # The script-src hash allows the one-line inline script in each page's <head> that
 # switches the "no-js" class to "js". If you change that line, update the hash
 # (tests/site.test.cjs checks the page under this exact policy).
