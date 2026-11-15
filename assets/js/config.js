@@ -38,14 +38,4 @@ window.MM_CONFIG = {
     youtube: '',
     googleBusiness: '',
   },
-
-  /* Optional budget choices for the form. While empty, the form offers
-     plain-language choices with no dollar amounts. To use your own ranges,
-     list them here, e.g. ['Under $X', '$X to $Y', '$Y and up']. */
-  budgetRanges: [],
-
-  /* Optional published prices. While empty, the site uses "Request a quote"
-     and shows no dollar amounts anywhere. Example:
-     [{ service: 'Starter site', price: 'From $X', note: 'Up to five pages' }] */
-  startingPrices: [],
 };

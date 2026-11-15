@@ -19,6 +19,7 @@ const HEADERS = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
 const CSP = (HEADERS.match(/Content-Security-Policy:\s*(.+)/) || [])[1];
 const SITE = (fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
 const PAGES = ['/', '/work/legendary-detailing/'];
+const PAY_LINK = 'https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00';
 
 /* ---------- tiny test runner ---------- */
 const results = [];
@@ -58,8 +59,6 @@ const FULL_CONFIG = {
   phoneDisplay: '555-0100',
   bookingUrl: 'https://booking.example.com/intro',
   social: { instagram: 'https://instagram.example.com/mm', linkedin: 'https://linkedin.example.com/mm' },
-  budgetRanges: ['Range A', 'Range B'],
-  startingPrices: [{ service: 'Starter site', price: 'From $X', note: 'Example note' }],
 };
 
 async function openPage(browser, base, { opts = {}, route = '/', config = null, mock = null } = {}) {
@@ -105,7 +104,6 @@ async function fillValid(page) {
   await page.fill('#f-website', 'riversplumbing.example');
   await page.locator('input[name="needs"][value="A new website"]').check();
   await page.locator('input[name="needs"][value="Booking or quote form"]').check();
-  await page.locator('input[name="budget"]').first().check();
   await page.selectOption('#f-timeline', 'Within a month');
   await page.fill('#f-message', 'We want more quote requests from phones.');
 }
@@ -187,25 +185,28 @@ async function launch() {
   });
 
   /* 3. Honest content with the default (empty) settings */
-  await test('content: no prices, no contact details and nothing invented while settings are empty', async () => {
+  await test('content: real prices only, no contact details and nothing invented while settings are empty', async () => {
     const cfg = fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8');
     for (const key of ['formEmail', 'businessEmail', 'phone', 'phoneDisplay', 'bookingUrl', 'instagram', 'facebook', 'linkedin', 'tiktok', 'x', 'youtube', 'googleBusiness']) {
       assert(new RegExp(`\\b${key}: ''`).test(cfg), `config.js ${key} should ship empty`);
     }
-    assert(/budgetRanges: \[\]/.test(cfg) && /startingPrices: \[\]/.test(cfg), 'budgetRanges and startingPrices ship empty');
 
     const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
     const text = await page.evaluate(() => document.body.innerText);
-    assert(!/\$\s?\d/.test(text), 'a dollar amount appears on the home page');
+    const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].sort();
+    eq(JSON.stringify(amounts), JSON.stringify(['$45', '$600', '$645']), 'only the real prices appear');
     assert(!/lorem|ipsum|TODO|FIXME|testimonial|award|years in business/i.test(text), 'placeholder or invented-claim text found');
     eq(await page.locator('a[href^="tel:"], a[href^="mailto:"], a[href^="sms:"]').count(), 0, 'contact links while unset');
-    for (const sel of ['#direct', '#footer-contact', '#prices']) assert(!(await page.locator(sel).isVisible()), `${sel} should be hidden`);
+    for (const sel of ['#direct', '#footer-contact']) assert(!(await page.locator(sel).isVisible()), `${sel} should be hidden`);
     eq(await page.locator('.project').count(), 1, 'exactly one portfolio project');
     eq((await page.locator('.project__name').innerText()).trim(), 'Legendary Detailing', 'portfolio project');
     const ld = JSON.parse(await page.locator('#org-jsonld').textContent());
     eq(ld['@type'], 'ProfessionalService', 'JSON-LD type');
     eq(ld.name, 'M&M Websites', 'JSON-LD name');
     for (const k of ['address', 'telephone', 'email', 'aggregateRating', 'review', 'priceRange', 'foundingDate', 'numberOfEmployees', 'sameAs']) assert(!(k in ld), `JSON-LD must not contain ${k} while unconfirmed`);
+    const offers = ld.hasOfferCatalog.itemListElement;
+    eq(offers.find((o) => o.price)?.price, '600.00', 'JSON-LD setup price');
+    eq(offers.find((o) => o.priceSpecification)?.priceSpecification.price, '45.00', 'JSON-LD monthly price');
     // no personal or client contact details anywhere in the published files
     const published = execFileSync('git', ['ls-files', '--others', '--cached', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' })
       .split('\n').filter((f) => /\.(html|js|css|txt|xml|md)$/.test(f) && !f.startsWith('tests/'));
@@ -326,7 +327,7 @@ async function launch() {
     const b = formRequests[0].body;
     eq(b.name, 'Jordan Rivers', 'name'); eq(b.business, 'Rivers Plumbing', 'business'); eq(b.email, 'jordan@example.com', 'email');
     eq(b.website, 'riversplumbing.example', 'website'); eq(b.needs, 'A new website, Booking or quote form', 'needs');
-    eq(b.budget, 'Keep it lean', 'budget'); eq(b.timeline, 'Within a month', 'timeline');
+    assert(!('budget' in b), 'no budget field'); eq(b.timeline, 'Within a month', 'timeline');
     eq(b._replyto, 'jordan@example.com', 'reply-to'); eq(b._subject, 'New project request: Rivers Plumbing', 'subject'); eq(b._honey, '', 'honeypot empty');
     assert(!(await page.locator('#project-form').isVisible()), 'form replaced by confirmation');
     eq(await page.evaluate(() => document.activeElement.id), 'form-done', 'focus on confirmation');
@@ -359,7 +360,7 @@ async function launch() {
   });
 
   /* 9. Owner settings turn things on */
-  await test('config: contact methods, socials, prices, budget ranges and JSON-LD appear when set', async () => {
+  await test('config: contact methods, socials and JSON-LD appear when set', async () => {
     const { ctx, page, problems } = await openPage(browser, base, { config: FULL_CONFIG });
     assert(await page.locator('#direct').isVisible(), 'direct contact block');
     eq(await page.locator('#direct a[href="tel:+15550100"]').innerText(), 'Call 555-0100', 'phone link');
@@ -368,10 +369,6 @@ async function launch() {
     eq(await page.locator('[data-contact="email"]').count(), 1, 'one email slot');
     const footer = await page.$$eval('#footer-links a', (a) => a.map((x) => x.textContent));
     eq(footer.join('|'), 'Book a call|Call 555-0100|hello@example.com|Instagram|LinkedIn', 'footer links (unset socials hidden)');
-    assert(await page.locator('#prices').isVisible(), 'starting prices shown');
-    assert(/Starter site/.test(await page.locator('#prices').innerText()), 'price row');
-    const budgets = await page.$$eval('#budget-options input', (i) => i.map((x) => x.value));
-    eq(budgets.join('|'), 'Range A|Range B|Not sure, help me decide', 'budget ranges');
     const ld = JSON.parse(await page.locator('#org-jsonld').textContent());
     eq(ld.email, 'hello@example.com', 'JSON-LD email'); eq(ld.telephone, '+15550100', 'JSON-LD telephone');
     eq(JSON.stringify(ld.sameAs), JSON.stringify(['https://instagram.example.com/mm', 'https://linkedin.example.com/mm']), 'JSON-LD sameAs');
@@ -384,6 +381,25 @@ async function launch() {
     eq(await bad.page.locator('a[href^="javascript:"], a[href^="http:"]').count(), 0, 'unsafe or non-https links ignored');
     assert(!(await bad.page.locator('#direct').isVisible()), 'nothing to show');
     await bad.ctx.close();
+  });
+
+  /* 9b. Pricing and the Stripe payment link */
+  await test('pricing: both prices, the total and a working link to the Stripe payment page', async () => {
+    const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } });
+    const bill = await page.locator('#pricing').innerText();
+    assert(/Website setup[\s\S]*\$600[\s\S]*one time/.test(bill), `setup line: ${bill}`);
+    assert(/Website maintenance[\s\S]*\$45[\s\S]*a month/.test(bill), `maintenance line: ${bill}`);
+    assert(/Due at signup[\s\S]*\$645/.test(bill), 'total due at signup');
+    eq(await page.getAttribute('#pay-link', 'href'), PAY_LINK, 'payment link');
+    const links = await page.$$eval('a[href*="buy.stripe.com"]', (a) => [...new Set(a.map((x) => x.href))]);
+    eq(JSON.stringify(links), JSON.stringify([PAY_LINK]), 'one payment link used everywhere');
+    let navigated = '';
+    await page.route('https://buy.stripe.com/**', (r) => { navigated = r.request().url(); return r.fulfill({ contentType: 'text/html', body: '<title>stub</title>' }); });
+    await page.click('#pay-link');
+    await page.waitForLoadState();
+    eq(navigated, PAY_LINK, 'Get started opens the Stripe payment page');
+    eq(problems.length, 0, `errors: ${problems.join('; ')}`);
+    await ctx.close();
   });
 
   /* 10. Mobile menu */

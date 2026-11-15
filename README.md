@@ -4,7 +4,7 @@ The studio website for **M&M Websites**, a small web design studio that designs 
 
 - **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Deploys as-is to Netlify, Cloudflare Pages or GitHub Pages.
 - **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), and a branded `404.html`.
-- **Quality:** 22-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
+- **Quality:** 23-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
 
 ---
 
@@ -19,15 +19,28 @@ This is the only file the owner needs to edit. **Every value ships empty**, and 
 | `phone` + `phoneDisplay` | No phone link anywhere | Tap-to-call link; `phone` (like `+19015550123`) is added to structured data |
 | `bookingUrl` | No booking link | *Book a call* link (Calendly, Cal.com, etc.). Must start with `https://` |
 | `social.instagram`, `social.facebook`, `social.linkedin`, `social.tiktok`, `social.x`, `social.youtube`, `social.googleBusiness` | Hidden | Footer links, plus `sameAs` in structured data. Must start with `https://` |
-| `budgetRanges` | The form's optional budget question offers plain-language choices with no dollar amounts | Your own ranges replace them (a *Not sure* option is always kept) |
-| `startingPrices` | No prices anywhere: the site uses "Request a quote" | A *Starting points* list appears under Services |
 
 Also still placeholder, outside `config.js`:
 
 - **The domain.** Absolute URLs use `https://mm-websites.example`. Run `scripts/set-domain.sh` (step 3 below).
 - **A live link to the Legendary Detailing site.** The case study doesn't link to the live site yet. Once it has its permanent domain, add a link in `work/legendary-detailing/index.html` and in the project block in `index.html`.
 
-Nothing on the site states prices, client counts, years in business, testimonials, addresses or awards. Keep it that way unless they're real.
+Nothing on the site states client counts, years in business, testimonials, addresses or awards. Keep it that way unless they're real.
+
+## Pricing and payments (Stripe)
+
+The *Pricing* section on the home page shows the two real prices, which every client pays:
+
+| Stripe product | Price | Stripe price ID |
+|---|---|---|
+| Website setup | $600, one time | `price_1UbzNXAhdcfBYyxakwU9CyVi` |
+| Website maintenance | $45 a month | `price_1UbzNiAhdcfBYyxa5o85qYoq` |
+
+**Get started** opens a Stripe Payment Link (`https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00`) that charges $645 at signup (setup plus the first month), then $45 every month. It also asks for the client's business name and phone number. No API keys or server code are involved.
+
+**To change a price:** create a new Price in Stripe and a new Payment Link (prices can't be edited in place), then update the `PRICING` block in `index.html`, the FAQ answer *How much does a website cost?*, the hero note, the JSON-LD offers in the `<head>`, the case study's closing paragraph, and `PAY_LINK` in `tests/site.test.cjs`. The tests check that the amounts on the page are exactly $45, $600 and $645, so they'll flag anything you miss.
+
+**Not handled by the site:** sales tax (no Stripe Tax yet; check with an accountant), and clients managing their subscription. For that, turn on Stripe's no-code Customer Portal login link (Stripe Dashboard → Settings → Billing → Customer portal) and share it with clients.
 
 ---
 
@@ -83,11 +96,12 @@ The suite starts its own static server and checks:
 
 - **Layout** at 320, 390, 768, 1024, 1440 and 1920px on every page: no sideways scrolling, every image loads, one H1, no console errors or failed requests, and tap targets at least 44×44px.
 - **Links:** every in-page anchor has a target and every internal link loads.
-- **Honest content:** `config.js` ships empty, no dollar amounts, no contact links, hidden contact sections, one portfolio project, JSON-LD with no unconfirmed fields, and no personal email addresses or phone numbers in published files.
+- **Honest content:** `config.js` ships empty, the only dollar amounts are the real prices, no contact links, hidden contact sections, one portfolio project, JSON-LD with no unconfirmed fields, and no personal email addresses or phone numbers in published files.
 - **SEO:** unique titles, description lengths, absolute canonicals, Open Graph, heading order, valid JSON-LD, robots.txt and sitemap.
 - **The form, not connected:** the notice shows, nothing is sent, typed details are kept, and the email fallback works when only `businessEmail` is set.
 - **The form, connected** (FormSubmit is always mocked, so tests never send real email): validation and recovery, the exact payload on success, and both server-error and network-error failures with call/email/booking fallbacks.
-- **Settings:** contact links, socials, prices, budget ranges and JSON-LD appear when set; unsafe or non-https links are ignored.
+- **Settings:** contact links, socials and JSON-LD appear when set; unsafe or non-https links are ignored.
+- **Pricing:** both prices and the total show, and *Get started* opens the Stripe payment link (stubbed in tests).
 - **Mobile menu**, **keyboard use** and **visible focus**.
 - **axe-core:** zero violations (WCAG 2.0–2.2 A/AA plus best practices) on every page, at phone and desktop sizes, and in each form state.
 - **Fallbacks:** JavaScript off and reduced motion.

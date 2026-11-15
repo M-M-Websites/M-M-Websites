@@ -42,11 +42,11 @@
       "@type": "OfferCatalog",
       "name": "Website services",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom website design and build" } },
+        { "@type": "Offer", "price": "600.00", "priceCurrency": "USD", "itemOffered": { "@type": "Service", "name": "Website setup: custom website design and build" } },
+        { "@type": "Offer", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "45.00", "priceCurrency": "USD", "unitText": "month" }, "itemOffered": { "@type": "Service", "name": "Website maintenance: monthly updates" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Booking and quote forms" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO foundations" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Launch help: domain, hosting and Google Business Profile setup" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ongoing website updates" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Launch help: domain, hosting and Google Business Profile setup" } }
       ]
     }
   }
@@ -70,6 +70,7 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#work">Work</a></li>
           <li><a href="#process">Process</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
@@ -93,7 +94,7 @@
             <a class="btn btn--red" href="#start">Start a project</a>
             <a class="btn btn--line" href="#work">See the work</a>
           </div>
-          <p class="hero__note rise">Every project is quoted after a short conversation. You own the domain and the code.</p>
+          <p class="hero__note rise"><a href="#pricing">$600 to build, then $45 a month</a> for updates. You own the domain and the code.</p>
         </div>
 
         <!-- Signature: a "proof" of real client work, marked up in red pencil -->
@@ -171,11 +172,6 @@
             <p>New photos, a changed price, a seasonal special: ongoing updates as your business changes, so the site never goes stale.</p>
           </li>
         </ul>
-        <div class="prices" id="prices" hidden>
-          <h3 class="prices__title">Starting points</h3>
-          <ul class="prices__list" id="prices-list"></ul>
-          <p class="prices__note">Every project still gets its own written quote.</p>
-        </div>
       </div>
     </section>
 
@@ -240,7 +236,7 @@
           <li class="step reveal">
             <span class="step__no" aria-hidden="true">1</span>
             <h3>Discovery</h3>
-            <p>A conversation about your business, your customers and what a good lead looks like for you. You get a written quote and plan.</p>
+            <p>A conversation about your business, your customers and what a good lead looks like for you. You get a written plan for your site.</p>
           </li>
           <li class="step reveal">
             <span class="step__no" aria-hidden="true">2</span>
@@ -298,6 +294,42 @@
       </div>
     </section>
 
+    <!-- ===================== PRICING =====================
+         Prices and the Stripe payment link live here. If a price changes,
+         change it in Stripe first (a new Price + payment link), then update
+         the amounts below, the FAQ answer "How much does a website cost?",
+         the hero note and the JSON-LD offers in the <head>. -->
+    <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap pricing__grid">
+        <div class="pricing__intro">
+          <h2 id="pricing-title">Pricing</h2>
+          <p>Every client gets the same two things: a site built for their business, and someone keeping it up to date afterwards.</p>
+        </div>
+        <div class="bill">
+          <ul class="bill__lines">
+            <li class="bill__line">
+              <div>
+                <h3>Website setup</h3>
+                <p>Design and build of your custom, mobile-first site, with booking or quote forms, search basics, and launch help with your domain, hosting and Google Business Profile.</p>
+              </div>
+              <p class="bill__price"><strong>$600</strong> <span>one time</span></p>
+            </li>
+            <li class="bill__line">
+              <div>
+                <h3>Website maintenance</h3>
+                <p>Ongoing updates as your business changes: new photos, services, hours or prices, made for you.</p>
+              </div>
+              <p class="bill__price"><strong>$45</strong> <span>a month</span></p>
+            </li>
+          </ul>
+          <p class="bill__total"><span>Due at signup</span> <strong>$645</strong></p>
+          <p class="bill__fine">That's the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month.</p>
+          <a class="btn btn--red btn--wide" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Get started</a>
+          <p class="bill__fine bill__fine--center">Secure checkout by Stripe. Questions first? <a href="#start">Tell us about your project</a>.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== FAQ ===================== -->
     <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq__grid">
@@ -305,11 +337,11 @@
         <div class="faq__list">
           <details class="qa">
             <summary>How much does a website cost?</summary>
-            <div class="qa__body"><p>Every project is quoted on its own, because a two-page site for a barber and a menu-heavy site for a restaurant are different jobs. Tell us what you need in the form below and you'll get a written quote before any work starts.</p></div>
+            <div class="qa__body"><p>$600 one time to design and build your site, plus $45 a month for maintenance. You pay $645 at signup (the setup fee and your first month), then $45 each month after that. <a href="#pricing">See what's included</a>.</p></div>
           </details>
           <details class="qa">
             <summary>How long does it take?</summary>
-            <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. Your quote includes a timeline, and the process above shows each step.</p></div>
+            <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. You'll get a timeline after our first conversation, and the process above shows each step.</p></div>
           </details>
           <details class="qa">
             <summary>Do I own the website?</summary>
@@ -321,7 +353,7 @@
           </details>
           <details class="qa">
             <summary>I already have a website. Can you redesign it?</summary>
-            <div class="qa__body"><p>Yes. Include the address in the form and we'll look at what's working, what isn't and what's worth keeping before we quote.</p></div>
+            <div class="qa__body"><p>Yes. Include the address in the form and we'll look at what's working, what isn't and what's worth keeping before we start.</p></div>
           </details>
           <details class="qa">
             <summary>What do you need from me?</summary>
@@ -340,7 +372,7 @@
       <div class="wrap start__grid">
         <div class="start__intro">
           <h2 id="start-title">Start a project</h2>
-          <p>Tell us about your business and what you need. A few minutes here gives us enough to come back with real questions and a quote.</p>
+          <p>Tell us about your business and what you need. A few minutes here gives us enough to come back with real questions and next steps.</p>
           <div class="direct" id="direct" hidden>
             <h3 class="direct__title">Prefer to talk first?</h3>
             <ul class="direct__list">
@@ -405,26 +437,15 @@
               <p class="field__err" id="f-needs-err" hidden></p>
             </fieldset>
 
-            <div class="form__row form__row--2">
-              <fieldset class="field choices">
-                <legend>Budget <span class="opt">(optional)</span></legend>
-                <div class="choices__stack" id="budget-options">
-                  <label class="chip"><input type="radio" name="budget" value="Keep it lean"><span>Keep it lean</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="Somewhere in the middle"><span>Somewhere in the middle</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="Ready to invest in the full build"><span>Ready to invest in the full build</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="Not sure, help me decide"><span>Not sure, help me decide</span></label>
-                </div>
-              </fieldset>
-              <div class="field">
-                <label for="f-timeline">Timeline <span class="opt">(optional)</span></label>
-                <select id="f-timeline" name="timeline">
-                  <option value="">Choose one</option>
-                  <option>As soon as possible</option>
-                  <option>Within a month</option>
-                  <option>In one to three months</option>
-                  <option>Just exploring for now</option>
-                </select>
-              </div>
+            <div class="field">
+              <label for="f-timeline">Timeline <span class="opt">(optional)</span></label>
+              <select id="f-timeline" name="timeline">
+                <option value="">Choose one</option>
+                <option>As soon as possible</option>
+                <option>Within a month</option>
+                <option>In one to three months</option>
+                <option>Just exploring for now</option>
+              </select>
             </div>
 
             <div class="field">
@@ -462,6 +483,7 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#work">Work</a></li>
           <li><a href="#process">Process</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#start">Start a project</a></li>
         </ul>

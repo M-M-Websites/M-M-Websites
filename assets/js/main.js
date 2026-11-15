@@ -1,5 +1,5 @@
 /* M&M Websites: interactions
-   - applies the owner's settings from config.js (contact links, prices, budget ranges)
+   - applies the owner's settings from config.js (contact links and socials)
    - mobile menu, sticky header state, scroll reveals
    - "Start a project" form: validation and sending through FormSubmit,
      or an honest "not connected yet" state when no form email is set. */
@@ -15,8 +15,6 @@
     phoneDisplay: str(raw.phoneDisplay),
     bookingUrl: /^https:\/\//i.test(str(raw.bookingUrl)) ? str(raw.bookingUrl) : '',
     social: raw.social && typeof raw.social === 'object' ? raw.social : {},
-    budgetRanges: Array.isArray(raw.budgetRanges) ? raw.budgetRanges.map(str).filter(Boolean) : [],
-    startingPrices: Array.isArray(raw.startingPrices) ? raw.startingPrices.filter(function (p) { return p && str(p.service) && str(p.price); }) : [],
   };
   if (!CFG.phoneDisplay) CFG.phoneDisplay = CFG.phone;
 
@@ -74,32 +72,6 @@
       if (socials.length) data.sameAs = socials.map(function (s) { return s.url; });
       ld.textContent = JSON.stringify(data);
     } catch (e) { /* leave the static data as it is */ }
-  }
-
-  /* ---------- optional published prices ---------- */
-  var prices = $('#prices');
-  if (prices && CFG.startingPrices.length) {
-    var list = $('#prices-list');
-    CFG.startingPrices.forEach(function (p) {
-      var li = el('li');
-      li.appendChild(el('span', null, str(p.service)));
-      li.appendChild(el('strong', null, str(p.price)));
-      if (str(p.note)) li.appendChild(el('small', null, str(p.note)));
-      list.appendChild(li);
-    });
-    prices.hidden = false;
-  }
-
-  /* ---------- optional budget ranges ---------- */
-  var budget = $('#budget-options');
-  if (budget && CFG.budgetRanges.length) {
-    budget.textContent = '';
-    CFG.budgetRanges.concat(['Not sure, help me decide']).forEach(function (r) {
-      var label = el('label', { class: 'chip' });
-      label.appendChild(el('input', { type: 'radio', name: 'budget', value: r }));
-      label.appendChild(el('span', null, r));
-      budget.appendChild(label);
-    });
   }
 
   /* ---------- year ---------- */
@@ -227,7 +199,6 @@
   }
   function payload() {
     var get = function (n) { var i = form.elements[n]; return i ? String(i.value || '').trim() : ''; };
-    var budgetPick = $('input[name="budget"]:checked', form);
     return {
       name: get('name'),
       business: get('business'),
@@ -235,7 +206,6 @@
       phone: get('phone'),
       website: get('website'),
       needs: $$('input[name="needs"]:checked', form).map(function (c) { return c.value; }).join(', '),
-      budget: budgetPick ? budgetPick.value : '',
       timeline: get('timeline'),
       message: get('message'),
       _subject: 'New project request: ' + get('business'),
@@ -268,7 +238,7 @@
       if (CFG.businessEmail) {
         var body = 'Name: ' + data.name + '\nBusiness: ' + data.business + '\nEmail: ' + data.email +
           (data.phone ? '\nPhone: ' + data.phone : '') + (data.website ? '\nWebsite: ' + data.website : '') +
-          '\nNeeds: ' + data.needs + (data.budget ? '\nBudget: ' + data.budget : '') +
+          '\nNeeds: ' + data.needs +
           (data.timeline ? '\nTimeline: ' + data.timeline : '') + (data.message ? '\n\n' + data.message : '');
         var mail = el('a', { href: 'mailto:' + CFG.businessEmail + '?subject=' + encodeURIComponent(data._subject) + '&body=' + encodeURIComponent(body) }, 'Send these details by email instead');
         nodes.push(' ', mail, '.');
