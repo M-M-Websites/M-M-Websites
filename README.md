@@ -44,7 +44,11 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 
 **To change a price:** create a new Price in Stripe and a new Payment Link (prices can't be edited in place), then update the `PRICING` block in `index.html`, the FAQ answer *How much does a website cost?*, the hero note, the JSON-LD offers in the `<head>`, the case study's closing paragraph, and `PAY_LINK` in `tests/site.test.cjs`. The tests check that the amounts on the page are exactly $45, $600 and $645, so they'll flag anything you miss.
 
-**Not handled by the site:** sales tax (no Stripe Tax yet; check with an accountant), and clients managing their subscription. For that, turn on Stripe's no-code Customer Portal login link (Stripe Dashboard → Settings → Billing → Customer portal) and share it with clients.
+**Checkout** accepts cards, Apple Pay and Link only, asks the client to accept the Terms of Service, and Stripe emails a receipt for every payment. Failed monthly payments are retried automatically (Smart Retries). The site says exactly this; don't mention other payment methods unless they're turned on in Stripe.
+
+**Manage billing:** clients manage their subscription in Stripe's Customer Portal: `https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00`. It's linked in every footer, the pricing card, the FAQ and the Terms and Refunds pages. The tests check it's there (`PORTAL_LINK` in `tests/site.test.cjs`).
+
+**Not handled by the site:** sales tax (no Stripe Tax yet; check with an accountant).
 
 ---
 

@@ -40,6 +40,8 @@
     "image": "https://mnmwebsitesforyou.com/assets/img/og-image.jpg",
     "description": "A web design studio that designs and hand-builds fast, mobile-first websites for local service businesses, with booking and quote forms, SEO foundations and launch help.",
     "knowsAbout": ["Web design", "Web development", "Local SEO", "Google Business Profile"],
+    "currenciesAccepted": "USD",
+    "paymentAccepted": "Credit card, debit card, Apple Pay, Link",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Website services",
@@ -330,9 +332,10 @@
             </li>
           </ul>
           <p class="bill__total"><span>Due at signup</span> <strong>$645</strong></p>
-          <p class="bill__fine">That’s the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month.</p>
+          <p class="bill__fine">That’s the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month, and Stripe emails you a receipt every time.</p>
           <a class="btn btn--red btn--wide btn--icon" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <p class="bill__fine bill__fine--center"><span class="bill__secure"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V7a4 4 0 0 1 8 0v2M5 9h10v8H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Secure checkout by Stripe.</span> Questions first? <a class="hit" href="#start">Tell us about your project</a>.</p>
+          <p class="bill__fine bill__fine--center"><span class="bill__secure"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V7a4 4 0 0 1 8 0v2M5 9h10v8H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Secure checkout by Stripe.</span> Pay by card, Apple Pay or Link. You’ll be asked to accept our <a class="hit" href="terms/">Terms of Service</a> before you pay.</p>
+          <p class="bill__fine bill__fine--center">Questions first? <a class="hit" href="#start">Tell us about your project</a>. Already a client? <a class="hit" href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a>.</p>
         </div>
       </div>
     </section>
@@ -347,6 +350,10 @@
             <div class="qa__body"><p>$600 one time to design and build your site, plus $45 a month for maintenance. You pay $645 at signup (the setup fee and your first month), then $45 each month after that. <a href="#pricing">See what’s included</a>.</p></div>
           </details>
           <details class="qa">
+            <summary>How can I pay?</summary>
+            <div class="qa__body"><p>By credit or debit card, Apple Pay or Link, on Stripe’s secure checkout. You’ll accept our <a href="terms/">Terms of Service</a> at checkout, and Stripe emails you a receipt for every payment.</p></div>
+          </details>
+          <details class="qa">
             <summary>How long does it take?</summary>
             <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. You’ll get a timeline after our first conversation, and the process above shows each step.</p></div>
           </details>
@@ -356,7 +363,11 @@
           </details>
           <details class="qa">
             <summary>What happens if I stop paying?</summary>
-            <div class="qa__body"><p>If the monthly plan is cancelled or payments stop, the site is taken offline and is no longer public, the domain is paused, and updates stop. There’s no access to the code after that.</p></div>
+            <div class="qa__body"><p>If the monthly plan is cancelled or payments stop, the site is taken offline and is no longer public, the domain is paused, and updates stop. There’s no access to the code after that. If a monthly payment fails, Stripe automatically tries again, so you have time to update your card in <a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a>.</p></div>
+          </details>
+          <details class="qa">
+            <summary>How do I update my card, see receipts or cancel?</summary>
+            <div class="qa__body"><p>Use <a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a> and sign in with the email you paid with. Stripe sends you a one-time sign-in link, then you can update your payment details and see past payments. You can also email us at <a href="mailto:mnmwebsitesforyou@gmail.com">mnmwebsitesforyou@gmail.com</a> to cancel or for help.</p></div>
           </details>
           <details class="qa">
             <summary>Can you help with my domain, hosting and Google Business Profile?</summary>
@@ -496,6 +507,7 @@
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#start">Start a project</a></li>
+          <li><a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a></li>
         </ul>
       </nav>
       <div class="footer__contact" id="footer-contact" hidden>

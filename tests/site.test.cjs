@@ -20,6 +20,7 @@ const CSP = (HEADERS.match(/Content-Security-Policy:\s*(.+)/) || [])[1];
 const SITE = (fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
 const PAGES = ['/', '/work/legendary-detailing/', '/terms/', '/privacy/', '/refunds/'];
 const PAY_LINK = 'https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00';
+const PORTAL_LINK = 'https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00';
 
 /* ---------- tiny test runner ---------- */
 const results = [];
@@ -648,6 +649,43 @@ async function launch() {
       }
       await ctx.close();
     }
+  });
+
+  /* 12d. Stripe facts: payment methods, terms at checkout, receipts, retries, Manage billing */
+  await test('billing: Manage billing on every page, only the payment methods Stripe offers, terms and receipts explained', async () => {
+    const otherMethods = /cash ?app|klarna|amazon pay|afterpay|clearpay|affirm|paypal|venmo|google pay|bank (transfer|debit|account)|\bach\b|sepa|ideal|bancontact|crypto|bitcoin/i;
+    for (const route of PAGES) {
+      const { ctx, page, problems } = await openPage(browser, base, { route });
+      const footer = await page.$$eval('.footer__nav a', (a) => a.map((x) => [x.textContent.trim(), x.href]));
+      assert(footer.some(([t, h]) => t === 'Manage billing' && h === PORTAL_LINK), `${route} footer links to Manage billing: ${JSON.stringify(footer)}`);
+      const text = await page.evaluate(() => document.body.textContent);
+      const hit = text.match(otherMethods);
+      assert(!hit, `${route} mentions a payment method Stripe checkout doesn't offer: "${hit && hit[0]}"`);
+      assert(!/hello@mnmwebsitesforyou/i.test(await page.content()), `${route} still uses the retired hello@ address`);
+      eq(problems.length, 0, `${route} errors: ${problems.join('; ')}`);
+      await ctx.close();
+    }
+    const { ctx, page } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
+    const bill = (await page.locator('.bill').innerText()).replace(/\s+/g, ' ');
+    assert(/card, Apple Pay or Link/.test(bill), `pricing card names the payment methods: ${bill}`);
+    assert(/accept our Terms of Service/.test(bill) && /receipt/.test(bill), 'pricing card mentions terms at checkout and receipts');
+    eq(await page.getAttribute('.bill a[href$="terms/"]', 'href'), 'terms/', 'terms link in the pricing card');
+    eq(await page.locator(`.bill a[href="${PORTAL_LINK}"]`).count(), 1, 'Manage billing in the pricing card');
+    const faq = await page.$$eval('.qa', (q) => q.map((d) => d.textContent.replace(/\s+/g, ' ')));
+    const pay = faq.find((t) => /How can I pay\?/.test(t));
+    assert(pay && /card, Apple Pay or Link/.test(pay) && /receipt/.test(pay), `payment FAQ: ${pay}`);
+    const manage = faq.find((t) => /How do I update my card/.test(t));
+    assert(manage && /Manage billing/.test(manage) && /mnmwebsitesforyou@gmail\.com/.test(manage), `billing FAQ: ${manage}`);
+    assert(/tries again/.test(faq.find((t) => /stop paying/.test(t))), 'failed payments are retried');
+    eq(await page.locator(`.qa a[href="${PORTAL_LINK}"]`).count(), 2, 'Manage billing linked from the FAQ');
+    const ld = JSON.parse(await page.locator('#org-jsonld').textContent());
+    eq(ld.paymentAccepted, 'Credit card, debit card, Apple Pay, Link', 'JSON-LD payment methods');
+    for (const route of ['/terms/', '/refunds/']) {
+      await page.goto(base + route, { waitUntil: 'networkidle' });
+      eq(await page.locator(`main a[href="${PORTAL_LINK}"]`).count() >= 1, true, `${route} links Manage billing in the policy text`);
+      assert(/Last updated November 15, 2026/.test(await page.locator('main').innerText()), `${route} dated today`);
+    }
+    await ctx.close();
   });
 
   /* 13. CSP */
