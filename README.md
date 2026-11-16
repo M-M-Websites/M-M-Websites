@@ -27,6 +27,10 @@ Also still placeholder, outside `config.js`:
 
 Nothing on the site states client counts, years in business, testimonials, addresses or awards. Keep it that way unless they're real.
 
+## Ownership (business rule)
+
+Clients **do not** own the website, its code, the hosting or the domain: M&M Websites provides them as a service while the $45 monthly plan is active, and they can't be transferred or handed to anyone else. If a client stops paying or cancels, the site goes offline, the domain is paused, updates stop and there's no access to the code. Clients keep the rights to their own logo, photos and words. The home page FAQ, `terms/` and `refunds/` all say this, and the *ownership* test fails if any page promises otherwise. See `CLAUDE.md` for the full list of content rules.
+
 ## Pricing and payments (Stripe)
 
 The *Pricing* section on the home page shows the two real prices, which every client pays:

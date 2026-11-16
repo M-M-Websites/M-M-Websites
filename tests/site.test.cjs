@@ -422,7 +422,7 @@ async function launch() {
     for (const [route, checks] of Object.entries(facts)) {
       await page.goto(base + route, { waitUntil: 'networkidle' });
       const text = await page.evaluate(() => document.querySelector('main').innerText);
-      assert(text.includes('Last updated November 15, 2026'), `${route} shows the last-updated date`);
+      assert(/Last updated November 1[56], 2026/.test(text), `${route} shows the last-updated date`);
       assert(text.includes('mnmwebsitesforyou@gmail.com'), `${route} gives the contact email`);
       for (const re of checks) assert(re.test(text), `${route} should mention ${re}`);
       const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].filter((a) => !['$45', '$600'].includes(a));
@@ -629,6 +629,25 @@ async function launch() {
     assert(await page.locator('#f-submit').isDisabled(), 'button disabled while sending (no double submit)');
     await page.locator('#form-done').waitFor({ state: 'visible' });
     await ctx.close();
+  });
+
+  /* 12c. Business rule: clients do not own the site, code or domain */
+  await test('ownership: no page promises clients the site, code or domain; the FAQ says what happens if they stop paying', async () => {
+    const banned = /you own (the|your) (site|website|domain|code)|yours to keep|in your name|hand (it|them|the files)? ?over|hand it to someone|move it any ?time|code (is|are) yours|website and its code are yours/i;
+    for (const route of [...PAGES, '/missing-page/']) {
+      const { ctx, page } = await openPage(browser, base, { route });
+      const text = await page.evaluate(() => document.body.innerText + ' ' + [...document.querySelectorAll('meta[content], [alt]')].map((m) => m.getAttribute('content') || m.getAttribute('alt')).join(' '));
+      const hit = text.match(banned);
+      assert(!hit, `${route} promises ownership: "${hit && hit[0]}"`);
+      if (route === '/') {
+        const faq = await page.$$eval('.qa', (q) => q.map((d) => d.textContent.replace(/\s+/g, ' ')));
+        const own = faq.find((t) => /Do I own the website\?/.test(t));
+        assert(own && /\bNo\. The website, its code, the hosting and the domain belong to M&M Websites/.test(own), `ownership FAQ: ${own}`);
+        const stop = faq.find((t) => /What happens if I stop paying\?/.test(t));
+        assert(stop && /taken offline/.test(stop) && /domain is paused/.test(stop) && /updates stop/.test(stop) && /no access to the code/i.test(stop), `stop-paying FAQ: ${stop}`);
+      }
+      await ctx.close();
+    }
   });
 
   /* 13. CSP */
