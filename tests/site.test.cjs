@@ -188,7 +188,7 @@ async function launch() {
   await test('content: real prices and contact emails, nothing invented, other settings stay empty', async () => {
     const cfg = fs.readFileSync(path.join(ROOT, 'assets/js/config.js'), 'utf8');
     assert(/\bformEmail: 'mnmwebsitesforyou@gmail\.com'/.test(cfg), 'config.js formEmail should be the business Gmail');
-    assert(/\bbusinessEmail: 'hello@mnmwebsitesforyou\.com'/.test(cfg), 'config.js businessEmail should be hello@mnmwebsitesforyou.com');
+    assert(/\bbusinessEmail: 'mnmwebsitesforyou@gmail\.com'/.test(cfg), 'config.js businessEmail should be mnmwebsitesforyou@gmail.com');
     for (const key of ['phone', 'phoneDisplay', 'bookingUrl', 'instagram', 'facebook', 'linkedin', 'tiktok', 'x', 'youtube', 'googleBusiness']) {
       assert(new RegExp(`\\b${key}: ''`).test(cfg), `config.js ${key} should ship empty`);
     }
@@ -199,7 +199,7 @@ async function launch() {
     eq(JSON.stringify(amounts), JSON.stringify(['$45', '$600', '$645']), 'only the real prices appear');
     assert(!/lorem|ipsum|TODO|FIXME|testimonial|award|years in business/i.test(text), 'placeholder or invented-claim text found');
     eq(await page.locator('a[href^="tel:"], a[href^="sms:"]').count(), 0, 'no phone links while unset');
-    assert((await page.locator('a[href="mailto:hello@mnmwebsitesforyou.com"]').count()) >= 1, 'business email link shown');
+    assert((await page.locator('a[href="mailto:mnmwebsitesforyou@gmail.com"]').count()) >= 1, 'business email link shown');
     for (const sel of ['#direct', '#footer-contact']) assert(await page.locator(sel).isVisible(), `${sel} should be visible when email is set`);
     assert(!(await page.locator('#form-offline').isVisible()), 'form should show as connected');
     eq((await page.locator('#f-submit').innerText()).trim(), 'Send project details', 'submit label when connected');
@@ -208,7 +208,7 @@ async function launch() {
     const ld = JSON.parse(await page.locator('#org-jsonld').textContent());
     eq(ld['@type'], 'ProfessionalService', 'JSON-LD type');
     eq(ld.name, 'M&M Websites', 'JSON-LD name');
-    eq(ld.email, 'hello@mnmwebsitesforyou.com', 'JSON-LD email');
+    eq(ld.email, 'mnmwebsitesforyou@gmail.com', 'JSON-LD email');
     for (const k of ['address', 'telephone', 'aggregateRating', 'review', 'priceRange', 'foundingDate', 'numberOfEmployees', 'sameAs']) assert(!(k in ld), `JSON-LD must not contain ${k} while unconfirmed`);
     const offers = ld.hasOfferCatalog.itemListElement;
     eq(offers.find((o) => o.price)?.price, '600.00', 'JSON-LD setup price');
@@ -602,7 +602,7 @@ async function launch() {
     await page.click('#copy-email');
     await page.locator('#toast').waitFor({ state: 'visible' });
     eq(await page.locator('#toast').innerText(), 'Email address copied', 'toast text');
-    eq(await page.evaluate(() => navigator.clipboard.readText()), 'hello@mnmwebsitesforyou.com', 'clipboard');
+    eq(await page.evaluate(() => navigator.clipboard.readText()), 'mnmwebsitesforyou@gmail.com', 'clipboard');
     eq(await page.getAttribute('#toast', 'role'), 'status', 'toast is announced politely');
     await page.waitForTimeout(5300);
     assert(!(await page.locator('#toast').isVisible()), 'toast auto-dismisses');

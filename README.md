@@ -15,7 +15,7 @@ This is the only file the owner needs to edit. **`formEmail` and `businessEmail`
 | Setting | What it does while empty | What it does once set |
 |---|---|---|
 | `formEmail` | The *Start a project* form says plainly **"This form isn't connected yet"**, the button reads *Check my details*, and submitting shows *Not sent* (it never pretends to send) | Set to `mnmwebsitesforyou@gmail.com`. Requests go to that inbox through [FormSubmit](https://formsubmit.co). See *Launch checklist* step 4 |
-| `businessEmail` | No email link anywhere | Set to `hello@mnmwebsitesforyou.com`. Email link in *Prefer to talk first?* and the footer; added to structured data. (Cloudflare Email Routing should forward that address to the Gmail inbox; that step still needs the right Cloudflare permissions.) |
+| `businessEmail` | No email link anywhere | Set to `mnmwebsitesforyou@gmail.com`. Email link in *Prefer to talk first?* and the footer; added to structured data. |
 | `phone` + `phoneDisplay` | No phone link anywhere | Tap-to-call link; `phone` (like `+19015550123`) is added to structured data |
 | `bookingUrl` | No booking link | *Book a call* link (Calendly, Cal.com, etc.). Must start with `https://` |
 | `social.instagram`, `social.facebook`, `social.linkedin`, `social.tiktok`, `social.x`, `social.youtube`, `social.googleBusiness` | Hidden | Footer links, plus `sameAs` in structured data. Must start with `https://` |

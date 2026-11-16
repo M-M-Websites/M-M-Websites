@@ -16,7 +16,7 @@ window.MM_CONFIG = {
   formEmail: 'mnmwebsitesforyou@gmail.com',
 
   /* Public business email, shown as a contact link. Example: 'hello@yourdomain.com' */
-  businessEmail: 'hello@mnmwebsitesforyou.com',
+  businessEmail: 'mnmwebsitesforyou@gmail.com',
 
   /* Business phone. `phone` is the dialable form with country code
      (example: '+19015550123'); `phoneDisplay` is how it reads on the page
