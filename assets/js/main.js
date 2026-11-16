@@ -116,6 +116,79 @@
     revealables.forEach(function (n) { n.classList.add('is-in'); });
   }
 
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- screenshots: drop the loading shimmer once each image arrives ---------- */
+  $$('.shot img, .cs-figure img').forEach(function (img) {
+    var done = function () { img.classList.add('is-loaded'); };
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener('load', done); img.addEventListener('error', done); }
+  });
+
+  /* ---------- nav: mark the section in view ---------- */
+  var navLinks = $$('#nav-list a[href^="#"]');
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var byId = {};
+    navLinks.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var link = byId[en.target.id];
+        if (!link) return;
+        if (en.isIntersecting) {
+          navLinks.forEach(function (a) { a.removeAttribute('aria-current'); });
+          link.setAttribute('aria-current', 'true');
+        } else if (link.getAttribute('aria-current')) {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(byId).forEach(function (id) { var sec = document.getElementById(id); if (sec) spy.observe(sec); });
+  }
+
+  /* ---------- phone action dock: after the hero, out of the way of pricing, the form and the footer ---------- */
+  var dock = $('#dock');
+  var hero = $('.hero');
+  if (dock && hero && 'IntersectionObserver' in window) {
+    var state = { pastHero: false, blocked: {} };
+    var update = function () {
+      var blocked = Object.keys(state.blocked).some(function (k) { return state.blocked[k]; });
+      dock.classList.toggle('is-shown', state.pastHero && !blocked);
+    };
+    new IntersectionObserver(function (entries) {
+      state.pastHero = !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0;
+      update();
+    }).observe(hero);
+    var bo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { state.blocked[en.target.id || 'footer'] = en.isIntersecting; });
+      update();
+    });
+    ['#pricing', '#start', '.footer'].forEach(function (sel) { var b = $(sel); if (b) bo.observe(b); });
+  }
+
+  /* ---------- toast: short confirmations; pauses while hovered ---------- */
+  var toastEl = $('#toast');
+  var toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.hidden = false;
+    var arm = function () { clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.hidden = true; }, 5000); };
+    toastEl.onmouseenter = function () { clearTimeout(toastTimer); };
+    toastEl.onmouseleave = arm;
+    arm();
+  }
+  var copyBtn = $('#copy-email');
+  if (copyBtn && CFG.businessEmail) {
+    copyBtn.addEventListener('click', function () {
+      var ok = function () { toast('Email address copied'); };
+      var fail = function () { toast('Couldn\u2019t copy. The address is ' + CFG.businessEmail); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(CFG.businessEmail).then(ok, fail);
+      else fail();
+    });
+  } else if (copyBtn) {
+    copyBtn.hidden = true;
+  }
+
   /* ---------- Start a project form ---------- */
   var form = $('#project-form');
   if (!form) return;
@@ -172,7 +245,12 @@
   Object.keys(fields).forEach(function (key) {
     var f = fields[key];
     f.input.addEventListener('blur', function () { if (f.input.value.trim() || f.input.getAttribute('aria-invalid') === 'true') validateField(key); });
-    f.input.addEventListener('input', function () { if (f.input.getAttribute('aria-invalid') === 'true') validateField(key); });
+    var timer = null;
+    f.input.addEventListener('input', function () {
+      if (f.input.getAttribute('aria-invalid') !== 'true') return;
+      clearTimeout(timer);
+      timer = setTimeout(function () { validateField(key); }, 250); // debounced, so errors don't flicker per keystroke
+    });
   });
   $$('input[name="needs"]', form).forEach(function (c) {
     c.addEventListener('change', function () { if (needsSet.getAttribute('aria-invalid') === 'true') validateNeeds(); });
@@ -227,6 +305,12 @@
     if (firstBad) {
       status.hidden = true;
       firstBad.focus();
+      var target = firstBad.closest('.field') || firstBad;
+      if (!reduceMotion) {
+        target.classList.toggle('shake', false);
+        void target.offsetWidth; // restart the animation
+        target.classList.add('shake');
+      }
       return;
     }
 
@@ -252,8 +336,10 @@
     sending = true;
     var label = submit.textContent;
     submit.disabled = true;
-    submit.textContent = 'Sending…';
+    submit.classList.add('is-loading');
+    submit.textContent = 'Sending\u2026';
     form.setAttribute('aria-busy', 'true');
+    var slow = setTimeout(function () { submit.textContent = 'Still sending\u2026'; }, 4000);
 
     fetch('https://formsubmit.co/ajax/' + encodeURIComponent(CFG.formEmail), {
       method: 'POST',
@@ -273,6 +359,8 @@
       setStatus('error', ['Sorry, your details didn’t send. Nothing is lost: everything you typed is still here, so please try again in a moment.'].concat(fallbackNodes()));
     }).then(function () {
       sending = false;
+      clearTimeout(slow);
+      submit.classList.toggle('is-loading', false);
       submit.disabled = false;
       submit.textContent = label;
       form.removeAttribute('aria-busy');

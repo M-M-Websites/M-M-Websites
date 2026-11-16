@@ -2,11 +2,13 @@
 <html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>M&amp;M Websites | Hand-Built Websites for Local Service Businesses</title>
   <meta name="description" content="Fast, mobile-first websites hand-built for detailers, trades, salons, restaurants and other local businesses, with booking forms, SEO and launch help.">
   <link rel="canonical" href="https://mnmwebsitesforyou.com/">
-  <meta name="theme-color" content="#f3efe7">
+  <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="M&amp;M Websites">
@@ -94,7 +96,7 @@
             <a class="btn btn--red" href="#start">Start a project</a>
             <a class="btn btn--line" href="#work">See the work</a>
           </div>
-          <p class="hero__note rise"><a href="#pricing">$600 to build, then $45 a month</a> for updates. You own the domain and the code.</p>
+          <p class="hero__note rise"><a class="hit" href="#pricing">$600 to build, then $45 a month</a> for updates. You own the domain and the code.</p>
         </div>
 
         <!-- Signature: a "proof" of real client work, marked up in red pencil -->
@@ -132,7 +134,7 @@
             <li class="n2"><span class="proof__num" aria-hidden="true">2</span>Their own photos, not stock</li>
             <li class="n3"><span class="proof__num" aria-hidden="true">3</span>One H1 that names the service and the city</li>
           </ol>
-          <figcaption id="proof-caption" class="proof__caption">Proof: <a href="work/legendary-detailing/">Legendary Detailing</a>, our first client site, on a 390px phone.</figcaption>
+          <figcaption id="proof-caption" class="proof__caption">Proof: <a class="hit" href="work/legendary-detailing/">Legendary Detailing</a>, our first client site, on a 390px phone.</figcaption>
         </figure>
       </div>
       <p class="wrap hero__for">Built for <span>detailers</span> <span>trades</span> <span>salons</span> <span>restaurants</span> and the businesses next door to them.</p>
@@ -193,7 +195,7 @@
                study page and add that URL to sitemap.xml.
                ============================================================ -->
           <article class="project" aria-labelledby="p-legendary">
-            <div class="project__media">
+            <a class="project__media" href="work/legendary-detailing/" tabindex="-1" aria-hidden="true">
               <figure class="shot shot--desktop">
                 <img src="assets/img/work/legendary-detailing/desktop-home-1200.webp"
                      srcset="assets/img/work/legendary-detailing/desktop-home-720.webp 720w, assets/img/work/legendary-detailing/desktop-home-1200.webp 1200w, assets/img/work/legendary-detailing/desktop-home-1800.webp 1800w"
@@ -206,7 +208,7 @@
                      sizes="(min-width: 760px) 190px, 36vw" width="390" height="844" loading="lazy" decoding="async"
                      alt="Step one of the Legendary Detailing booking form on a phone, with Full Detail, SUV / Truck and Buffing selected.">
               </figure>
-            </div>
+            </a>
             <div class="project__body">
               <p class="project__kind">Mobile auto detailing · Memphis, TN</p>
               <h3 id="p-legendary" class="project__name">Legendary Detailing</h3>
@@ -217,7 +219,7 @@
                 <li>Lighthouse 100 for SEO, Accessibility and Best Practices</li>
                 <li>Hand-written HTML, CSS and JavaScript, tested with Playwright and axe-core</li>
               </ul>
-              <a class="btn btn--paper" href="work/legendary-detailing/">Read the case study</a>
+              <a class="btn btn--paper btn--icon" href="work/legendary-detailing/">Read the case study<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </article>
           <!-- END PROJECT -->
@@ -230,7 +232,7 @@
       <div class="wrap">
         <div class="section__head">
           <h2 id="process-title">How a project runs</h2>
-          <p>Five steps, in order, with you signing off before we move on. You always know what's happening and what's next.</p>
+          <p>Five steps, in order, with you signing off before we move on. You always know what’s happening and what’s next.</p>
         </div>
         <ol class="steps">
           <li class="step reveal">
@@ -267,7 +269,7 @@
       <div class="wrap why__grid">
         <div class="why__lead">
           <h2 id="why-title">Why work with us</h2>
-          <p class="why__statement">You own all of it. The domain, the hosting account and every line of code are yours, with nothing locked to us.</p>
+          <p class="why__statement"><em>You own all of it.</em> The domain, the hosting account and every line of code are yours, with nothing locked to us.</p>
         </div>
         <dl class="why__list">
           <div class="reveal">
@@ -284,7 +286,7 @@
           </div>
           <div class="reveal">
             <dt>Built to convert</dt>
-            <dd>Every page points to one next step, whether that's call, book or request a quote, and forms tell people exactly what happens next.</dd>
+            <dd>Every page points to one next step, whether that’s call, book or request a quote, and forms tell people exactly what happens next.</dd>
           </div>
           <div class="reveal">
             <dt>Yours to keep</dt>
@@ -304,6 +306,11 @@
         <div class="pricing__intro">
           <h2 id="pricing-title">Pricing</h2>
           <p>Every client gets the same two things: a site built for their business, and someone keeping it up to date afterwards.</p>
+          <ul class="pricing__points">
+            <li>One price for every client, no surprise add-ons</li>
+            <li>The domain and the code are yours</li>
+            <li>Maintenance is billed monthly by Stripe</li>
+          </ul>
         </div>
         <div class="bill">
           <ul class="bill__lines">
@@ -323,9 +330,9 @@
             </li>
           </ul>
           <p class="bill__total"><span>Due at signup</span> <strong>$645</strong></p>
-          <p class="bill__fine">That's the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month.</p>
-          <a class="btn btn--red btn--wide" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Get started</a>
-          <p class="bill__fine bill__fine--center">Secure checkout by Stripe. Questions first? <a href="#start">Tell us about your project</a>.</p>
+          <p class="bill__fine">That’s the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month.</p>
+          <a class="btn btn--red btn--wide btn--icon" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="bill__fine bill__fine--center"><span class="bill__secure"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V7a4 4 0 0 1 8 0v2M5 9h10v8H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Secure checkout by Stripe.</span> Questions first? <a class="hit" href="#start">Tell us about your project</a>.</p>
         </div>
       </div>
     </section>
@@ -337,11 +344,11 @@
         <div class="faq__list">
           <details class="qa">
             <summary>How much does a website cost?</summary>
-            <div class="qa__body"><p>$600 one time to design and build your site, plus $45 a month for maintenance. You pay $645 at signup (the setup fee and your first month), then $45 each month after that. <a href="#pricing">See what's included</a>.</p></div>
+            <div class="qa__body"><p>$600 one time to design and build your site, plus $45 a month for maintenance. You pay $645 at signup (the setup fee and your first month), then $45 each month after that. <a href="#pricing">See what’s included</a>.</p></div>
           </details>
           <details class="qa">
             <summary>How long does it take?</summary>
-            <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. You'll get a timeline after our first conversation, and the process above shows each step.</p></div>
+            <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. You’ll get a timeline after our first conversation, and the process above shows each step.</p></div>
           </details>
           <details class="qa">
             <summary>Do I own the website?</summary>
@@ -353,11 +360,11 @@
           </details>
           <details class="qa">
             <summary>I already have a website. Can you redesign it?</summary>
-            <div class="qa__body"><p>Yes. Include the address in the form and we'll look at what's working, what isn't and what's worth keeping before we start.</p></div>
+            <div class="qa__body"><p>Yes. Include the address in the form and we’ll look at what’s working, what isn’t and what’s worth keeping before we start.</p></div>
           </details>
           <details class="qa">
             <summary>What do you need from me?</summary>
-            <div class="qa__body"><p>Your logo if you have one, photos of your work, the services you offer and how you want customers to reach you. If some of that doesn't exist yet, we'll help you work out what's needed.</p></div>
+            <div class="qa__body"><p>Your logo if you have one, photos of your work, the services you offer and how you want customers to reach you. If some of that doesn’t exist yet, we’ll help you work out what’s needed.</p></div>
           </details>
           <details class="qa">
             <summary>Will you update the site after launch?</summary>
@@ -378,14 +385,14 @@
             <ul class="direct__list">
               <li data-contact="booking" hidden><a class="direct__link" data-href="booking" href="#start">Book a call</a></li>
               <li data-contact="phone" hidden><a class="direct__link" data-href="phone" href="#start">Call</a></li>
-              <li data-contact="email" hidden><a class="direct__link" data-href="email" href="#start">Email</a></li>
+              <li data-contact="email" hidden><a class="direct__link" data-href="email" href="#start">Email</a> <button class="copy" type="button" id="copy-email" aria-label="Copy email address"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 7h9v10H7zM4 13V3h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Copy</button></li>
             </ul>
           </div>
         </div>
 
         <div class="formcard">
           <p class="formcard__offline" id="form-offline" role="note" hidden>
-            <strong>This form isn't connected yet.</strong> It can't send anything right now, so nothing you type here will reach us.<span class="formcard__offline-alt" hidden> Please use one of the contact options on this page instead.</span>
+            <strong>This form isn’t connected yet.</strong> It can’t send anything right now, so nothing you type here will reach us.<span class="formcard__offline-alt" hidden> Please use one of the contact options on this page instead.</span>
           </p>
           <noscript><p class="formcard__offline">This form needs JavaScript to send. Please turn JavaScript on, or use another way to reach us.</p></noscript>
 
@@ -437,20 +444,19 @@
               <p class="field__err" id="f-needs-err" hidden></p>
             </fieldset>
 
-            <div class="field">
-              <label for="f-timeline">Timeline <span class="opt">(optional)</span></label>
-              <select id="f-timeline" name="timeline">
-                <option value="">Choose one</option>
-                <option>As soon as possible</option>
-                <option>Within a month</option>
-                <option>In one to three months</option>
-                <option>Just exploring for now</option>
-              </select>
-            </div>
+            <fieldset class="field choices">
+              <legend>Timeline <span class="opt">(optional)</span></legend>
+              <div class="choices__grid">
+                <label class="chip"><input type="radio" name="timeline" value="As soon as possible"><span>As soon as possible</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="Within a month"><span>Within a month</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="In one to three months"><span>In one to three months</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="Just exploring for now"><span>Just exploring</span></label>
+              </div>
+            </fieldset>
 
             <div class="field">
               <label for="f-message">Anything else? <span class="opt">(optional)</span></label>
-              <textarea id="f-message" name="message" rows="5" placeholder="What your business does, who your customers are, sites you like..."></textarea>
+              <textarea id="f-message" name="message" rows="5" placeholder="What your business does, who your customers are, sites you like…"></textarea>
             </div>
 
             <div class="form__foot">
@@ -462,7 +468,7 @@
 
           <div class="done" id="form-done" tabindex="-1" hidden>
             <p class="done__title">Thanks<span id="done-name"></span>. Your project details are on their way.</p>
-            <p>We'll read them properly and reply by email with questions and next steps.</p>
+            <p>We’ll read them properly and reply by email with questions and next steps.</p>
           </div>
         </div>
       </div>
@@ -501,5 +507,12 @@
       <p class="footer__legal">© <span id="year">2026</span> M&amp;M Websites. Hand-built, like everything we make.</p>
     </div>
   </footer>
+
+  <!-- Phone action dock: appears after the hero, hides at pricing and the form -->
+  <div class="dock" id="dock" aria-label="Quick actions" role="region">
+    <a class="btn btn--line btn--sm" href="#start">Ask a question</a>
+    <a class="btn btn--red btn--sm" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website</a>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

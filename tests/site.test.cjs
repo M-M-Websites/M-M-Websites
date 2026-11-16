@@ -87,7 +87,7 @@ const scrollThrough = (page) => page.evaluate(async () => {
   window.scrollTo({ top: 0, behavior: 'instant' });
 });
 async function axe(page, label) {
-  await page.evaluate(() => document.getAnimations().forEach((a) => a.finish()));
+  await page.evaluate(() => document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) { a.pause(); } }));
   await page.addScriptTag({ path: AXE });
   const r = await page.evaluate(async () => {
     // eslint-disable-next-line no-undef
@@ -104,7 +104,7 @@ async function fillValid(page) {
   await page.fill('#f-website', 'riversplumbing.example');
   await page.locator('input[name="needs"][value="A new website"]').check();
   await page.locator('input[name="needs"][value="Booking or quote form"]').check();
-  await page.selectOption('#f-timeline', 'Within a month');
+  await page.locator('input[name="timeline"][value="Within a month"]').check();
   await page.fill('#f-message', 'We want more quote requests from phones.');
 }
 async function launch() {
@@ -146,7 +146,7 @@ async function launch() {
         }).map((el) => el.outerHTML.slice(0, 80)));
         eq(offscreen.length, 0, `${route} controls outside the viewport: ${offscreen.join(' | ')}`);
         const small = await page.evaluate(() => {
-          const sel = '.btn, .nav__list a, .nav__toggle, summary, .chip span, .field input:not(.hp), .field select, .field textarea, .footer a, .crumbs a, .brand, .direct__link';
+          const sel = '.btn, .nav__list a, .nav__toggle, summary, .chip span, .field input:not(.hp), .field select, .field textarea, .footer a, .crumbs a, .brand, .direct__link, .copy';
           return [...document.querySelectorAll(sel)].filter((el) => {
             const r = el.getBoundingClientRect();
             return r.width > 0 && r.height > 0 && (r.height < 43.5 || r.width < 43.5);
@@ -316,6 +316,7 @@ async function launch() {
     await axe(page, 'form with errors');
     await page.fill('#f-email', 'jordan@example.com');
     await page.fill('#f-website', '');
+    await page.waitForTimeout(300); // let the debounced re-validation settle before clicking
     await page.locator('input[name="needs"][value="Not sure yet"]').check();
     assert(!(await page.locator('#f-needs-err').isVisible()), 'needs error clears when one is picked');
     assert(!(await page.locator('#f-email-err').isVisible()), 'email error clears while typing');
@@ -526,6 +527,107 @@ async function launch() {
     eq(st.undrawn, 0, 'pencil marks not drawn');
     eq(st.running, 0, 'running animations');
     eq(st.smooth, 'auto', 'scroll behaviour');
+    await ctx.close();
+  });
+
+  /* 12b. Polish: dark theme, typography, the phone dock, copy-to-toast, nav state */
+  await test('dark theme: every page is dark, readable and passes axe', async () => {
+    for (const route of [...PAGES, '/missing-page/']) {
+      for (const opts of [{ viewport: { width: 1440, height: 900 } }, { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }]) {
+        const { ctx, page, problems } = await openPage(browser, base, { opts: { ...opts, colorScheme: 'dark' }, route });
+        await scrollThrough(page);
+        const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+        const [r, g, b] = bg.match(/\d+/g).map(Number);
+        assert(r + g + b < 120, `${route} background should be dark, got ${bg}`);
+        await axe(page, `${route} dark @${opts.viewport.width}`);
+        const real = route === '/missing-page/' ? problems.filter((p) => !p.includes('/missing-page/') && !/status of 404/.test(p)) : problems;
+        eq(real.length, 0, `${route} errors: ${real.join('; ')}`);
+        await ctx.close();
+      }
+    }
+  });
+
+  await test('typography: curly apostrophes and real ellipses in visible text, tabular prices', async () => {
+    for (const route of [...PAGES, '/missing-page/']) {
+      const { ctx, page } = await openPage(browser, base, { route });
+      const bad = await page.evaluate(() => {
+        const out = [];
+        const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (w.nextNode()) {
+          const n = w.currentNode;
+          if (n.parentElement.closest('script, style')) continue;
+          if (/[A-Za-z]'[A-Za-z]|\.\.\./.test(n.textContent)) out.push(n.textContent.trim().slice(0, 60));
+        }
+        document.querySelectorAll('[alt], [placeholder], [aria-label]').forEach((el) => {
+          ['alt', 'placeholder', 'aria-label'].forEach((a) => { const v = el.getAttribute(a); if (v && /[A-Za-z]'[A-Za-z]|\.\.\./.test(v)) out.push(`${a}: ${v.slice(0, 60)}`); });
+        });
+        return out;
+      });
+      eq(bad.length, 0, `${route} straight apostrophes or "..." found: ${bad.join(' | ')}`);
+      if (route === '/') {
+        const nums = await page.$$eval('.bill__price strong, .bill__total strong', (n) => n.map((x) => getComputedStyle(x).fontVariantNumeric));
+        assert(nums.every((v) => v.includes('tabular-nums')), `prices use tabular numbers: ${nums}`);
+        const h2wrap = await page.$eval('h2', (h) => getComputedStyle(h).textWrap || getComputedStyle(h).textWrapStyle);
+        assert(/balance/.test(h2wrap), `headings use balanced wrapping: ${h2wrap}`);
+      }
+      await ctx.close();
+    }
+  });
+
+  await test('phone dock: appears after the hero, hides at pricing and the form, and links to checkout and the form', async () => {
+    const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } });
+    const shown = () => page.evaluate(() => document.getElementById('dock').classList.contains('is-shown'));
+    eq(await shown(), false, 'hidden over the hero');
+    await page.evaluate(() => { const s = document.getElementById('services'); window.scrollTo({ top: s.offsetTop + 200, behavior: 'instant' }); });
+    await page.waitForTimeout(400);
+    eq(await shown(), true, 'shown after the hero');
+    const hrefs = await page.$$eval('#dock a', (a) => a.map((x) => x.getAttribute('href')));
+    eq(JSON.stringify(hrefs), JSON.stringify(['#start', PAY_LINK]), 'dock links');
+    const r = await page.$eval('#dock', (d) => d.getBoundingClientRect().bottom);
+    eq(Math.round(r), 844, 'sits at the bottom edge, in thumb reach');
+    await page.evaluate(() => { const s = document.getElementById('start'); window.scrollTo({ top: s.offsetTop + 100, behavior: 'instant' }); });
+    await page.waitForTimeout(400);
+    eq(await shown(), false, 'hidden at the form');
+    eq(problems.length, 0, `errors: ${problems.join('; ')}`);
+    await ctx.close();
+    const wide = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
+    await wide.page.evaluate(() => window.scrollTo({ top: 2400, behavior: 'instant' }));
+    await wide.page.waitForTimeout(300);
+    eq(await wide.page.$eval('#dock', (d) => getComputedStyle(d).display), 'none', 'no dock on desktop');
+    await wide.ctx.close();
+  });
+
+  await test('copy email: copies the address and confirms with a toast that goes away', async () => {
+    const { ctx, page } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 }, permissions: ['clipboard-read', 'clipboard-write'] } });
+    await page.click('#copy-email');
+    await page.locator('#toast').waitFor({ state: 'visible' });
+    eq(await page.locator('#toast').innerText(), 'Email address copied', 'toast text');
+    eq(await page.evaluate(() => navigator.clipboard.readText()), 'hello@mnmwebsitesforyou.com', 'clipboard');
+    eq(await page.getAttribute('#toast', 'role'), 'status', 'toast is announced politely');
+    await page.waitForTimeout(5300);
+    assert(!(await page.locator('#toast').isVisible()), 'toast auto-dismisses');
+    await ctx.close();
+    const none = await openPage(browser, base, { config: { formEmail: '', businessEmail: '' } });
+    assert(!(await none.page.locator('#copy-email').isVisible()), 'no copy button without an email');
+    await none.ctx.close();
+  });
+
+  await test('nav and form polish: section highlight, debounced errors, loading state on send', async () => {
+    const { ctx, page } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } }, config: { formEmail: 'studio@example.com' }, mock: (r) => new Promise((res) => setTimeout(() => res(r.fulfill({ status: 200, contentType: 'application/json', body: '{"success":"true"}' })), 800)) });
+    await page.evaluate(() => { const s = document.getElementById('pricing'); window.scrollTo({ top: s.offsetTop, behavior: 'instant' }); });
+    await page.waitForTimeout(400);
+    eq(await page.getAttribute('#nav-list a[href="#pricing"]', 'aria-current'), 'true', 'nav marks the section in view');
+    await page.click('#f-submit');
+    eq(await page.getAttribute('#f-email', 'aria-invalid'), 'true', 'email invalid');
+    await page.fill('#f-email', 'jordan@example.com');
+    eq(await page.getAttribute('#f-email', 'aria-invalid'), 'true', 'error stays until typing pauses (debounced)');
+    await page.waitForTimeout(350);
+    eq(await page.getAttribute('#f-email', 'aria-invalid'), 'false', 'error clears after the pause');
+    await fillValid(page);
+    await page.click('#f-submit');
+    assert(await page.locator('#f-submit.is-loading').count() === 1, 'button shows a loading state');
+    assert(await page.locator('#f-submit').isDisabled(), 'button disabled while sending (no double submit)');
+    await page.locator('#form-done').waitFor({ state: 'visible' });
     await ctx.close();
   });
 

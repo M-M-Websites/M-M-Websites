@@ -4,7 +4,7 @@ The studio website for **M&M Websites**, a small web design studio that designs 
 
 - **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Live as a Cloudflare Worker with Static Assets (`mnm-websites`). Wrangler can deploy it; Netlify still works as an alternative.
 - **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), and a branded `404.html`.
-- **Quality:** 23-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
+- **Quality:** 28-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
 
 ---
 
@@ -36,7 +36,7 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 | Website setup | $600, one time | `price_1UbzNXAhdcfBYyxakwU9CyVi` |
 | Website maintenance | $45 a month | `price_1UbzNiAhdcfBYyxa5o85qYoq` |
 
-**Get started** opens a Stripe Payment Link (`https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00`) that charges $645 at signup (setup plus the first month), then $45 every month. It also asks for the client's business name and phone number. No API keys or server code are involved.
+**Start my website** (in the Pricing section and the phone action bar) opens a Stripe Payment Link (`https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00`) that charges $645 at signup (setup plus the first month), then $45 every month. It also asks for the client's business name and phone number. No API keys or server code are involved.
 
 **To change a price:** create a new Price in Stripe and a new Payment Link (prices can't be edited in place), then update the `PRICING` block in `index.html`, the FAQ answer *How much does a website cost?*, the hero note, the JSON-LD offers in the `<head>`, the case study's closing paragraph, and `PAY_LINK` in `tests/site.test.cjs`. The tests check that the amounts on the page are exactly $45, $600 and $645, so they'll flag anything you miss.
 
@@ -104,8 +104,11 @@ One-time setup already done:
 The identity is a **printer's proof**: warm paper (`--paper`), near-black ink (`--ink`) and one red pencil (`--red`) used for markup. The signature element is the hero's *proof*: a real screenshot of client work on a phone, with crop marks and red-pencil annotations that draw themselves in. The same red pencil underlines the headline, numbers the process steps and marks list items.
 
 - **Type:** Bricolage Grotesque (variable, optical sizes) for everything, JetBrains Mono for annotations and captions. Both are self-hosted in `assets/fonts/` under the SIL Open Font License (`OFL.txt`).
-- **Motion:** headline rise, pencil marks drawing, gentle scroll reveals. All of it is skipped for `prefers-reduced-motion`, and without JavaScript the page is complete and still.
-- **Colours and spacing** are tokens at the top of `assets/css/site.css`. Text colours meet WCAG AA contrast (the red used for text is `--red-ink`, 5.2:1 on paper).
+- **Light and dark themes** follow the visitor's system setting. Dark is designed, not inverted: lower saturation, a lighter red for text (`--red-ink`), and the same contrast targets.
+- **Motion:** headline rise with a blur-in, pencil marks drawing, staggered scroll reveals, a slow float on the proof phone, red rules drawing under the service rows and the process ruler. Small UI feedback runs 120–300ms; buttons lift on hover and press in slightly. All of it is skipped for `prefers-reduced-motion`, and without JavaScript the page is complete and still.
+- **Details:** paper grain behind the content, a perforated receipt edge on the pricing card, arrow icons that nudge on hover, a nav that marks the section in view, a phone-only action bar (*Ask a question* / *Start my website*) that appears after the hero and gets out of the way at pricing and the form, a copy button for the email address with a short confirmation toast, a shimmer on screenshots until they load, error messages with an icon and a subtle shake, debounced re-validation, and a loading spinner plus a "Still sending…" message on slow sends.
+- **Tokens** at the top of `assets/css/site.css`: the colour palette (light and dark), a 4px spacing scale, a radius scale, a three-level layered shadow scale, three control heights (44/48/56px) and motion timings. Text colours meet WCAG AA contrast in both themes.
+- **Typography:** curly apostrophes and real ellipses (the tests check), balanced headline wrapping, tabular numbers for prices and step numbers.
 
 ---
 
@@ -127,7 +130,8 @@ The suite starts its own static server and checks:
 - **The form, not connected:** the notice shows, nothing is sent, typed details are kept, and the email fallback works when only `businessEmail` is set.
 - **The form, connected** (FormSubmit is always mocked, so tests never send real email): validation and recovery, the exact payload on success, and both server-error and network-error failures with call/email/booking fallbacks.
 - **Settings:** contact links, socials and JSON-LD appear when set; unsafe or non-https links are ignored.
-- **Pricing:** both prices and the total show, and *Get started* opens the Stripe payment link (stubbed in tests).
+- **Pricing:** both prices and the total show, and *Start my website* opens the Stripe payment link (stubbed in tests).
+- **Polish:** every page passes axe in the dark theme too; typography (curly apostrophes, ellipses, tabular prices, balanced headings); the phone action bar's show/hide rules; copy-email and its toast; the nav's section highlight, debounced errors and the loading state while sending.
 - **Mobile menu**, **keyboard use** and **visible focus**.
 - **axe-core:** zero violations (WCAG 2.0–2.2 A/AA plus best practices) on every page, at phone and desktop sizes, and in each form state.
 - **Fallbacks:** JavaScript off and reduced motion.
