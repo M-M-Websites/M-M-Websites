@@ -708,8 +708,8 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 /* ---------- policy pages (terms, privacy, refunds) ---------- */
 .footer__policies { grid-column: 1 / -1; }
 .footer__policies ul { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
-.footer__policies a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; font-size: 0.95rem; color: var(--on-ink-muted); text-decoration: none; }
-.footer__policies a:hover { color: var(--on-ink); text-decoration: underline; text-decoration-color: var(--red-bright); }
+.footer__policies a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; font-size: 0.95rem; color: var(--on-band-muted); text-decoration: none; }
+.footer__policies a:hover { color: var(--on-band); text-decoration: underline; text-decoration-color: var(--red-on-band); }
 .legal__updated { margin-top: 1rem; font-family: var(--mono); font-size: 0.85rem; color: var(--red-ink); }
 .legal { max-width: 44rem; padding-bottom: clamp(3.5rem, 8vw, 6rem); border-top: 2px solid var(--ink); }
 .legal__section { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
