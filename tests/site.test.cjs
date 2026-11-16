@@ -18,7 +18,7 @@ const AXE = require.resolve('axe-core/axe.min.js');
 const HEADERS = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
 const CSP = (HEADERS.match(/Content-Security-Policy:\s*(.+)/) || [])[1];
 const SITE = (fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
-const PAGES = ['/', '/work/legendary-detailing/'];
+const PAGES = ['/', '/work/legendary-detailing/', '/terms/', '/privacy/', '/refunds/'];
 const PAY_LINK = 'https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00';
 
 /* ---------- tiny test runner ---------- */
@@ -408,6 +408,41 @@ async function launch() {
     eq(navigated, PAY_LINK, 'Get started opens the Stripe payment page');
     eq(problems.length, 0, `errors: ${problems.join('; ')}`);
     await ctx.close();
+  });
+
+  /* 9b. Policy pages */
+  await test('policies: terms, privacy and refund pages say the real facts and are linked from every footer', async () => {
+    const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
+    const facts = {
+      '/terms/': [/Georgia/, /\$600/, /\$45 a month/, /month to month/i, /cancel/i, /Stripe/],
+      '/privacy/': [/FormSubmit/, /Cloudflare Web Analytics/, /Stripe/, /never sell|do not sell/i],
+      '/refunds/': [/before (we begin|design work starts)/i, /non-refundable/i, /not prorated/i, /stops all future billing/i],
+    };
+    for (const [route, checks] of Object.entries(facts)) {
+      await page.goto(base + route, { waitUntil: 'networkidle' });
+      const text = await page.evaluate(() => document.querySelector('main').innerText);
+      assert(text.includes('Last updated November 15, 2026'), `${route} shows the last-updated date`);
+      assert(text.includes('mnmwebsitesforyou@gmail.com'), `${route} gives the contact email`);
+      for (const re of checks) assert(re.test(text), `${route} should mention ${re}`);
+      const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].filter((a) => !['$45', '$600'].includes(a));
+      eq(amounts.length, 0, `${route} only real prices (${amounts})`);
+    }
+    for (const route of PAGES) {
+      await page.goto(base + route, { waitUntil: 'networkidle' });
+      const hrefs = await page.$$eval('.footer__policies a', (a) => a.map((x) => new URL(x.href).pathname));
+      eq(hrefs.join('|'), '/terms/|/privacy/|/refunds/', `${route} footer policy links`);
+    }
+    eq(problems.length, 0, `errors: ${problems.join('; ')}`);
+    await ctx.close();
+  });
+
+  await test('icons and headers: favicon.ico is a real icon, HSTS is set and the analytics beacon is allowed', async () => {
+    const ico = fs.readFileSync(path.join(ROOT, 'favicon.ico'));
+    eq(ico.readUInt16LE(0), 0, 'ICO reserved field'); eq(ico.readUInt16LE(2), 1, 'ICO type');
+    assert(ico.readUInt16LE(4) >= 2, 'favicon.ico has several sizes');
+    assert(/Strict-Transport-Security: max-age=31536000; includeSubDomains\s*$/m.test(HEADERS), 'HSTS header (no preload)');
+    assert(/script-src [^;]*https:\/\/static\.cloudflareinsights\.com/.test(CSP), 'CSP allows the beacon script');
+    assert(/connect-src [^;]*https:\/\/cloudflareinsights\.com/.test(CSP), 'CSP allows the beacon to report');
   });
 
   /* 10. Mobile menu */

@@ -44,6 +44,12 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 
 ---
 
+## Policy pages (Terms, Privacy, Refunds)
+
+`terms/`, `privacy/` and `refunds/` hold plain-language Terms of Service, Privacy Policy and Refund and Cancellation Policy pages (last updated November 15, 2026). They are linked in every footer, listed in `sitemap.xml` and covered by the tests. The Terms page URL is also the one to set as the Stripe account's Terms of Service link.
+
+> **Have a lawyer review these pages.** They were written from the business facts (Georgia sole proprietor, $600 setup plus $45 a month through Stripe, month to month, FormSubmit form, Cloudflare analytics, the refund rules) as a sensible starting point, not as legal advice. If any of those facts change, update the pages and their "Last updated" date.
+
 ## Hosting on Cloudflare (mnmwebsitesforyou.com)
 
 The site is a Cloudflare Worker named `mnm-websites` with Static Assets. The Worker serves the pages and redirects `www` to the bare domain. Live addresses:
@@ -52,7 +58,7 @@ The site is a Cloudflare Worker named `mnm-websites` with Static Assets. The Wor
 - `https://www.mnmwebsitesforyou.com` (301 to the bare domain, handled in `worker.js`)
 - Preview: `https://mnm-websites.mnmwebsitesforyou.workers.dev`
 
-Config is in `wrangler.toml` and `worker.js`. `.assetsignore` keeps `tests/`, `scripts/`, the README, Wrangler files and similar off the live site. `_headers` is applied as the Worker's asset headers (CSP and caching). `CNAME` is only for GitHub Pages and is ignored here.
+Config is in `wrangler.toml` and `worker.js`. `.assetsignore` keeps `tests/`, `scripts/`, the README, Wrangler files and similar off the live site. `_headers` is applied as the Worker's asset headers (HSTS, CSP and caching). The CSP allows the Cloudflare Web Analytics beacon (`static.cloudflareinsights.com` script, `cloudflareinsights.com` reporting). HSTS is `max-age=31536000; includeSubDomains` without `preload`. `CNAME` is only for GitHub Pages and is ignored here.
 
 Pushes to GitHub do **not** redeploy the Worker automatically. After a change, either run `npx wrangler deploy` from this repo (needs a Cloudflare login with access to the account), or use the redeploy kit documented alongside this project.
 
@@ -146,6 +152,8 @@ Mobile uses Lighthouse's simulated slow 4G. Real-world numbers depend on the hos
 ```
 index.html                      home page
 work/legendary-detailing/       case study
+terms/, privacy/, refunds/      Terms of Service, Privacy Policy, Refund and Cancellation Policy
+favicon.ico                     16/32/48px icon made from assets/img/favicon.svg
 404.html                        branded not-found page (root-relative paths)
 assets/css/site.css             all styles and design tokens
 assets/js/config.js             owner settings (form and business email are set)
