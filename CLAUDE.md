@@ -19,3 +19,7 @@ Pages that state these rules and must stay in sync: the home page (hero note, La
 - No invented facts: no testimonials, client counts, years in business, stats or awards. Only real portfolio work, described as it is.
 - Contact settings live in `assets/js/config.js`.
 - Run `cd tests && npm test` before pushing; keep Lighthouse Accessibility, Best Practices and SEO at 100.
+
+## Design skills for client sites
+
+When building or restyling a client site, use the design skills in `.claude/skills/` (see `.claude/skills/README.md`) so the work does not look like a generic AI website (beige backgrounds, default AI fonts, italic emphasis words). Pick a real brand system with `awesome-design`, pull art direction from real sites with `design-taste-frontend`, polish with `impeccable`, and use Emil Kowalski's skills for animation. Before shipping, verify the design in a real browser with the Playwright MCP server in `.mcp.json`. These skills do not change the business rules above.

@@ -21,3 +21,4 @@ package-lock.json
 *.log
 .claude
 outreach
+.mcp.json
