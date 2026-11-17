@@ -6,8 +6,8 @@
   <title>M&amp;M Websites | Hand-Built Websites for Local Service Businesses</title>
   <meta name="description" content="Fast, mobile-first websites hand-built for detailers, trades, salons, restaurants and other local businesses, with booking forms, SEO and launch help.">
   <link rel="canonical" href="https://mnmwebsitesforyou.com/">
-  <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8ebe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0f0c" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
 
   <meta property="og:type" content="website">
@@ -21,9 +21,11 @@
   <meta property="og:image:alt" content="M&amp;M Websites: hand-built websites for local service businesses">
   <meta name="twitter:card" content="summary_large_image">
 
+  <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="assets/fonts/work-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css">
   <script>document.documentElement.classList.replace('no-js','js')</script>
   <script src="assets/js/config.js" defer></script>
@@ -57,13 +59,14 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <!-- Design: Wise brand system (awesome-design), split hero, photo-chapters moment in #work (design-taste-frontend deal) -->
+  <a class="skip" href="#main">Skip to main content</a>
 
   <header class="masthead" id="top">
     <div class="wrap masthead__bar">
-      <a class="brand" href="#top" aria-label="M&amp;M Websites, back to top">
-        <span class="brand__mark" aria-hidden="true">M<span class="amp">&amp;</span>M</span>
-        <span class="brand__word">Websites</span>
+      <a class="brand" href="./" aria-label="M&amp;M Websites home">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="10" fill="#9fe870"/><path d="M8 28V13l6 9 6-9 6 9 6-9v15" fill="none" stroke="#0e0f0c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand__word">M&amp;M Websites</span>
       </a>
       <nav class="nav" aria-label="Main">
         <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" hidden>
@@ -78,7 +81,7 @@
           <li><a href="#faq">FAQ</a></li>
         </ul>
       </nav>
-      <a class="btn btn--ink btn--sm masthead__cta" href="#start">Start a project</a>
+      <a class="btn btn--primary btn--sm masthead__cta" href="#start">Start a project</a>
     </div>
   </header>
 
@@ -88,90 +91,58 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero__grid">
         <div class="hero__copy">
-          <h1 id="hero-title" class="hero__title">
-            <span class="rise">Hand-built websites</span>
-            <span class="rise">for local businesses</span>
-            <span class="rise">that win the <span class="marked">booking<svg class="marked__line" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M4 15 C 60 7, 140 6, 296 11 M 30 20 C 110 15, 200 15, 280 18"/></svg></span>.</span>
-          </h1>
-          <p class="hero__lede rise">M&amp;M Websites designs and builds fast, mobile-first websites for detailers, trades, salons, restaurants and other local service businesses. Booking and quote forms, search-ready pages, and help getting it all launched.</p>
-          <div class="hero__actions rise">
-            <a class="btn btn--red" href="#start">Start a project</a>
-            <a class="btn btn--line" href="#work">See the work</a>
+          <h1 id="hero-title" data-enter="1">Hand-built websites for local service businesses</h1>
+          <p class="hero__lede" data-enter="2">M&amp;M Websites designs, builds and looks after fast, mobile-first sites for detailers, trades, salons and restaurants, with booking and quote forms, search-ready pages and help getting launched.</p>
+          <div class="hero__actions" data-enter="3">
+            <a class="btn btn--primary" href="#start">Start a project<svg class="icon icon--go" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></a>
+            <a class="btn btn--ghost" href="#work">See the work</a>
           </div>
-          <p class="hero__note rise"><a class="hit" href="#pricing">$600 to build, then $45 a month</a> to keep it online and up to date. Hosting, the domain and updates are all handled for you.</p>
+          <p class="hero__note" data-enter="4"><a href="#pricing"><strong>$600 to build, then $45 a month</strong></a> to keep it online and up to date. Hosting, the domain and updates are all handled for you.</p>
         </div>
 
-        <!-- Signature: a "proof" of real client work, marked up in red pencil -->
-        <figure class="proof" aria-labelledby="proof-caption">
-          <div class="proof__stage">
-            <span class="proof__device" aria-hidden="true"></span>
-            <img class="proof__screen"
-                 src="assets/img/work/legendary-detailing/phone-home-560.webp"
+        <figure class="stage" data-enter>
+          <div class="stage__phone">
+            <img src="assets/img/work/legendary-detailing/phone-home-560.webp"
                  srcset="assets/img/work/legendary-detailing/phone-home-390.webp 390w, assets/img/work/legendary-detailing/phone-home-560.webp 560w, assets/img/work/legendary-detailing/phone-home-780.webp 780w"
-                 sizes="(min-width: 1240px) 182px, 200px"
+                 sizes="(min-width: 1024px) 280px, (min-width: 640px) 240px, 62vw"
                  width="560" height="1120" fetchpriority="high"
                  alt="The Legendary Detailing home page on a phone: logo, tap-to-call button, a photo of a detailed red convertible and the headline Every Detail. Legendary Results.">
-            <svg class="proof__marks" viewBox="0 0 330 500" aria-hidden="true" focusable="false">
-              <g class="crop">
-                <path d="M8 60 H0 M20 48 V38"/><path d="M252 60 H260 M240 48 V38"/>
-                <path d="M8 480 H0 M20 492 V500"/><path d="M252 480 H260 M240 492 V500"/>
-              </g>
-              <g class="pencil">
-                <path class="d1" pathLength="1" d="M160 88 C 158 72, 192 70, 191 88 C 190 104, 160 104, 158 90"/>
-                <path class="d1" pathLength="1" d="M193 86 C 230 80, 262 86, 288 87"/>
-                <path class="d2" pathLength="1" d="M54 176 C 56 140, 214 136, 222 182 C 228 226, 66 244, 48 198 C 42 178, 70 160, 104 158"/>
-                <path class="d2" pathLength="1" d="M224 186 C 248 190, 268 190, 288 190"/>
-                <path class="d3" pathLength="1" d="M40 268 L 36 268 L 36 294 L 42 294 M 218 266 L 223 266 L 223 293 L 217 293"/>
-                <path class="d3" pathLength="1" d="M225 280 C 250 280, 268 281, 288 281"/>
-              </g>
-              <g class="badges">
-                <circle class="d1" cx="300" cy="87" r="10"/><text x="300" y="91.5">1</text>
-                <circle class="d2" cx="300" cy="190" r="10"/><text x="300" y="194.5">2</text>
-                <circle class="d3" cx="300" cy="281" r="10"/><text x="300" y="285.5">3</text>
-              </g>
-            </svg>
           </div>
-          <ol class="proof__notes">
-            <li class="n1"><span class="proof__num" aria-hidden="true">1</span>Tap-to-call, right in the header</li>
-            <li class="n2"><span class="proof__num" aria-hidden="true">2</span>Their own photos, not stock</li>
-            <li class="n3"><span class="proof__num" aria-hidden="true">3</span>One H1 that names the service and the city</li>
-          </ol>
-          <figcaption id="proof-caption" class="proof__caption">Proof: <a class="hit" href="work/legendary-detailing/">Legendary Detailing</a>, our first client site, on a 390px phone.</figcaption>
+          <div class="stage__card">
+            <p class="stage__card-name">Legendary Detailing</p>
+            <p class="stage__card-kind">Mobile auto detailing · Memphis, TN</p>
+            <p class="stage__card-fact"><svg class="icon icon--sm" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Lighthouse 100 for SEO, Accessibility and Best Practices</p>
+            <a href="work/legendary-detailing/">Read the Legendary Detailing case study</a>
+          </div>
         </figure>
       </div>
-      <p class="wrap hero__for">Built for <span>detailers</span> <span>trades</span> <span>salons</span> <span>restaurants</span> and the businesses next door to them.</p>
     </section>
 
     <!-- ===================== SERVICES ===================== -->
-    <section class="section services" id="services" aria-labelledby="services-title">
-      <div class="wrap">
-        <div class="section__head">
+    <section class="section services ground-surface" id="services" aria-labelledby="services-title">
+      <div class="wrap split">
+        <div class="head">
           <h2 id="services-title">What we build</h2>
           <p>One studio for the whole job, from the first sketch to the day your phone starts ringing from the site. No templates and no page builders: every site is written by hand for the business it serves.</p>
         </div>
-        <ul class="ledger">
-          <li class="ledger__row reveal">
-            <span class="ledger__no" aria-hidden="true">01</span>
+        <ul class="rows">
+          <li class="rows__item">
             <h3>Custom websites</h3>
-            <p>Hand-built, mobile-first sites designed around how your customers actually find you and get in touch. Your photos, your words, your look, not a theme everyone else is using.</p>
+            <p>Hand-built, mobile-first sites designed around how your customers actually find you and get in touch. Your photos, your words and a look made for your business alone.</p>
           </li>
-          <li class="ledger__row reveal">
-            <span class="ledger__no" aria-hidden="true">02</span>
+          <li class="rows__item">
             <h3>Booking and quote forms</h3>
             <p>Forms that ask the right questions, check answers as people type and land in your inbox ready to reply to. Where your pricing allows it, a live estimate as they choose.</p>
           </li>
-          <li class="ledger__row reveal">
-            <span class="ledger__no" aria-hidden="true">03</span>
+          <li class="rows__item">
             <h3>Search-ready from day one</h3>
             <p>Clean page structure, local search basics, structured data, a sitemap and fast load times, so Google can understand who you are, what you do and where.</p>
           </li>
-          <li class="ledger__row reveal">
-            <span class="ledger__no" aria-hidden="true">04</span>
+          <li class="rows__item">
             <h3>Launch help</h3>
             <p>We register the domain, host the site and connect everything, and help you set up your Google Business Profile, so the site goes live without a weekend of tutorials.</p>
           </li>
-          <li class="ledger__row reveal">
-            <span class="ledger__no" aria-hidden="true">05</span>
+          <li class="rows__item">
             <h3>Care and updates</h3>
             <p>New photos, a changed price, a seasonal special: ongoing updates as your business changes, so the site never goes stale.</p>
           </li>
@@ -179,85 +150,108 @@
       </div>
     </section>
 
-    <!-- ===================== WORK ===================== -->
-    <section class="section work" id="work" aria-labelledby="work-title">
-      <div class="wrap">
-        <div class="section__head section__head--dark">
+    <!-- ===================== WORK =====================
+         PORTFOLIO PROJECT: the <article class="project"> holds one project.
+         Its chapters (three screenshots, a title and two lines each) run as
+         the scroll-held "photo chapters" moment on screens 600px tall or more,
+         and stand side by side everywhere else. To add a second project, give
+         it its own section below this one without data-moment (one moment of
+         this kind per page), copy work/legendary-detailing/ to
+         work/<new-slug>/ for its case study, and add that URL to sitemap.xml. -->
+    <section class="section work ground-canvas" id="work" aria-labelledby="work-title" data-moment="photo-chapters">
+      <div class="wrap mo-ph">
+        <div class="head">
           <h2 id="work-title">Featured work</h2>
           <p>Real sites for real businesses. We only show work we built, described as it is.</p>
         </div>
 
-        <div class="work__list">
-          <!-- ============================================================
-               PORTFOLIO PROJECT
-               To add a project: copy this whole <article> (down to the
-               matching "END PROJECT" comment), paste it below, and change
-               the name, kind, summary, facts, images and links. Then copy
-               work/legendary-detailing/ to work/<new-slug>/ for its case
-               study page and add that URL to sitemap.xml.
-               ============================================================ -->
-          <article class="project" aria-labelledby="p-legendary">
-            <a class="project__media" href="work/legendary-detailing/" tabindex="-1" aria-hidden="true">
-              <figure class="shot shot--desktop">
+        <article class="project" aria-labelledby="p-legendary">
+          <div class="project__lead">
+            <p class="project__kind">Mobile auto detailing · Memphis, TN</p>
+            <h3 id="p-legendary" class="project__name">Legendary Detailing</h3>
+            <p>A black-and-gold site for a mobile detailer that comes to the customer. Built around one job: turning a visit into a booking request, on the phone people are holding.</p>
+            <ul class="ticks">
+              <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Two-step booking request form with a live price estimate</li>
+              <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Tap-to-call header and a call, text and book bar on phones</li>
+              <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Hand-written HTML, CSS and JavaScript, tested with Playwright and axe-core</li>
+            </ul>
+            <div class="project__actions">
+              <a class="btn btn--ghost" href="work/legendary-detailing/">Read the case study<svg class="icon icon--go" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></a>
+            </div>
+          </div>
+
+          <ol class="mo-ph__list">
+            <li class="mo-ph__ch">
+              <figure class="mo-ph__pic">
                 <img src="assets/img/work/legendary-detailing/desktop-home-1200.webp"
                      srcset="assets/img/work/legendary-detailing/desktop-home-720.webp 720w, assets/img/work/legendary-detailing/desktop-home-1200.webp 1200w, assets/img/work/legendary-detailing/desktop-home-1800.webp 1800w"
-                     sizes="(min-width: 1100px) 680px, 92vw" width="1200" height="750" loading="lazy" decoding="async"
+                     sizes="(min-width: 1360px) 1280px, (min-width: 768px) 92vw, 100vw" width="1200" height="750" loading="lazy" decoding="async"
                      alt="Legendary Detailing home page on a desktop screen: a deep red convertible in a detailing bay behind the headline Every Detail. Legendary Results.">
               </figure>
-              <figure class="shot shot--phone">
-                <img src="assets/img/work/legendary-detailing/phone-booking-390.webp"
-                     srcset="assets/img/work/legendary-detailing/phone-booking-390.webp 390w, assets/img/work/legendary-detailing/phone-booking-780.webp 780w"
-                     sizes="(min-width: 760px) 190px, 36vw" width="390" height="844" loading="lazy" decoding="async"
-                     alt="Step one of the Legendary Detailing booking form on a phone, with Full Detail, SUV / Truck and Buffing selected.">
+              <div class="mo-ph__words">
+                <h4>A home page built for bookings</h4>
+                <p>Tap-to-call in the header, the business’s own photos, and one heading that names the service and the city.</p>
+              </div>
+            </li>
+            <li class="mo-ph__ch">
+              <figure class="mo-ph__pic">
+                <img src="assets/img/work/legendary-detailing/desktop-services-1200.webp"
+                     srcset="assets/img/work/legendary-detailing/desktop-services-720.webp 720w, assets/img/work/legendary-detailing/desktop-services-1200.webp 1200w, assets/img/work/legendary-detailing/desktop-services-1800.webp 1800w"
+                     sizes="(min-width: 1360px) 1280px, (min-width: 768px) 92vw, 100vw" width="1200" height="750" loading="lazy" decoding="async"
+                     alt="The Legendary Detailing services section on desktop, with Exterior Wash starting at $20 and Interior Detail starting at $45, each with a photo and a Book button.">
               </figure>
-            </a>
-            <div class="project__body">
-              <p class="project__kind">Mobile auto detailing · Memphis, TN</p>
-              <h3 id="p-legendary" class="project__name">Legendary Detailing</h3>
-              <p class="project__summary">A black-and-gold site for a mobile detailer that comes to the customer. Built around one job: turning a visit into a booking request, on the phone people are holding.</p>
-              <ul class="project__facts">
-                <li>Two-step booking request form with a live price estimate</li>
-                <li>Tap-to-call header and a call, text and book bar on phones</li>
-                <li>Lighthouse 100 for SEO, Accessibility and Best Practices</li>
-                <li>Hand-written HTML, CSS and JavaScript, tested with Playwright and axe-core</li>
-              </ul>
-              <a class="btn btn--paper btn--icon" href="work/legendary-detailing/">Read the case study<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-          </article>
-          <!-- END PROJECT -->
-        </div>
+              <div class="mo-ph__words">
+                <h4>Services with starting prices</h4>
+                <p>Each package lists what’s included and where its price starts, and its Book button pre-selects it in the booking form.</p>
+              </div>
+            </li>
+            <li class="mo-ph__ch">
+              <figure class="mo-ph__pic">
+                <img src="assets/img/work/legendary-detailing/desktop-gallery-1200.webp"
+                     srcset="assets/img/work/legendary-detailing/desktop-gallery-720.webp 720w, assets/img/work/legendary-detailing/desktop-gallery-1200.webp 1200w, assets/img/work/legendary-detailing/desktop-gallery-1800.webp 1800w"
+                     sizes="(min-width: 1360px) 1280px, (min-width: 768px) 92vw, 100vw" width="1200" height="750" loading="lazy" decoding="async"
+                     alt="The Legendary Detailing gallery on desktop: photos of a red convertible, a blue sports car and a black SUV.">
+              </figure>
+              <div class="mo-ph__words">
+                <h4>A gallery of their own work</h4>
+                <p>Every photo is a vehicle the business detailed. It opens into a full-screen viewer with keyboard and swipe support.</p>
+              </div>
+            </li>
+          </ol>
+          <a class="btn btn--primary project__cta" href="work/legendary-detailing/">Read the case study<svg class="icon icon--go" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></a>
+        </article>
       </div>
     </section>
 
     <!-- ===================== PROCESS ===================== -->
-    <section class="section process" id="process" aria-labelledby="process-title">
+    <section class="section process ground-surface" id="process" aria-labelledby="process-title">
       <div class="wrap">
-        <div class="section__head">
+        <div class="head">
           <h2 id="process-title">How a project runs</h2>
           <p>Five steps, in order, with you signing off before we move on. You always know what’s happening and what’s next.</p>
         </div>
         <ol class="steps">
-          <li class="step reveal">
+          <li class="step">
             <span class="step__no" aria-hidden="true">1</span>
             <h3>Discovery</h3>
             <p>A conversation about your business, your customers and what a good lead looks like for you. You get a written plan for your site.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__no" aria-hidden="true">2</span>
             <h3>Design</h3>
             <p>A look built from your brand, your photos and your services, laid out phone-first. You review it and ask for changes.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__no" aria-hidden="true">3</span>
             <h3>Build</h3>
             <p>We hand-code the site, wire up the forms and test it on phones, tablets and desktops before you see a preview link.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__no" aria-hidden="true">4</span>
             <h3>Launch</h3>
             <p>Domain, hosting and Google Business Profile connected, search basics submitted, and the site goes live.</p>
           </li>
-          <li class="step reveal">
+          <li class="step">
             <span class="step__no" aria-hidden="true">5</span>
             <h3>Care</h3>
             <p>Updates as your business changes: new photos, services, hours or prices, made for you.</p>
@@ -267,30 +261,30 @@
     </section>
 
     <!-- ===================== WHY ===================== -->
-    <section class="section why" id="why" aria-labelledby="why-title">
+    <section class="section why ground-band" id="why" aria-labelledby="why-title">
       <div class="wrap why__grid">
         <div class="why__lead">
           <h2 id="why-title">Why work with us</h2>
-          <p class="why__statement"><em>You never have to touch it.</em> We build it, host it, look after the domain and keep it up to date, all for one monthly price.</p>
+          <p class="why__statement"><strong>You never have to touch it.</strong> We build it, host it, look after the domain and keep it up to date, all for one monthly price.</p>
         </div>
         <dl class="why__list">
-          <div class="reveal">
+          <div>
             <dt>Fast on a real phone</dt>
             <dd>Hand-written pages with no heavy theme or plugin stack, compressed images and self-hosted fonts. We check every build with Lighthouse.</dd>
           </div>
-          <div class="reveal">
+          <div>
             <dt>Mobile-first, not mobile-squeezed</dt>
             <dd>Designed on a phone screen first, with thumb-sized buttons, readable text and nothing that scrolls sideways.</dd>
           </div>
-          <div class="reveal">
+          <div>
             <dt>Found in search</dt>
             <dd>One clear heading per page, honest titles and descriptions, structured data and a sitemap, set up from the start.</dd>
           </div>
-          <div class="reveal">
+          <div>
             <dt>Built to convert</dt>
             <dd>Every page points to one next step, whether that’s call, book or request a quote, and forms tell people exactly what happens next.</dd>
           </div>
-          <div class="reveal">
+          <div>
             <dt>Nothing to manage</dt>
             <dd>Hosting, the domain, security updates and content changes are all on us while your plan is active. You just tell us what changed.</dd>
           </div>
@@ -303,15 +297,15 @@
          change it in Stripe first (a new Price + payment link), then update
          the amounts below, the FAQ answer "How much does a website cost?",
          the hero note and the JSON-LD offers in the <head>. -->
-    <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
-      <div class="wrap pricing__grid">
+    <section class="section pricing ground-canvas" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap split">
         <div class="pricing__intro">
           <h2 id="pricing-title">Pricing</h2>
-          <p>Every client gets the same two things: a site built for their business, and someone keeping it up to date afterwards.</p>
-          <ul class="pricing__points">
-            <li>One price for every client, no surprise add-ons</li>
-            <li>Hosting, the domain and updates handled for you</li>
-            <li>Maintenance is billed monthly by Stripe</li>
+          <p class="head-lede">Every client gets the same two things: a site built for their business, and someone keeping it up to date afterwards.</p>
+          <ul class="ticks">
+            <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>One price for every client, no surprise add-ons</li>
+            <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Hosting, the domain and updates handled for you</li>
+            <li><svg class="icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10.5 8 14.5 16 6"/></svg>Maintenance is billed monthly by Stripe</li>
           </ul>
         </div>
         <div class="bill">
@@ -332,57 +326,60 @@
             </li>
           </ul>
           <p class="bill__total"><span>Due at signup</span> <strong>$645</strong></p>
-          <p class="bill__fine">That’s the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month, and Stripe emails you a receipt every time.</p>
-          <a class="btn btn--red btn--wide btn--icon" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <p class="bill__fine bill__fine--center"><span class="bill__secure"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V7a4 4 0 0 1 8 0v2M5 9h10v8H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Secure checkout by Stripe.</span> Pay by card, Apple Pay or Link. You’ll be asked to accept our <a class="hit" href="terms/">Terms of Service</a> before you pay.</p>
-          <p class="bill__fine bill__fine--center">Questions first? <a class="hit" href="#start">Tell us about your project</a>. Already a client? <a class="hit" href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a>.</p>
+          <p class="fine">That’s the setup fee plus your first month of maintenance. After that, $45 is billed automatically each month, and Stripe emails you a receipt every time.</p>
+          <a class="btn btn--primary btn--wide" id="pay-link" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website<svg class="icon icon--go" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></a>
+          <p class="fine fine--center"><span class="secure"><svg class="icon icon--sm" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V7a4 4 0 0 1 8 0v2M5 9h10v8H5z"/></svg>Secure checkout by Stripe.</span> Pay by card, Apple Pay or Link. You’ll be asked to accept our <a href="terms/">Terms of Service</a> before you pay.</p>
+          <p class="fine fine--center">Questions first? <a href="#start">Tell us about your project</a>. Already a client? <a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a>.</p>
         </div>
       </div>
     </section>
 
     <!-- ===================== FAQ ===================== -->
-    <section class="section faq" id="faq" aria-labelledby="faq-title">
-      <div class="wrap faq__grid">
-        <h2 id="faq-title">Questions, answered</h2>
+    <section class="section faq ground-surface" id="faq" aria-labelledby="faq-title">
+      <div class="wrap split">
+        <div class="head">
+          <h2 id="faq-title">Questions and answers</h2>
+          <p>Price, payment, ownership and launch. Still unsure? <a href="#start">Ask us directly</a>.</p>
+        </div>
         <div class="faq__list">
-          <details class="qa">
-            <summary>How much does a website cost?</summary>
+          <details class="qa" id="faq-cost">
+            <summary>How much does a website cost?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>$600 one time to design and build your site, plus $45 a month for maintenance. You pay $645 at signup (the setup fee and your first month), then $45 each month after that. <a href="#pricing">See what’s included</a>.</p></div>
           </details>
-          <details class="qa">
-            <summary>How can I pay?</summary>
+          <details class="qa" id="faq-pay">
+            <summary>How can I pay?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>By credit or debit card, Apple Pay or Link, on Stripe’s secure checkout. You’ll accept our <a href="terms/">Terms of Service</a> at checkout, and Stripe emails you a receipt for every payment.</p></div>
           </details>
-          <details class="qa">
-            <summary>How long does it take?</summary>
+          <details class="qa" id="faq-time">
+            <summary>How long does it take?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>It depends on the number of pages, the features and how quickly content like photos and service lists comes together. You’ll get a timeline after our first conversation, and the process above shows each step.</p></div>
           </details>
-          <details class="qa">
-            <summary>Do I own the website?</summary>
+          <details class="qa" id="faq-own">
+            <summary>Do I own the website?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>No. The website, its code, the hosting and the domain belong to M&amp;M Websites, and they can’t be transferred or handed to someone else. Your monthly plan is what keeps the site online and up to date. Your own logo, photos and words stay yours.</p></div>
           </details>
-          <details class="qa">
-            <summary>What happens if I stop paying?</summary>
+          <details class="qa" id="faq-stop">
+            <summary>What happens if I stop paying?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>If the monthly plan is cancelled or payments stop, the site is taken offline and is no longer public, the domain is paused, and updates stop. There’s no access to the code after that. If a monthly payment fails, Stripe automatically tries again, so you have time to update your card in <a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a>.</p></div>
           </details>
-          <details class="qa">
-            <summary>How do I update my card, see receipts or cancel?</summary>
+          <details class="qa" id="faq-billing">
+            <summary>How do I update my card, see receipts or cancel?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>Use <a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a> and sign in with the email you paid with. Stripe sends you a one-time sign-in link, then you can update your payment details and see past payments. You can also email us at <a href="mailto:mnmwebsitesforyou@gmail.com">mnmwebsitesforyou@gmail.com</a> to cancel or for help.</p></div>
           </details>
-          <details class="qa">
-            <summary>Can you help with my domain, hosting and Google Business Profile?</summary>
+          <details class="qa" id="faq-launch">
+            <summary>Can you help with my domain, hosting and Google Business Profile?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>Yes. Launch help covers choosing and connecting a domain, setting up hosting, and setting up or tidying your Google Business Profile so it points to the new site.</p></div>
           </details>
-          <details class="qa">
-            <summary>I already have a website. Can you redesign it?</summary>
+          <details class="qa" id="faq-redesign">
+            <summary>I already have a website. Can you redesign it?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>Yes. Include the address in the form and we’ll look at what’s working, what isn’t and what’s worth keeping before we start.</p></div>
           </details>
-          <details class="qa">
-            <summary>What do you need from me?</summary>
+          <details class="qa" id="faq-need">
+            <summary>What do you need from me?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>Your logo if you have one, photos of your work, the services you offer and how you want customers to reach you. If some of that doesn’t exist yet, we’ll help you work out what’s needed.</p></div>
           </details>
-          <details class="qa">
-            <summary>Will you update the site after launch?</summary>
+          <details class="qa" id="faq-updates">
+            <summary>Will you update the site after launch?<span class="qa__chev" aria-hidden="true"><svg class="icon icon--sm" viewBox="0 0 20 20" focusable="false"><path d="M5 7.5 10 12.5 15 7.5"/></svg></span></summary>
             <div class="qa__body"><p>Yes. Ongoing care covers changes like new photos, services, hours or prices, so the site keeps up with your business.</p></div>
           </details>
         </div>
@@ -390,17 +387,17 @@
     </section>
 
     <!-- ===================== START A PROJECT ===================== -->
-    <section class="section start" id="start" aria-labelledby="start-title">
-      <div class="wrap start__grid">
+    <section class="section start ground-canvas" id="start" aria-labelledby="start-title">
+      <div class="wrap split">
         <div class="start__intro">
           <h2 id="start-title">Start a project</h2>
-          <p>Tell us about your business and what you need. A few minutes here gives us enough to come back with real questions and next steps.</p>
+          <p class="head-lede">Tell us about your business and what you need. A few minutes here gives us enough to come back with real questions and next steps.</p>
           <div class="direct" id="direct" hidden>
             <h3 class="direct__title">Prefer to talk first?</h3>
             <ul class="direct__list">
               <li data-contact="booking" hidden><a class="direct__link" data-href="booking" href="#start">Book a call</a></li>
               <li data-contact="phone" hidden><a class="direct__link" data-href="phone" href="#start">Call</a></li>
-              <li data-contact="email" hidden><a class="direct__link" data-href="email" href="#start">Email</a> <button class="copy" type="button" id="copy-email" aria-label="Copy email address"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 7h9v10H7zM4 13V3h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Copy</button></li>
+              <li data-contact="email" hidden><a class="direct__link" data-href="email" href="#start">Email</a> <button class="copy" type="button" id="copy-email" aria-label="Copy email address"><svg class="icon icon--sm" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 7h9v10H7zM4 13V3h9"/></svg><span class="copy__label">Copy</span></button></li>
             </ul>
           </div>
         </div>
@@ -412,6 +409,7 @@
           <noscript><p class="formcard__offline">This form needs JavaScript to send. Please turn JavaScript on, or use another way to reach us.</p></noscript>
 
           <form id="project-form" class="form" method="post" action="#start" novalidate>
+            <p class="form__key">Fields marked <span class="req">*</span> are required.</p>
             <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="form__row form__row--2">
@@ -430,7 +428,7 @@
             <div class="form__row form__row--2">
               <div class="field">
                 <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
-                <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="f-email-err">
+                <input id="f-email" name="email" type="email" autocomplete="email" spellcheck="false" autocapitalize="off" required aria-describedby="f-email-err">
                 <p class="field__err" id="f-email-err" hidden></p>
               </div>
               <div class="field">
@@ -441,7 +439,7 @@
 
             <div class="field">
               <label for="f-website">Current website <span class="opt">(if you have one)</span></label>
-              <input id="f-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" aria-describedby="f-website-err">
+              <input id="f-website" name="website" type="text" inputmode="url" autocomplete="url" spellcheck="false" autocapitalize="off" placeholder="yourbusiness.com" aria-describedby="f-website-err">
               <p class="field__err" id="f-website-err" hidden></p>
             </div>
 
@@ -475,8 +473,8 @@
             </div>
 
             <div class="form__foot">
-              <button class="btn btn--red btn--wide" type="submit" id="f-submit" disabled>Send project details</button>
-              <p class="form__fine">We use your details only to reply about your project.</p>
+              <button class="btn btn--primary btn--wide" type="submit" id="f-submit" disabled>Send project details</button>
+              <p class="fine">We use your details only to reply about your project.</p>
             </div>
             <div class="form__status" id="form-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
           </form>
@@ -493,13 +491,14 @@
   <footer class="footer">
     <div class="wrap footer__grid">
       <div class="footer__brand">
-        <a class="brand brand--footer" href="#top" aria-label="M&amp;M Websites, back to top">
-          <span class="brand__mark" aria-hidden="true">M<span class="amp">&amp;</span>M</span>
-          <span class="brand__word">Websites</span>
+        <a class="brand" href="./" aria-label="M&amp;M Websites home">
+          <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="10" fill="#9fe870"/><path d="M8 28V13l6 9 6-9 6 9 6-9v15" fill="none" stroke="#0e0f0c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="brand__word">M&amp;M Websites</span>
         </a>
         <p>Hand-built websites for local service businesses.</p>
       </div>
       <nav class="footer__nav" aria-label="Footer">
+        <p class="footer__title">Site</p>
         <ul>
           <li><a href="#services">Services</a></li>
           <li><a href="#work">Work</a></li>
@@ -510,25 +509,28 @@
           <li><a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a></li>
         </ul>
       </nav>
-      <div class="footer__contact" id="footer-contact" hidden>
-        <ul class="footer__links" id="footer-links"></ul>
-      </div>
       <nav class="footer__policies" aria-label="Policies">
+        <p class="footer__title">Policies</p>
         <ul>
           <li><a href="terms/">Terms of Service</a></li>
           <li><a href="privacy/">Privacy Policy</a></li>
           <li><a href="refunds/">Refunds and cancellation</a></li>
         </ul>
       </nav>
-      <p class="footer__legal">© <span id="year">2026</span> M&amp;M Websites. Hand-built, like everything we make.</p>
+      <div class="footer__contact" id="footer-contact" hidden>
+        <p class="footer__title">Contact</p>
+        <ul class="footer__links" id="footer-links"></ul>
+      </div>
+      <p class="footer__legal">© <span id="year">2026</span> M&amp;M Websites</p>
     </div>
   </footer>
 
   <!-- Phone action dock: appears after the hero, hides at pricing and the form -->
   <div class="dock" id="dock" aria-label="Quick actions" role="region">
-    <a class="btn btn--line btn--sm" href="#start">Ask a question</a>
-    <a class="btn btn--red btn--sm" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website</a>
+    <a class="btn btn--ghost btn--sm" href="#start">Ask a question</a>
+    <a class="btn btn--primary btn--sm" href="https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00">Start my website</a>
   </div>
+  <div class="scrim" id="scrim" hidden></div>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>

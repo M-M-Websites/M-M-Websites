@@ -33,7 +33,7 @@ async function test(name, fn) {
 }
 
 /* ---------- static server (serves 404.html with status 404, optional CSP) ---------- */
-const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.xml': 'application/xml', '.txt': 'text/plain' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.xml': 'application/xml', '.txt': 'text/plain', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
 function startServer(withCsp) {
   return new Promise((resolve) => {
     const server = http.createServer((req, res) => {
@@ -147,7 +147,7 @@ async function launch() {
         }).map((el) => el.outerHTML.slice(0, 80)));
         eq(offscreen.length, 0, `${route} controls outside the viewport: ${offscreen.join(' | ')}`);
         const small = await page.evaluate(() => {
-          const sel = '.btn, .nav__list a, .nav__toggle, summary, .chip span, .field input:not(.hp), .field select, .field textarea, .footer a, .crumbs a, .brand, .direct__link, .copy';
+          const sel = '.btn, .nav__list a, .nav__toggle, summary, .chip span, .field input:not(.hp), .field select, .field textarea, .footer a, .crumbs a, .brand, .direct__link, .copy, .toc a';
           return [...document.querySelectorAll(sel)].filter((el) => {
             const r = el.getBoundingClientRect();
             return r.width > 0 && r.height > 0 && (r.height < 43.5 || r.width < 43.5);
@@ -217,7 +217,7 @@ async function launch() {
     // no unexpected personal or client contact details in published files
     const allowedEmail = /mnmwebsitesforyou@gmail\.com/g;
     const published = execFileSync('git', ['ls-files', '--others', '--cached', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' })
-      .split('\n').filter((f) => /\.(html|js|css|txt|xml|md)$/.test(f) && !f.startsWith('tests/'));
+      .split('\n').filter((f) => /\.(html|js|css|txt|xml|md|webmanifest)$/.test(f) && !f.startsWith('tests/') && !f.startsWith('.claude/') && !f.startsWith('outreach/')); // .claude/ and outreach/ are never published (.assetsignore)
     for (const f of published) {
       const body = fs.readFileSync(path.join(ROOT, f), 'utf8');
       const leftover = body.replace(allowedEmail, '');
@@ -503,7 +503,7 @@ async function launch() {
   await test('fallback: with JavaScript off everything shows and the form is honestly disabled', async () => {
     const { ctx, page } = await openPage(browser, base, { opts: { javaScriptEnabled: false, viewport: { width: 1024, height: 768 } } });
     eq(await page.evaluate(() => document.documentElement.className), 'no-js', 'html class');
-    const hidden = await page.$$eval('.rise, .reveal, .proof__notes li', (n) => n.filter((x) => getComputedStyle(x).opacity !== '1').length);
+    const hidden = await page.$$eval('[data-enter], .stage__phone, .stage__card, .mo-ph__words', (n) => n.filter((x) => getComputedStyle(x).opacity !== '1').length);
     eq(hidden, 0, 'content hidden without JS');
     assert(await page.locator('#nav-list').isVisible(), 'nav visible');
     assert(await page.locator('#f-submit').isDisabled(), 'submit disabled without JS');
@@ -519,13 +519,13 @@ async function launch() {
     const { ctx, page } = await openPage(browser, base, { opts: { reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } } });
     await page.waitForTimeout(150);
     const st = await page.evaluate(() => ({
-      faded: [...document.querySelectorAll('.rise, .reveal, .proof__notes li, .proof__marks circle')].filter((x) => getComputedStyle(x).opacity !== '1').length,
-      undrawn: [...document.querySelectorAll('.proof__marks .pencil path, .marked__line path')].filter((p) => !['0px', '0'].includes(getComputedStyle(p).strokeDashoffset)).length,
+      faded: [...document.querySelectorAll('[data-enter], .stage__phone, .stage__card, .mo-ph__words')].filter((x) => getComputedStyle(x).opacity !== '1').length,
+      held: document.querySelectorAll('.is-live, .is-armed').length,
       running: document.getAnimations().filter((a) => a.playState === 'running').length,
       smooth: getComputedStyle(document.documentElement).scrollBehavior,
     }));
     eq(st.faded, 0, 'elements still faded');
-    eq(st.undrawn, 0, 'pencil marks not drawn');
+    eq(st.held, 0, 'scroll-held or developing moments under reduced motion');
     eq(st.running, 0, 'running animations');
     eq(st.smooth, 'auto', 'scroll behaviour');
     await ctx.close();

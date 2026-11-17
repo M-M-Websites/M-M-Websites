@@ -1,7 +1,13 @@
-Bricolage Grotesque — Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
-JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+Copyright 2019 The Work Sans Project Authors (https://github.com/weiweihuanghuang/Work-Sans) WorkSans-Italic[wght].ttf: Copyright 2019 The Work Sans Project Authors (https://github.com/weiweihuanghuang/Work-Sans)
 
-Both fonts are licensed under the SIL Open Font License, Version 1.1:
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
 
 PREAMBLE
 The goals of the Open Font License (OFL) are to stimulate worldwide

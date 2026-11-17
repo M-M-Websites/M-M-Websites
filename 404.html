@@ -6,31 +6,95 @@
   <title>Page Not Found | M&amp;M Websites</title>
   <meta name="description" content="This page doesn’t exist. Head back to the M&amp;M Websites home page.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8ebe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0f0c" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
+
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/work-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script>document.documentElement.classList.replace('no-js','js')</script>
+  <script src="/assets/js/config.js" defer></script>
+  <script src="/assets/js/main.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="masthead">
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header class="masthead" id="top">
     <div class="wrap masthead__bar">
       <a class="brand" href="/" aria-label="M&amp;M Websites home">
-        <span class="brand__mark" aria-hidden="true">M<span class="amp">&amp;</span>M</span>
-        <span class="brand__word">Websites</span>
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="10" fill="#9fe870"/><path d="M8 28V13l6 9 6-9 6 9 6-9v15" fill="none" stroke="#0e0f0c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand__word">M&amp;M Websites</span>
       </a>
+      <nav class="nav" aria-label="Main">
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" hidden>
+          <span class="nav__toggle-lines" aria-hidden="true"></span>
+          <span class="nav__toggle-text">Menu</span>
+        </button>
+        <ul class="nav__list" id="nav-list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/#process">Process</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--primary btn--sm masthead__cta" href="/#start">Start a project</a>
     </div>
   </header>
-  <main id="main" class="wrap lost">
-    <p class="lost__code">Error 404</p>
-    <h1>This page didn’t make the final proof.</h1>
-    <p>The address may have a typo, or the page may have moved. Everything else is right where you left it.</p>
-    <div class="hero__actions">
-      <a class="btn btn--red" href="/">Go to the home page</a>
-      <a class="btn btn--line" href="/#start">Start a project</a>
-    </div>
+
+  <main id="main">
+    <section class="wrap lost" aria-labelledby="lost-title">
+      <p class="lost__code" aria-hidden="true" data-enter="1">404</p>
+      <h1 id="lost-title" data-enter="2">This page doesn’t exist</h1>
+      <p data-enter="3">The address may have a typo, or the page may have moved. Everything else is right where you left it.</p>
+      <div class="lost__links" data-enter="4">
+        <a class="btn btn--primary" href="/">Go to the home page<svg class="icon icon--go" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"/></svg></a>
+        <a class="btn btn--ghost" href="/#services">See our services</a>
+        <a class="btn btn--ghost" href="/#start">Start a project</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="/" aria-label="M&amp;M Websites home">
+          <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="10" fill="#9fe870"/><path d="M8 28V13l6 9 6-9 6 9 6-9v15" fill="none" stroke="#0e0f0c" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="brand__word">M&amp;M Websites</span>
+        </a>
+        <p>Hand-built websites for local service businesses.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <p class="footer__title">Site</p>
+        <ul>
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/#process">Process</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/#start">Start a project</a></li>
+          <li><a href="https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00">Manage billing</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__policies" aria-label="Policies">
+        <p class="footer__title">Policies</p>
+        <ul>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/refunds/">Refunds and cancellation</a></li>
+        </ul>
+      </nav>
+      <div class="footer__contact">
+        <p class="footer__title">Contact</p>
+        <ul class="footer__links"><li><a href="mailto:mnmwebsitesforyou@gmail.com">mnmwebsitesforyou@gmail.com</a></li></ul>
+      </div>
+      <p class="footer__legal">© <span id="year">2026</span> M&amp;M Websites</p>
+    </div>
+  </footer>
+  <div class="scrim" id="scrim" hidden></div>
 </body>
 </html>
