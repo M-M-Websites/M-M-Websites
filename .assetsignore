@@ -19,3 +19,5 @@ package.json
 package-lock.json
 *.md
 *.log
+.claude
+outreach
