@@ -692,6 +692,8 @@ async function launch() {
       for (const width of [390, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         await page.goto(base + route, { waitUntil: 'networkidle' });
+        // let entrance motion (tags swinging onto their hooks) settle: a rotated box measures larger than the image
+        await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => Number.isFinite(a.effect.getComputedTiming().endTime)).map((a) => a.finished.catch(() => {}))));
         const imgs = await page.$$eval('img', (els) => Promise.all(els.map(async (i, n) => {
           const probe = new Image(); probe.src = i.currentSrc || i.src; await probe.decode();
           const r = i.getBoundingClientRect(); const cs = getComputedStyle(i);
@@ -788,7 +790,7 @@ async function launch() {
     assert(broken >= 1, 'stylesheet loaded on a nested path');
     await page.click('text=Go to the home page');
     await page.waitForLoadState('networkidle');
-    assert(/Hand-built websites/.test(await page.locator('h1').innerText()), 'home link works');
+    assert(/Hand us the keys/i.test(await page.locator('h1').innerText()), 'home link works');
     await ctx.close();
   });
 

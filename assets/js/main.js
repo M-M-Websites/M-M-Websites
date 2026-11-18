@@ -91,6 +91,10 @@
     var setOpen = function (open, returnFocus) {
       toggle.setAttribute('aria-expanded', String(open));
       navList.classList.toggle('is-open', open);
+      /* while the menu is open the page behind it is inert and does not scroll */
+      $$('main, footer, .dock').forEach(function (el) { el.inert = open; });
+      document.documentElement.classList.toggle('menu-open', open);
+      if (open) { var first = $('a', navList); if (first) first.focus(); }
       if (!open && returnFocus) toggle.focus();
     };
     toggle.addEventListener('click', function () { setOpen(toggle.getAttribute('aria-expanded') !== 'true'); });
@@ -180,7 +184,15 @@
   var copyBtn = $('#copy-email');
   if (copyBtn && CFG.businessEmail) {
     copyBtn.addEventListener('click', function () {
-      var ok = function () { toast('Email address copied'); };
+      var ok = function () {
+        toast('Email address copied');
+        var label = copyBtn.lastChild, path = $('path', copyBtn), was = copyBtn._d = copyBtn._d || path.getAttribute('d');
+        label.textContent = 'Copied';
+        path.setAttribute('d', 'M4 10.5 8 14.5 16 5.5');
+        copyBtn.classList.add('is-copied');
+        clearTimeout(copyBtn._t);
+        copyBtn._t = setTimeout(function () { label.textContent = 'Copy'; path.setAttribute('d', was); copyBtn.classList.remove('is-copied'); }, 2000);
+      };
       var fail = function () { toast('Couldn\u2019t copy. The address is ' + CFG.businessEmail); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(CFG.businessEmail).then(ok, fail);
       else fail();
