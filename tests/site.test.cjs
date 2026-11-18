@@ -685,6 +685,35 @@ async function launch() {
     }
   });
 
+  /* 12c4. Layout stability: images reserve their space; only the first (LCP) image loads eagerly */
+  await test('images: width and height match each file, nothing stretched, only the hero image is eager', async () => {
+    const { ctx, page, problems } = await openPage(browser, base);
+    for (const route of [...PAGES, '/missing-page/']) {
+      for (const width of [390, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(base + route, { waitUntil: 'networkidle' });
+        const imgs = await page.$$eval('img', (els) => Promise.all(els.map(async (i, n) => {
+          const probe = new Image(); probe.src = i.currentSrc || i.src; await probe.decode();
+          const r = i.getBoundingClientRect(); const cs = getComputedStyle(i);
+          const px = (...k) => k.reduce((t, x) => t + parseFloat(cs[x]), 0); // content box: the frame (border, padding) isn't the image
+          return { n, src: i.getAttribute('src'), w: +i.getAttribute('width'), h: +i.getAttribute('height'), nw: probe.naturalWidth, nh: probe.naturalHeight,
+            rw: r.width - px('borderLeftWidth', 'borderRightWidth', 'paddingLeft', 'paddingRight'), rh: r.height - px('borderTopWidth', 'borderBottomWidth', 'paddingTop', 'paddingBottom'), loading: i.getAttribute('loading'), decoding: i.getAttribute('decoding'), fp: i.getAttribute('fetchpriority') };
+        })));
+        for (const i of imgs) {
+          assert(i.w > 0 && i.h > 0, `${route} ${i.src}: width and height attributes`);
+          assert(Math.abs(i.w / i.h - i.nw / i.nh) / (i.nw / i.nh) < 0.01, `${route} ${i.src}: ${i.w}x${i.h} does not match the file (${i.nw}x${i.nh})`);
+          if (i.rw > 0) assert(Math.abs(i.rw / i.rh - i.w / i.h) / (i.w / i.h) < 0.02, `${route} ${i.src}: shown stretched at ${width}px`);
+          if (i.n === 0) { eq(i.fp, 'high', `${route} first image fetchpriority`); assert(i.loading !== 'lazy', `${route} first image must not be lazy`); }
+          else { eq(i.loading, 'lazy', `${route} ${i.src} loading`); eq(i.decoding, 'async', `${route} ${i.src} decoding`); }
+        }
+      }
+    }
+    // requests cut off by moving to the next page are expected here; image loading is covered by the layout tests
+    const real = problems.filter((p) => !p.startsWith('requestfailed:') && !p.includes('/missing-page/') && !/status of 404/.test(p));
+    eq(real.length, 0, `errors: ${real.join('; ')}`);
+    await ctx.close();
+  });
+
   /* 12d. Stripe facts: payment methods, terms at checkout, receipts, retries, Manage billing */
   await test('billing: Manage billing on every page, only the payment methods Stripe offers, terms and receipts explained', async () => {
     const otherMethods = /cash ?app|klarna|amazon pay|afterpay|clearpay|affirm|paypal|venmo|google pay|bank (transfer|debit|account)|\bach\b|sepa|ideal|bancontact|crypto|bitcoin/i;
