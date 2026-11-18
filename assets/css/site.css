@@ -771,6 +771,40 @@ html.lenis { scroll-behavior: auto; }
 [data-scroll-target]:focus { outline: none; }
 
 /* ==========================================================================
+   Home page motion layer (assets/js/motion.js): GSAP reveals, a Vanta DOTS
+   field behind the hero and a Shiny Text pass on the headline. All of it is
+   switched on by JavaScript only, never with reduced motion, and none of it
+   hides content in CSS.
+   ========================================================================== */
+:root { --fx-dot: #6f7a74; --shine: #68756e; } /* shine: 3.4:1 on steel at its brightest, fine for 40px+ display text */
+@media (prefers-color-scheme: dark) { :root { --fx-dot: #5d6863; --shine: #ffffff; } }
+
+/* the hero's WebGL layer: empty until motion.js starts Vanta, faded in once it draws,
+   and faded out behind the copy so the text always sits on plain steel */
+.hero > .wrap { position: relative; z-index: 1; }
+.hero__fx {
+  --fx-side: linear-gradient(to bottom, transparent 0, transparent 25%, #000 60%);
+  --fx-foot: linear-gradient(to top, transparent 0, transparent 6.5rem, #000 13rem); /* clear of the caption and the "Built for" line */
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  -webkit-mask-image: var(--fx-side), var(--fx-foot); -webkit-mask-composite: source-in;
+  mask-image: var(--fx-side), var(--fx-foot); mask-composite: intersect;
+}
+@media (min-width: 980px) { .hero__fx { --fx-side: linear-gradient(100deg, transparent 0, transparent 40%, #000 64%); } }
+.hero__fx .vanta-canvas { opacity: 0; transition: opacity 1.6s var(--ease-out); }
+.hero__fx.is-live .vanta-canvas { opacity: 1; }
+
+/* Shiny Text on the headline (ported from React Bits): only painted while a sweep runs */
+.hero__big { justify-self: start; }
+.is-shining {
+  background-repeat: no-repeat; background-size: 100% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+@media (forced-colors: active) { .is-shining { background-image: none !important; -webkit-text-fill-color: currentColor; } }
+
+/* the phone screenshot drifts as you scroll (motion.js sets --drift); a separate property, so the hover lift still works */
+.shot--phone { translate: 0 var(--drift, 0px); }
+
+/* ==========================================================================
    Motion: one authored moment. Tags drop onto their hooks and settle, and a
    tag swings on its ring when you touch it. Everything else stays put.
    Only with JS on and no reduced-motion preference.
@@ -820,7 +854,7 @@ html.lenis { scroll-behavior: auto; }
 }
 
 @media print {
-  .masthead, .footer, .board, #start, .dock, .toast { display: none; }
+  .masthead, .footer, .board, #start, .dock, .toast, .hero__fx { display: none; }
   .work, .why { background: none; color: #000; }
   body::before { display: none; }
   body { background: #fff; color: #000; }
