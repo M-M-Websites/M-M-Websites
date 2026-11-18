@@ -637,6 +637,15 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
    page is complete and still. Only opacity and transform are animated,
    plus one small blur on reveals.
    ========================================================================== */
+/* Page-to-page navigation (home, work, terms, privacy, refunds): a short
+   cross-fade in browsers that support cross-document view transitions.
+   Progressive enhancement: other browsers, in-page anchors and reduced-motion
+   users get a normal instant navigation. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-group(root) { animation-duration: .22s; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .js .rise { opacity: 0; transform: translateY(18px); filter: blur(6px); animation: rise .8s var(--ease-out) forwards; }
   .js .hero__title .rise:nth-child(1) { animation-delay: .05s; }

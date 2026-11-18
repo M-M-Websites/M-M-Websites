@@ -665,6 +665,26 @@ async function launch() {
     await ctx.close();
   });
 
+  /* 12c3. Page-to-page cross-fade: only without a reduced-motion preference; anchors and Back still work */
+  await test('view transitions: cross-fade between pages, none with reduced motion, anchors and Back unaffected', async () => {
+    for (const [rm, want] of [['no-preference', 1], ['reduce', 0]]) {
+      const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: rm } });
+      await page.addInitScript(() => { window.__vt = 0; addEventListener('pagereveal', (e) => { if (e.viewTransition) window.__vt++; }); });
+      await page.goto(base + '/', { waitUntil: 'networkidle' });
+      await page.click('.footer a[href="#faq"]');
+      await page.waitForTimeout(900);
+      eq(await page.evaluate(() => location.pathname + location.hash), '/#faq', `${rm}: in-page anchor`);
+      assert(await page.evaluate(() => Math.abs(document.getElementById('faq').getBoundingClientRect().top) < 120), `${rm}: anchor scrolled to the FAQ`);
+      await page.click('.footer a[href="terms/"]');
+      await page.waitForLoadState('networkidle');
+      eq(await page.evaluate(() => window.__vt), want, `${rm}: view transition on the terms page`);
+      await page.goBack({ waitUntil: 'networkidle' });
+      eq(await page.evaluate(() => location.pathname + location.hash), '/#faq', `${rm}: Back returns to the FAQ`);
+      eq(problems.length, 0, `errors: ${problems.join('; ')}`);
+      await ctx.close();
+    }
+  });
+
   /* 12d. Stripe facts: payment methods, terms at checkout, receipts, retries, Manage billing */
   await test('billing: Manage billing on every page, only the payment methods Stripe offers, terms and receipts explained', async () => {
     const otherMethods = /cash ?app|klarna|amazon pay|afterpay|clearpay|affirm|paypal|venmo|google pay|bank (transfer|debit|account)|\bach\b|sepa|ideal|bancontact|crypto|bitcoin/i;
