@@ -651,6 +651,20 @@ async function launch() {
     }
   });
 
+  /* 12c2. FAQPage structured data must match the visible FAQ word for word (Google's rule) */
+  await test('faq schema: FAQPage JSON-LD matches every visible question and answer exactly', async () => {
+    const { ctx, page, problems } = await openPage(browser, base);
+    const visible = await page.$$eval('#faq .qa', (ds) => ds.map((d) => [d.querySelector('summary').textContent.replace(/\s+/g, ' ').trim(), d.querySelector('.qa__body').textContent.replace(/\s+/g, ' ').trim()]));
+    const ld = JSON.parse(await page.locator('#faq-jsonld').textContent());
+    eq(ld['@type'], 'FAQPage', 'FAQ JSON-LD type');
+    const schema = ld.mainEntity.map((q) => [q['@type'] === 'Question' && q.name, q.acceptedAnswer['@type'] === 'Answer' && q.acceptedAnswer.text]);
+    eq(JSON.stringify(schema), JSON.stringify(visible), 'FAQ JSON-LD questions and answers (same text, same order)');
+    const banned = /you own (the|your) (site|website|domain|code)|yours to keep|in your name|hand (it|them|the files)? ?over|hand it to someone|move it any ?time|code (is|are) yours/i;
+    assert(!banned.test(JSON.stringify(ld)), 'FAQ JSON-LD promises ownership');
+    eq(problems.length, 0, `errors: ${problems.join('; ')}`);
+    await ctx.close();
+  });
+
   /* 12d. Stripe facts: payment methods, terms at checkout, receipts, retries, Manage billing */
   await test('billing: Manage billing on every page, only the payment methods Stripe offers, terms and receipts explained', async () => {
     const otherMethods = /cash ?app|klarna|amazon pay|afterpay|clearpay|affirm|paypal|venmo|google pay|bank (transfer|debit|account)|\bach\b|sepa|ideal|bancontact|crypto|bitcoin/i;
