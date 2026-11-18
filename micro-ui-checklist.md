@@ -1,6 +1,6 @@
 # Micro UI 100 checklist: "The key board" redesign (November 2026)
 
-Checked on the home page, the Legendary Detailing case study, terms, privacy, refunds and 404. Measured with Playwright (Chromium) at 320, 390, 1440 px, light and dark, touch emulation; `tests/site.test.cjs` (35/35 pass, includes axe-core in both themes); Lighthouse 12.8.2 under the production `_headers` (home and case study: Accessibility, Best Practices, SEO 100 on mobile and desktop; Performance 99 mobile, 100 desktop).
+Checked on the home page, the Legendary Detailing case study, terms, privacy, refunds and 404. Measured with Playwright (Chromium) at 320, 390, 1440 px, light and dark, touch emulation; `tests/site.test.cjs` (35/35 pass, includes axe-core in both themes); Lighthouse 12.8.2 under the production `_headers` (home and case study: Accessibility, Best Practices, SEO 100 on mobile and desktop; Performance 100 desktop; mobile 97–98 home and 98 case study after the motion layer, see MU-079).
 
 | ID | Status | Evidence or reason |
 |---|---|---|
@@ -58,13 +58,13 @@ Checked on the home page, the Legendary Detailing case study, terms, privacy, re
 | MU-052 | DONE | Copy button switches to "Copied" with a check icon on green for 2s (`main.js` copy handler, `.copy.is-copied`) and the live-region toast announces "Email address copied"; test "copy email" passes. |
 | MU-053 | DONE | FAQ uses `<details>/<summary>`, chevron rotates, whole row is the target. |
 | MU-054 | N/A | No tabs or filters; FAQ items are native `<details>` without per-item anchors, and section anchors (#pricing, #faq, #start) already deep-link. |
-| MU-055 | DONE | `prefers-reduced-motion: reduce` disables the hang/swing, view transitions, smooth scroll and hover transforms. |
-| MU-056 | DONE | UI transitions 120/200/300ms tokens; hover swing 500ms; the only longer motions are the one-time hang entrance on load/scroll, not user-triggered. |
-| MU-057 | DONE | Entrances use `--ease-out` cubic-bezier(0.16, 1, 0.3, 1); dock exit is shorter (200ms); no `ease-in`/`linear` for movement (linear only for spinner and shimmer); tags swing from `transform-origin` at the hook. |
-| MU-058 | DONE | Only `transform`/`opacity` (plus colour) animate; no `transition: all`. |
-| MU-059 | DONE | All motion is gated by `.js`; the hang keyframes no longer touch opacity, so nothing is hidden at any frame and the LCP image is never delayed (LCP 2.1s mobile). |
-| MU-060 | DONE | `scroll-behavior: smooth` only inside `@media (prefers-reduced-motion: no-preference)`. |
-| MU-061 | DONE | No carousels or loops; the only infinite animations are the loading spinner and image shimmer, which stop when loading ends. |
+| MU-055 | DONE | `prefers-reduced-motion: reduce` disables the hang/swing, view transitions, smooth scroll and hover transforms; `smooth-scroll.js` and `motion.js` return before doing anything (no Lenis, no GSAP reveals, no Vanta, no shine), and Lenis is destroyed if the setting is switched on later. Test "fallback: reduced motion" passes (no faded elements, no running animations, `scroll-behavior: auto`). |
+| MU-056 | DONE | UI transitions 120/200/300ms tokens; hover swing 500ms. Longer motions are one-time entrances that never block input: hero word drop about 1.3s, scroll reveals 0.6–1.2s, headline shine 1.6s. In-page link scrolls take 0.55–1.2s by distance. |
+| MU-057 | DONE | CSS entrances use `--ease-out` cubic-bezier(0.16, 1, 0.3, 1); GSAP reveals use `expo.out` (the same family), the hero words and price tags settle with `elastic.out` from `transform-origin` at the hook; anchor scrolls ease out (quartic); dock exit is shorter (200ms); `linear` only for the spinner, shimmer and the scroll-scrubbed phone drift. |
+| MU-058 | DONE | Only `transform`/`opacity` (plus colour) animate, plus `translate` for the scrubbed phone drift and the shine's `background-image` on one heading; no `transition: all`. |
+| MU-059 | DONE | All motion is gated by `.js`; CSS never hides content. The hang keyframes and the GSAP hero word drop use transforms only, so the hero is never hidden at any frame. GSAP hides only blocks that start below the fold, until ScrollTrigger reveals them (also on a jump past them and on print). CLS 0 measured. |
+| MU-060 | DONE | `scroll-behavior: smooth` only inside `@media (prefers-reduced-motion: no-preference)`; Lenis (wheel/trackpad only, touch stays native) only without a reduced-motion preference, and `html.lenis { scroll-behavior: auto }` so the two never fight. |
+| MU-061 | DONE | No carousels or endless loops. The Vanta hero field runs 5 seconds after it appears, then holds still and only moves while the mouse moves (WCAG 2.2.2), and pauses off screen; the shine runs once and on hover; the only infinite animations are the loading spinner and image shimmer, which stop when loading ends. |
 | MU-062 | DONE | Every `<img>` has width/height; test "images: width and height match" passes; CLS 0. |
 | MU-063 | DONE | `srcset` with 2–3 widths and `sizes` on every portfolio image; Lighthouse "properly size images" passes. |
 | MU-064 | DONE | All portfolio images are WebP; largest mobile image well under 150KB. |
@@ -82,10 +82,10 @@ Checked on the home page, the Legendary Detailing case study, terms, privacy, re
 | MU-076 | DONE | Footer repeats the nav and gives the business name, © year, Privacy, Terms, Refunds and Manage billing; the email lives in the contact section (`config.js`). M&M has no public street address, phone or opening hours, so none is shown (no invented facts). |
 | MU-077 | DONE | Two self-hosted subset WOFF2 `@font-face` with `font-display: swap`. |
 | MU-078 | DONE | Both fonts preloaded (`as="font" type="font/woff2" crossorigin`); no third-party font origin. |
-| MU-079 | DONE | Lighthouse mobile: home Perf 99, LCP 2.1s, CLS 0, TBT 0; case study Perf 99, LCP 2.3s, CLS 0, TBT 0. |
+| MU-079 | DONE | Lighthouse 12.8.2 mobile (simulated slow 4G, local server with `_headers` and gzip, two runs): home Perf 97–98, LCP 2.5–2.6s, CLS 0, TBT 20–40ms (the base commit measured 99 and 2.1s on the same machine: the ~64KB gzip of motion scripts shares bandwidth with the fonts); case study Perf 98, LCP 2.3s, CLS 0, TBT 0. Desktop 100 on both. |
 | MU-080 | DONE | No cookies set; only Cloudflare Web Analytics (cookieless) as third-party script origin. |
-| MU-081 | DONE | Scripts are `defer`; JS 5.2KB + 0.9KB gzipped; nav, contact links and content work without JS (`no-js` class). |
-| MU-082 | DONE | Fonts `immutable, max-age=31536000`; CSS/JS/images are not fingerprinted, so they use short `must-revalidate` caches instead of `immutable` (as the rule's "fingerprinted" condition requires); CSS 12.4KB gzipped; Cloudflare serves Brotli. |
+| MU-081 | DONE | Scripts are `defer`; site JS about 15KB gzipped (config 0.9, main 5.4, smooth-scroll 1.8, shiny-text 2.3, motion 4.7), plus vendored Lenis 5.4KB, GSAP + ScrollTrigger + SplitText 50.1KB gzipped on the home page (Lenis only on the other pages). three.js + Vanta DOTS (155KB gzipped) load only after `load`, when idle, on 760px+ screens with WebGL. Nav, contact links and content work without JS (`no-js` class). |
+| MU-082 | DONE | Fonts and `/assets/vendor/*` (version-numbered folders, so effectively fingerprinted) are `immutable, max-age=31536000`; site CSS/JS/images are not fingerprinted, so they use short `must-revalidate` caches instead of `immutable` (as the rule's "fingerprinted" condition requires); CSS 12.4KB gzipped; Cloudflare serves Brotli. |
 | MU-083 | DONE | Unique titles and descriptions per page (test "seo: titles, descriptions, canonicals…" passes). |
 | MU-084 | DONE | Absolute self canonicals; `worker.js` 301s www→apex; HTTPS is forced by Cloudflare with an HSTS header in `_headers`; trailing-slash URLs throughout. |
 | MU-085 | DONE | Full OG + Twitter tags; `og-image.jpg` regenerated in the new design at 1200×630, says "Fully managed". |

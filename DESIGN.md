@@ -138,7 +138,7 @@ The dark theme is the same board after hours: painted steel goes deep grey-green
 - Stencil-cut numbers on job and tag numbers.
 - Hammertone noise on steel and pegboard surfaces; enamel plates for forms and checkout.
 - One drenched field per page (the yellow Why band).
-- One authored motion: tags drop onto their hooks and swing when touched.
+- One authored motion: tags drop onto their hooks and swing when touched. A light motion layer on top (see Motion) follows the same idea: things hang, drop and settle.
 
 ## Colors
 
@@ -226,6 +226,13 @@ White fields with a 2px `#6f7d76` border (4.3:1), `6px` radius, 48px tall, 17px+
 ### Navigation
 Sticky masthead on translucent steel, 61px on phones and 69px on desktop. Nav links are 44px rows; the current section gets a yellow bar. On phones a Menu button opens a dropdown; the page behind goes inert and stops scrolling.
 
+### Motion layer (home page; Lenis on every page)
+- **Lenis** smooths wheel and trackpad scrolling site-wide; touch stays native. In-page links glide and stop under the masthead.
+- **GSAP + ScrollTrigger + SplitText:** the hero headline's words drop onto their hooks (transforms only, never hidden); section titles rise out of a line mask; blocks below the fold fade up 24px with `expo.out` (close to `--ease-out`); the two price tags drop and settle like the key tags; the phone screenshot drifts on scroll.
+- **Vanta DOTS** behind the hero on 760px+ screens: dots in `--fx-dot` (a metal tone), like the pegboard running on into the distance, masked away from the copy. It moves for 5 seconds, then holds still and only moves with the mouse.
+- **Shiny Text** (ported from React Bits): one metal-tone shine across the headline after it settles, and again on hover. Light shine `--shine` #68756e (3.4:1 on steel at its peak, display text only), white in dark mode.
+- All of it is JavaScript-only and off under reduced motion. CSS never hides content; JS hides only blocks below the fold until they scroll in.
+
 ### Key Tag (signature)
 A colour tag with a 0.95rem punched hole (filled with the panel colour), a metal split ring through it and a hook above, on a metal rail. Big stencil number, name, one-line note. Tags rest a degree or two off level. `transform-origin` sits at the hook, so the tag swings from there. The job tag is the large yellow version holding a phone screenshot of the client's site and its job number.
 
@@ -235,7 +242,7 @@ A colour tag with a 0.95rem punched hole (filled with the panel colour), a metal
 - **Do** hang every numbered thing (services, jobs, prices, steps) as a tag or on a rail.
 - **Do** keep yellow for the primary action and the one drenched band per page.
 - **Do** put job numbers in the tag or on the same line as the name.
-- **Do** keep the motion to the hang and the swing, and keep everything still under reduced motion.
+- **Do** keep the motion to the hang, the swing, a short fade-up on scroll and the one hero field; keep everything still under reduced motion.
 - **Do** describe only real work and real facts: one job on the board today, Legendary Detailing.
 
 ### Don't:

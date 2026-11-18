@@ -114,7 +114,7 @@ The identity is **the key board** on a service shop's wall: owners hand M&M the 
 - **Palette:** pale hammertone steel (`--steel`), pegboard panels (`--panel`), enamel plates and dark enamel bands, ink text, and four key-tag colours: yellow (primary action), cobalt (links), green, tomato (errors). Yellow always carries ink text.
 - **Type:** Big Shoulders (condensed signage, variable) for the headline, section titles and stencil-cut numbers; Overpass (variable) for everything else. Eight size tokens `--fs-1 … --fs-8`. Both fonts are self-hosted in `assets/fonts/` under the SIL Open Font License (`OFL.txt`).
 - **Light and dark themes** follow the visitor's system setting. Dark is the same board after hours: deep grey-green steel, a visible mid-steel pegboard, tags keep their colours.
-- **Motion:** one authored moment. Tags drop onto their hooks on load (staggered) and swing from the hook on hover or focus. UI feedback runs 120–300ms. Everything is still under `prefers-reduced-motion`, and without JavaScript the page is complete.
+- **Motion:** one authored moment. Tags drop onto their hooks on load (staggered) and swing from the hook on hover or focus. UI feedback runs 120–300ms. On top of that, a light motion layer from self-hosted libraries (`assets/vendor/`, see its README): Lenis smooth scrolling on every page; on the home page GSAP + ScrollTrigger + SplitText reveals, a Vanta DOTS field behind the hero (760px+ only, lazy-loaded) and a Shiny Text sweep (ported from React Bits) on the headline. Everything is still under `prefers-reduced-motion`, and without JavaScript the page is complete.
 - **Details:** punched holes and split rings on every tag, a key-shaped primary button, a pegboard hole grid, rivets on the form plate, tag-shaped choice chips, a phone-only action bar, a copy button that flips to "Copied", a shimmer on screenshots until they load, inline errors with an icon, and print styles.
 - **Checks:** `micro-ui-checklist.md` records all 100 micro-UI items with evidence.
 
@@ -150,12 +150,12 @@ The suite starts its own static server and checks:
 
 | Page | Device | Performance | Accessibility | Best Practices | SEO |
 |---|---|---|---|---|---|
-| Home | Mobile | 99 | 100 | 100 | 100 |
+| Home | Mobile | 97–98 | 100 | 100 | 100 |
 | Home | Desktop | 100 | 100 | 100 | 100 |
-| Legendary Detailing case study | Mobile | 99 | 100 | 100 | 100 |
+| Legendary Detailing case study | Mobile | 98 | 100 | 100 | 100 |
 | Legendary Detailing case study | Desktop | 100 | 100 | 100 | 100 |
 
-Mobile uses Lighthouse's simulated slow 4G. Real-world numbers depend on the host.
+Mobile uses Lighthouse's simulated slow 4G. Real-world numbers depend on the host. Home mobile was 99 (LCP 2.1s) before the motion layer; with it, LCP is 2.5–2.6s in that simulation because the ~64KB gzip of motion scripts shares the slow link with the fonts. three.js and Vanta load after the page and never count.
 
 ---
 
@@ -170,6 +170,10 @@ favicon.ico                     16/32/48px icon made from assets/img/favicon.svg
 assets/css/site.css             all styles and design tokens
 assets/js/config.js             owner settings (form and business email are set)
 assets/js/main.js               settings, menu, reveals, the project form
+assets/js/smooth-scroll.js      Lenis smooth scrolling and in-page links (every page)
+assets/js/motion.js             home page GSAP reveals and the Vanta hero field
+assets/js/shiny-text.js         Shiny Text, ported from React Bits (credited in the file)
+assets/vendor/                  pinned, self-hosted Lenis, GSAP, three.js, Vanta + licenses
 assets/fonts/                   self-hosted fonts + OFL.txt
 assets/img/                     favicon, touch icon, Open Graph image, case study screenshots
 _headers                        caching + security headers (Netlify, Cloudflare Workers)
