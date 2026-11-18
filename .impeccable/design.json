@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T06:07:37Z",
+  "title": "Design System: M&M Websites",
+  "extensions": {
+    "colorMeta": {
+      "tag-yellow": {
+        "role": "primary",
+        "displayName": "Tag Yellow",
+        "tonalRamp": [
+          "#3a3013",
+          "#675418",
+          "#9a7a19",
+          "#e4b011",
+          "#e8c14a",
+          "#e6cf89",
+          "#ebe1c1",
+          "#f7f5ed"
+        ]
+      },
+      "tag-cobalt": {
+        "role": "secondary",
+        "displayName": "Tag Cobalt",
+        "tonalRamp": [
+          "#161e36",
+          "#202f60",
+          "#253d8e",
+          "#254cd0",
+          "#5976d9",
+          "#92a3dd",
+          "#c5cde8",
+          "#eef0f6"
+        ]
+      },
+      "tag-green": {
+        "role": "tertiary",
+        "displayName": "Tag Green",
+        "tonalRamp": [
+          "#173523",
+          "#225e38",
+          "#288b4d",
+          "#2acb66",
+          "#5cd68a",
+          "#94dbaf",
+          "#c6e7d2",
+          "#eef6f1"
+        ]
+      },
+      "tag-tomato": {
+        "role": "tertiary",
+        "displayName": "Tag Tomato",
+        "tonalRamp": [
+          "#361b16",
+          "#602a20",
+          "#8e3525",
+          "#d03f25",
+          "#d96c59",
+          "#dd9d92",
+          "#e7cac5",
+          "#f6efee"
+        ]
+      },
+      "steel": {
+        "role": "neutral",
+        "displayName": "Steel",
+        "tonalRamp": [
+          "#252924",
+          "#3e453a",
+          "#566250",
+          "#76896c",
+          "#95a48e",
+          "#b5beb1",
+          "#d5d9d3",
+          "#f2f3f2"
+        ]
+      },
+      "steel-deep": {
+        "role": "neutral",
+        "displayName": "Deep Steel",
+        "tonalRamp": [
+          "#252924",
+          "#3d453b",
+          "#556251",
+          "#74886d",
+          "#94a38f",
+          "#b5beb2",
+          "#d5d9d3",
+          "#f2f3f2"
+        ]
+      },
+      "pegboard": {
+        "role": "neutral",
+        "displayName": "Pegboard",
+        "tonalRamp": [
+          "#252924",
+          "#3d443b",
+          "#546152",
+          "#73876e",
+          "#93a290",
+          "#b4bdb2",
+          "#d5d9d4",
+          "#f2f3f2"
+        ]
+      },
+      "enamel-plate": {
+        "role": "neutral",
+        "displayName": "Enamel Plate",
+        "tonalRamp": [
+          "#262a23",
+          "#3e4739",
+          "#57644e",
+          "#778d68",
+          "#96a78b",
+          "#b6c0b0",
+          "#d5dad3",
+          "#f2f3f1"
+        ]
+      },
+      "enamel-band": {
+        "role": "neutral",
+        "displayName": "Enamel Band",
+        "tonalRamp": [
+          "#222a28",
+          "#374843",
+          "#4b675f",
+          "#649183",
+          "#88aaa0",
+          "#aec2bb",
+          "#d2dbd8",
+          "#f1f3f3"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "#212b27",
+          "#354a41",
+          "#486a5c",
+          "#5f967f",
+          "#84ae9c",
+          "#abc4ba",
+          "#d1dcd7",
+          "#f1f4f2"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "tonalRamp": [
+          "#232927",
+          "#3a4641",
+          "#4f635b",
+          "#6a8b7e",
+          "#8da59b",
+          "#b0bfb9",
+          "#d3dad7",
+          "#f1f3f2"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "tonalRamp": [
+          "#242827",
+          "#3b4440",
+          "#52605a",
+          "#6f867c",
+          "#90a29a",
+          "#b2bdb8",
+          "#d4d9d6",
+          "#f2f3f2"
+        ]
+      },
+      "metal-mid": {
+        "role": "neutral",
+        "displayName": "Metal",
+        "tonalRamp": [
+          "#252726",
+          "#3e4240",
+          "#565d59",
+          "#75807a",
+          "#959d99",
+          "#b5bab8",
+          "#d5d7d6",
+          "#f2f3f2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero",
+        "purpose": "The hero headline only, uppercase."
+      },
+      "section-title": {
+        "displayName": "Section title",
+        "purpose": "h2 section titles, uppercase."
+      },
+      "tag-number": {
+        "displayName": "Tag number",
+        "purpose": "Stencil-cut numbers on tags, ledger and prices."
+      },
+      "heading": {
+        "displayName": "Heading",
+        "purpose": "h3, names, mixed case."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Hero sub-line and section ledes."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Notes, captions, labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "e-1",
+        "value": "0 1px 2px rgba(20,32,27,.1), 0 3px 8px -4px rgba(20,32,27,.18)",
+        "purpose": "Small raised controls."
+      },
+      {
+        "name": "e-tag",
+        "value": "0 2px 0 rgba(255,255,255,.35) inset, 0 -3px 0 rgba(0,0,0,.12) inset, 0 16px 20px -14px rgba(20,32,27,.55)",
+        "purpose": "Key tags, primary buttons, ledger tags."
+      },
+      {
+        "name": "e-3",
+        "value": "0 2px 4px rgba(20,32,27,.1), 0 32px 60px -34px rgba(20,32,27,.55)",
+        "purpose": "Pegboard panels."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+        "purpose": "State changes (colour, border)."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Entrances, the hang and the swing."
+      },
+      {
+        "name": "t-fast",
+        "value": "120ms",
+        "purpose": "Press feedback."
+      },
+      {
+        "name": "t-base",
+        "value": "200ms",
+        "purpose": "Hover and colour."
+      },
+      {
+        "name": "t-slow",
+        "value": "300ms",
+        "purpose": "Menus, toasts, disclosure."
+      },
+      {
+        "name": "swing",
+        "value": "500ms ease-out",
+        "purpose": "Tag swing on hover or focus."
+      },
+      {
+        "name": "hang",
+        "value": "1.1s ease-out, 120ms stagger",
+        "purpose": "One-time entrance: tags drop onto hooks. Off under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-2up",
+        "value": "519px"
+      },
+      {
+        "name": "tablet",
+        "value": "760px"
+      },
+      {
+        "name": "nav",
+        "value": "900px"
+      },
+      {
+        "name": "hero-split",
+        "value": "980px"
+      },
+      {
+        "name": "wide",
+        "value": "1000px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (key button)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Yellow key tag lying on its side; the one primary action per view.",
+      "html": "<a class=\"ds-btn-key\" href=\"#\">Start my website<svg viewBox=\"0 0 20 20\" width=\"18\" height=\"18\" aria-hidden=\"true\"><path d=\"M4 10h11M11 5.5 15.5 10 11 14.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-btn-key { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 12px 18px 12px 42px; border-radius: 0.35rem 1.8rem 1.8rem 0.35rem; background: var(--yellow, #f2c230); color: var(--on-yellow, #14201b); font: 800 1.0625rem/1.15 Overpass, system-ui, sans-serif; text-decoration: none; box-shadow: 0 2px 0 rgba(255,255,255,.35) inset, 0 -3px 0 rgba(0,0,0,.12) inset, 0 16px 20px -14px rgba(20,32,27,.55); transition: background-color .2s, transform .12s; } .ds-btn-key::before { content: \"\"; position: absolute; left: 14px; top: 50%; width: 13px; height: 13px; margin-top: -6.5px; background: var(--steel, #d8ded5); box-shadow: inset 0 2px 3px rgba(0,0,0,.45); border-radius: 50%; } .ds-btn-key:hover { background: #e7b51c; transform: translateY(-1px); } .ds-btn-key:active { transform: scale(.97); } .ds-btn-key:focus-visible { outline: 3px solid #2148c9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action next to the key button.",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">Ask a question first</a>",
+      "css": ".ds-btn-line { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border: 2px solid #14201b; border-radius: 10px; color: #14201b; font: 800 1.0625rem/1.15 Overpass, system-ui, sans-serif; text-decoration: none; transition: background-color .2s, color .2s; } .ds-btn-line:hover { background: #14201b; color: #d8ded5; } .ds-btn-line:focus-visible { outline: 3px solid #2148c9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Key Tag",
+      "kind": "custom",
+      "refersTo": "key-tag",
+      "description": "Signature: a colour tag on a split ring, hanging from a hook; swings from the hook on hover.",
+      "html": "<div class=\"ds-peg\"><span class=\"ds-hook\"></span><div class=\"ds-tag\"><span class=\"ds-tag__no\">01</span><span class=\"ds-tag__name\">Website</span><span class=\"ds-tag__note\">We build it</span></div></div>",
+      "css": ".ds-peg { position: relative; display: inline-flex; justify-content: center; padding-top: 22px; width: 152px; } .ds-hook { position: absolute; top: 0; left: 50%; width: 8px; height: 26px; margin-left: -4px; border-radius: 3px; background: linear-gradient(90deg, #8a948f, #b9c1bc); } .ds-tag { position: relative; display: grid; justify-items: center; gap: 2px; width: 100%; min-height: 152px; padding: 37px 10px 16px; border-radius: 1.4rem 1.4rem .7rem .7rem; background: #f2c230; color: #14201b; text-align: center; rotate: -1.5deg; transform-origin: 50% -14px; box-shadow: 0 2px 0 rgba(255,255,255,.35) inset, 0 -3px 0 rgba(0,0,0,.12) inset, 0 16px 20px -14px rgba(20,32,27,.55); transition: transform .5s cubic-bezier(.16,1,.3,1); } .ds-tag::before { content: \"\"; position: absolute; left: 50%; top: 12px; width: 15px; height: 15px; margin-left: -7.5px; background: #c6cfc4; box-shadow: inset 0 2px 3px rgba(0,0,0,.45); border-radius: 50%; } .ds-peg:hover .ds-tag { transform: rotate(4deg); } .ds-tag__no { font: 900 2.6rem/.9 \"Big Shoulders\", \"Arial Narrow\", sans-serif; font-variant-numeric: tabular-nums; mask: linear-gradient(#000 0 38%, transparent 38% 44%, #000 44% 100%); } .ds-tag__name { font: 800 .98rem/1.15 Overpass, system-ui, sans-serif; } .ds-tag__note { font: 600 .82rem/1.25 Overpass, system-ui, sans-serif; }"
+    },
+    {
+      "name": "Pegboard Panel",
+      "kind": "card",
+      "refersTo": "enamel-plate",
+      "description": "The board tags hang on: punched 24px hole grid on painted steel.",
+      "html": "<div class=\"ds-board\"><span class=\"ds-plate\">Keys held by M&amp;M</span></div>",
+      "css": ".ds-board { position: relative; min-height: 180px; border-radius: 16px; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.22) 0 2.6px, transparent 3.2px) 6px 7px / 24px 24px, radial-gradient(circle at 50% 50%, rgba(20,32,27,.26) 0 2.6px, transparent 3.2px) 6px 6px / 24px 24px, #c6cfc4; box-shadow: inset 0 0 0 1px rgba(20,32,27,.14), inset 0 2px 0 rgba(255,255,255,.35), 0 2px 4px rgba(20,32,27,.1), 0 32px 60px -34px rgba(20,32,27,.55); } .ds-plate { position: absolute; left: 50%; top: 11px; transform: translateX(-50%); padding: 2px 11px 1px; border-radius: 3px; background: linear-gradient(#c9d0cb, #a6afaa); color: #14201b; font: 800 .8rem \"Big Shoulders\", \"Arial Narrow\", sans-serif; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field on the enamel plate form.",
+      "html": "<label class=\"ds-field\"><span>Your name</span><input type=\"text\" autocomplete=\"name\"></label>",
+      "css": ".ds-field { display: grid; gap: 7px; font: 800 .9375rem Overpass, system-ui, sans-serif; color: #14201b; } .ds-field input { min-height: 48px; padding: 10px 14px; border: 2px solid #6f7d76; border-radius: 6px; background: #fff; color: #14201b; font: 400 1.0625rem Overpass, system-ui, sans-serif; transition: border-color .2s, box-shadow .2s; } .ds-field input:hover { border-color: #2f3e38; } .ds-field input:focus-visible { outline: none; border-color: #2148c9; box-shadow: 0 0 0 4px rgba(33,72,201,.3); }"
+    },
+    {
+      "name": "Choice Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Tag-shaped checkbox; checked turns yellow.",
+      "html": "<label class=\"ds-chip\"><input type=\"checkbox\" checked><span>Booking form</span></label>",
+      "css": ".ds-chip { position: relative; display: inline-flex; } .ds-chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; } .ds-chip span { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 16px 7px 11px; border: 2px solid #6f7d76; border-radius: .5rem 1.4rem 1.4rem .5rem; background: #fff; color: #14201b; font: 700 .9375rem Overpass, system-ui, sans-serif; } .ds-chip span::before { content: \"\"; width: 9px; height: 9px; border-radius: 50%; background: #cdd5ca; box-shadow: inset 0 1px 2px rgba(0,0,0,.4); } .ds-chip input:checked + span { background: #f2c230; border-color: #14201b; } .ds-chip input:focus-visible + span { outline: 3px solid #2148c9; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The key board",
+    "overview": "The site is the key board on a service shop's wall. Owners hand M&M the keys to their website, domain, hosting and updates, and every job hangs numbered on a hook. That one picture carries the business model: M&M holds and runs everything, and the client never has to touch it. The look is practical, shop-floor and plain-spoken: signage rather than editorial, steel and enamel rather than paper.\n\nThe ground is pale hammertone steel. Pegboard panels carry the four key tags (yellow, cobalt, green, tomato), which are the only saturated colours on the site. Dark enamel bands hold the work and the footer. Big Shoulders, a condensed signage face, sets the headline and the numbers; Overpass, a highway-sign sans, sets everything else.\n\nThe dark theme is the same board after hours: painted steel goes deep grey-green, the pegboard stays a visible mid steel, and the tags keep their colours.",
+    "keyCharacteristics": [
+      "Die-cut key tags with a punched hole and a split ring, hanging from steel hooks on a rail.",
+      "Stencil-cut numbers on job and tag numbers.",
+      "Hammertone noise on steel and pegboard surfaces; enamel plates for forms and checkout.",
+      "One drenched field per page (the yellow Why band).",
+      "One authored motion: tags drop onto their hooks and swing when touched."
+    ],
+    "rules": [
+      {
+        "name": "The Four Tags Rule",
+        "body": "Saturated colour appears only as a key tag, a primary action or the one drenched band. Everything else is steel, enamel or ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink On Yellow Rule",
+        "body": "Yellow always carries ink text, never white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Shout Once Rule",
+        "body": "Uppercase belongs to the hero and section titles only. Headings, names and labels stay in mixed case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stencil Rule",
+        "body": "Job, tag and price numbers carry a thin stencil bridge across the middle (a mask cut), so they read as stamped onto the tag.",
+        "section": "typography"
+      },
+      {
+        "name": "The Top Light Rule",
+        "body": "Every shadow uses the ink hue (`--shadow-rgb`) and falls straight down. No hard offset shadows, no glows.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** hang every numbered thing (services, jobs, prices, steps) as a tag or on a rail.",
+      "**Do** keep yellow for the primary action and the one drenched band per page.",
+      "**Do** put job numbers in the tag or on the same line as the name.",
+      "**Do** keep the motion to the hang and the swing, and keep everything still under reduced motion.",
+      "**Do** describe only real work and real facts: one job on the board today, Legendary Detailing."
+    ],
+    "donts": [
+      "**Don't** use cream or beige paper, serif display faces, italic emphasis words or monospace labels.",
+      "**Don't** stack a small label above a heading (no kickers or eyebrows).",
+      "**Don't** use gradients as decoration; the only gradients are metal and the pegboard.",
+      "**Don't** put white text on yellow, or use colour on its own to mark state.",
+      "**Don't** add hard offset shadows, glows or glassmorphism.",
+      "**Don't** write copy that says clients own the site, code or domain."
+    ]
+  }
+}
