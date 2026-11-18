@@ -767,7 +767,8 @@ async function launch() {
       eq(violations.length, 0, `${route} CSP violations: ${violations}`);
       const real = route === '/missing-page/' ? problems.filter((p) => !p.includes('/missing-page/') && !/status of 404/.test(p)) : problems;
       eq(real.length, 0, `${route} errors under CSP: ${real.join('; ')}`);
-      if (route !== '/missing-page/') eq(await page.evaluate(() => document.documentElement.className), 'js', `${route} inline script allowed by its hash`);
+      // Lenis adds its own "lenis" classes to <html>; what matters is that the inline script swapped no-js for js
+      if (route !== '/missing-page/') eq(await page.evaluate(() => document.documentElement.classList.contains('js') && !document.documentElement.classList.contains('no-js')), true, `${route} inline script allowed by its hash`);
       if (route === '/') {
         await fillValid(page);
         await page.click('#f-submit');

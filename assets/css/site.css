@@ -760,6 +760,16 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
   ::view-transition-group(root) { animation-duration: .22s; }
 }
 
+/* Lenis smooth scroll (assets/js/smooth-scroll.js; rules from its lenis.css): the root
+   scrolls normally, and native smooth scroll stays off while Lenis drives it */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+/* sections that receive focus after an in-page link: focus moves for screen readers and Tab, no ring around a whole section */
+[data-scroll-target]:focus { outline: none; }
+
 /* ==========================================================================
    Motion: one authored moment. Tags drop onto their hooks and settle, and a
    tag swings on its ring when you touch it. Everything else stays put.
