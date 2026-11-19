@@ -39,6 +39,10 @@ We have no paid keyword or backlink database. Search volume, keyword difficulty,
      briefs/
      competitors/
      local/
+     schema/
+     ai-search/
+     links/
+     proposals/         proposals for current clients (prospects stay in outreach/)
      reports/
    ```
 
