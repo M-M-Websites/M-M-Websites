@@ -18,7 +18,7 @@ description: Add a finished client site to the M&M Websites portfolio - take scr
 
 ## Steps
 
-1. **Gather verified facts.** Clone or open the client's repo and read its README, `CLAUDE.md` and code. Write a short fact list with a source for each line (file or check): business type and city, sections, form behaviour, stack, test suite size, accessibility and fallbacks. Nothing goes on the page that isn't on this list.
+1. **Gather verified facts.** Open the client's folder (`clients/<slug>/`, or the old separate repo for sites built before the move) and read its README, `CLAUDE.md` and code. Write a short fact list with a source for each line (file or check): business type and city, sections, form behaviour, stack, test suite size, accessibility and fallbacks. Nothing goes on the page that isn't on this list.
 2. **Measure, don't copy claims.** Serve the client site locally (or use the live URL) and run Lighthouse mobile and desktop yourself. Only quote scores you measured, and say they're from your latest run.
 3. **Take screenshots** with Playwright at deviceScaleFactor 2: desktop 1440×900 (hero, a key section like services or the form) and phone 390×844 (hero, the main action or form). Wait for animations, scroll to load lazy images, and crop out anything private (personal emails or addresses not shown publicly as business details).
 4. **Convert to WebP** at responsive widths (desktop 720/1200/1800, phone 390/780, plus 560 if used in a hero), quality ~78, into `assets/img/work/<slug>/`. Make a 1200×630 JPG for Open Graph (`og-<slug>.jpg`).

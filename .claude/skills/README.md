@@ -21,7 +21,7 @@ The Playwright MCP server is registered in the repo-root `.mcp.json` ([microsoft
 
 ## Business skills
 
-`new-client-site`, `ship-site`, `client-change`, `prospect-audit`, and `case-study` are unchanged.
+`ship-site`, `client-change`, `prospect-audit`, and `case-study` are unchanged. `new-client-site` now builds each client site in `clients/<slug>/` inside this repo and runs the `hr-*` SEO skills as part of every build (required by `CLAUDE.md`; see SEO skills below).
 
 ## SEO skills
 
@@ -36,4 +36,4 @@ Free, MIT-licensed. Use them on our site and every client site; the business rul
    - Site health: `hr-seo-audit`, `hr-schema-markup`, `hr-ai-search-visibility`.
    - Local: `hr-local-seo`, `hr-google-business-profile`.
    - Clients and prospects: `hr-client-seo-report` (monthly report for a client, drafted for Michael; whether it's sent or priced is his call), `hr-lead-teardown` and `hr-seo-proposal` (prospects; same `outreach/log.md` one-email rule as `prospect-audit`).
-   - SEO work lives in an `seo/` folder at the site repo's root (layout in `hr-seo-project-setup`), which is in `.assetsignore` so it is never published. Prospect work stays in `outreach/` (`outreach/audits/<slug>/`, `outreach/shortlists/`, logged in `outreach/log.md`). Every report, email and proposal is a draft for Michael.
+   - SEO work lives in the site's `seo/` folder: `seo/` for the studio site, `clients/<slug>/seo/` for a client (layout in `hr-seo-project-setup`). It's in `.assetsignore` so it is never published. Prospect work stays in `outreach/` (`outreach/audits/<slug>/`, `outreach/shortlists/`, logged in `outreach/log.md`). Every report, email and proposal is a draft for Michael.

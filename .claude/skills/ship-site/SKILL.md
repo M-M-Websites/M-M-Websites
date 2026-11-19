@@ -19,7 +19,7 @@ description: Ship a change to the M&M Websites site or a client site safely - ru
 ## Steps
 
 1. **Sync first.** `git fetch origin` and `git status -sb`. If `main` is behind, rebase onto `origin/main` and re-read anything a teammate changed before continuing. Never force-push `main`.
-2. **Run the tests.** `cd tests && npm install && npm test` (set `CHROME_PATH` to an installed Chromium if needed). Every test must pass. If one fails, fix the cause; never skip, delete or weaken a test to get green. If behaviour changed on purpose, update the test and say so.
+2. **Run the tests.** For the studio site `cd tests && npm install && npm test`; for a client `cd clients/<slug>/tests && npm install && npm test` (and the root suite too if anything outside `clients/` changed) (set `CHROME_PATH` to an installed Chromium if needed). Every test must pass. If one fails, fix the cause; never skip, delete or weaken a test to get green. If behaviour changed on purpose, update the test and say so.
 3. **Check the content rules by hand** across every changed page (and `assets/img/og-image.jpg` if copy changed):
    - Prices appear only as $600 setup, $45 a month and $645 due at signup.
    - Payment methods mentioned are only card, Apple Pay and Link.

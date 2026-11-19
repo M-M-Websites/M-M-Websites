@@ -217,7 +217,7 @@ async function launch() {
     // no unexpected personal or client contact details in published files
     const allowedEmail = /mnmwebsitesforyou@gmail\.com/g;
     const published = execFileSync('git', ['ls-files', '--others', '--cached', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' })
-      .split('\n').filter((f) => /\.(html|js|css|txt|xml|md)$/.test(f) && !f.startsWith('tests/') && !/^(\.claude|seo|outreach)\//.test(f)); // .claude/, seo/ and outreach/ are in .assetsignore (never published)
+      .split('\n').filter((f) => /\.(html|js|css|txt|xml|md)$/.test(f) && !f.startsWith('tests/') && !/^(\.claude|seo|outreach|clients)\//.test(f)); // .claude/, seo/, outreach/ and clients/ are in .assetsignore (not published on this site)
     for (const f of published) {
       const body = fs.readFileSync(path.join(ROOT, f), 'utf8');
       const leftover = body.replace(allowedEmail, '');

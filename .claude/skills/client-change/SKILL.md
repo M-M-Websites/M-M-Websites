@@ -26,7 +26,7 @@ description: Handle a client maintenance request (new photo, changed price, hour
    - a new domain, a second site, or a large batch of new content
    - anything that would break the content rules (made-up reviews, ownership wording, unconfirmed claims)
    Say why it's bigger and suggest it's quoted separately; don't start the work.
-4. **Find every place the fact appears.** Grep the client's repo for the old value in all its forms (e.g. `$80`, `80`, `data-price="80"`, `8000` cents, "eighty"): page copy, booking form prices and estimate logic, FAQ answers, JSON-LD (`hasOfferCatalog`, `openingHours`, `telephone`), meta descriptions, the settings file (`content.js` / `config.js`), `README.md`, `CLAUDE.md` and image alt text. List each location before editing.
+4. **Find every place the fact appears.** Grep the client's folder (`clients/<slug>/`) for the old value in all its forms (e.g. `$80`, `80`, `data-price="80"`, `8000` cents, "eighty"): page copy, booking form prices and estimate logic, FAQ answers, JSON-LD (`hasOfferCatalog`, `openingHours`, `telephone`), meta descriptions, the settings file (`content.js` / `config.js`), `README.md`, `CLAUDE.md` and image alt text. List each location before editing.
 5. **Edit every location** so the site never contradicts itself. For photos: WebP at the existing responsive widths, with width/height and honest alt text. For prices: also update the live estimate and any surcharge rules.
 6. **Update the tests** that assert the old value (prices, hours, links, counts) and add an assertion for the new value if none exists. Run the suite; all tests must pass.
 7. **Ship it with the `ship-site` skill**, including Lighthouse, screenshots and the live checks.

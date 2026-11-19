@@ -27,7 +27,7 @@ We have no paid keyword or backlink database. Search volume, keyword difficulty,
 
 ## Steps
 
-1. **Pick the repo and make the folder.** The workspace is `seo/` at the root of the site's repo (this repo for M&M Websites, the client's repo for a client). Confirm `seo` is listed in the repo's `.assetsignore` so it is never published; if it isn't, tell Michael and add it only when he says so. Ask before creating anything. Starter layout:
+1. **Pick the repo and make the folder.** All sites live in the M&M Websites repo. The workspace is `seo/` at the repo root for the studio site, and `clients/<slug>/seo/` for a client. In every hr-* skill, "`seo/`" means that site's folder. Confirm `seo` is listed in the repo's `.assetsignore` so it is never published; if it isn't, tell Michael and add it only when he says so. Ask before creating anything. Starter layout:
 
    ```text
    seo/

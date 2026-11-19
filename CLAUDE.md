@@ -20,6 +20,21 @@ Pages that state these rules and must stay in sync: the home page (hero note, La
 - Contact settings live in `assets/js/config.js`.
 - Run `cd tests && npm test` before pushing; keep Lighthouse Accessibility, Best Practices and SEO at 100.
 
+## Client sites live in this repo
+
+Every client website is built and kept in this repo at `clients/<slug>/`, one self-contained folder per client with its own tests, `wrangler.toml`, `CLAUDE.md` (the client's confirmed facts) and `seo/` folder. The studio site stays at the root, and the root `.assetsignore` lists `clients` so client sites are never published on mnmwebsitesforyou.com. When working on a client, read `clients/<slug>/CLAUDE.md` too and run that folder's tests (`cd clients/<slug>/tests && npm test`).
+
+## SEO skills run on every website build (required)
+
+Whenever a session builds, rebuilds, redesigns or adds pages to any website in this repo, run the `new-client-site` skill (for a new client) and its `hr-*` SEO steps without being asked; they are part of the build, not an extra:
+
+1. Before writing copy: `hr-seo-project-setup`, `hr-seo-context`, `hr-keyword-research`, `hr-keyword-clustering` (keyword map decides titles, H1s and headings).
+2. During the build: `hr-schema-markup` and the `hr-ai-search-visibility` basics (answer-first sections, quotable real facts, AI crawlers not blocked).
+3. Before launch: `hr-seo-audit` and a `hr-google-business-profile` draft for the client.
+4. After launch: one dated follow-up in the site's `seo/README.md` for 28 days later (`hr-seo-audit` and `hr-local-seo` on real Search Console data).
+
+For a new page or redesign on an existing site, run steps 1 to 3 for the pages that change. The SEO folder is `seo/` for the studio site and `clients/<slug>/seo/` for a client; it is never published. Numbers we don't have (search volume, difficulty, Maps positions) stay `unknown`, and these skills never override the business rules above. Say in the final report which `hr-*` steps ran and where their files are, and if one couldn't run (for example no Search Console access yet), say why.
+
 ## Design skills for client sites
 
 When building or restyling a client site, use the design skills in `.claude/skills/` (see `.claude/skills/README.md`) so the work does not look like a generic AI website (beige backgrounds, default AI fonts, italic emphasis words). Pick a real brand system with `awesome-design`, pull art direction from real sites with `design-taste-frontend`, polish with `impeccable`, and use Emil Kowalski's skills for animation. Before shipping, verify the design in a real browser with the Playwright MCP server in `.mcp.json`. These skills do not change the business rules above.
