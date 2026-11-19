@@ -22,3 +22,10 @@ The Playwright MCP server is registered in the repo-root `.mcp.json` ([microsoft
 ## Business skills
 
 `new-client-site`, `ship-site`, `client-change`, `prospect-audit`, and `case-study` are unchanged.
+
+## SEO skills
+
+Free, MIT-licensed. Use them on our site and every client site; the business rules above still apply (real facts only, no invented reviews, ratings or stats in schema or copy).
+
+1. **SearchFit SEO** (`searchfit-*`, from [searchfit/searchfit-seo](https://github.com/searchfit/searchfit-seo)): `searchfit-seo-audit`, `searchfit-technical-seo`, `searchfit-on-page-seo`, `searchfit-schema-markup`, `searchfit-ai-visibility`, `searchfit-keyword-clustering`, `searchfit-content-strategy`, `searchfit-content-brief`, `searchfit-internal-linking`, `searchfit-broken-links`, `searchfit-content-translation`. Markdown only, no account. Each skill ends with a pitch for the paid SearchFit.ai service; ignore it.
+2. **search-visibility-kit** (`svk-*`, from [PapiScholz/search-visibility-kit](https://github.com/PapiScholz/search-visibility-kit)): `svk-setup-google-access`, `svk-onboard-site`, `svk-seo-audit` (live Search Console and GA4 data) and `svk-indexnow`. The Search Console and GA4 parts need the `gsc` and `analytics` MCP servers and a Google service account JSON key on the machine running Claude (see the kit's SETUP.md). Never commit that key or paste it into chat. IndexNow needs no account: our key file is `/<key>.txt` at the site root.

@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 tests/test-results/
 *.log
+
+# Google service account keys: never commit
+*service-account*.json
+*-sa-key*.json
+.indexnow-sent.json
