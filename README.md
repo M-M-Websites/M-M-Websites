@@ -3,8 +3,8 @@
 The studio website for **M&M Websites**, a small web design studio that designs and hand-builds fast, mobile-first websites for local service businesses: detailers, trades, salons, restaurants and similar.
 
 - **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Live as a Cloudflare Worker with Static Assets (`mnm-websites`). Wrangler can deploy it; Netlify still works as an alternative.
-- **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), and a branded `404.html`.
-- **Quality:** 28-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
+- **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), the Terms of Service (`terms/`), Privacy Policy (`privacy/`) and Refund and Cancellation Policy (`refunds/`) pages, and a branded `404.html`.
+- **Quality:** 36-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
 
 ---
 
