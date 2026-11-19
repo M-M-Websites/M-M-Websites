@@ -439,6 +439,7 @@
           <noscript><p class="formcard__offline">This form needs JavaScript to send. Please turn JavaScript on, or use another way to reach us.</p></noscript>
 
           <form id="project-form" class="form" method="post" action="#start" novalidate>
+            <p class="form__fine">Fields marked <span class="req" aria-hidden="true">*</span> are required.</p>
             <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <div class="form__row form__row--2">
@@ -473,7 +474,7 @@
             </div>
 
             <fieldset class="field choices" aria-describedby="f-needs-err">
-              <legend>What do you need? <span class="req" aria-hidden="true">*</span> <span class="opt">Pick any that apply</span></legend>
+              <legend>What do you need? <span class="req" aria-hidden="true">*</span><span class="sr-only"> (required)</span> <span class="opt">Pick any that apply</span></legend>
               <div class="choices__grid">
                 <label class="chip"><input type="checkbox" name="needs" value="A new website"><span>A new website</span></label>
                 <label class="chip"><input type="checkbox" name="needs" value="A redesign of my current site"><span>A redesign</span></label>
