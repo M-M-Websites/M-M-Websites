@@ -1,0 +1,41 @@
+# M&M Websites
+
+> M&M Websites designs, builds, hosts and maintains websites for local service businesses (detailers, trades, salons, restaurants and similar). It is a fully managed service: $600 one time to build the site, then $45 a month to keep it online and up to date.
+
+## What M&M Websites does
+
+- Custom, mobile-first websites written by hand (HTML, CSS and JavaScript), not a template or page builder theme.
+- Booking and quote request forms that send requests to the business's inbox, with a live price estimate where the pricing allows it.
+- Search-ready pages: clean page structure, local search basics, structured data, a sitemap and fast load times.
+- Launch help: registering the domain, hosting the site and helping set up the Google Business Profile.
+- Ongoing updates on the monthly plan: new photos, changed prices, services, hours and seasonal specials.
+
+## Pricing and payment
+
+- Website setup: $600 one time.
+- Website maintenance: $45 a month.
+- Due at signup: $645 (setup plus the first month). After that, $45 is billed automatically each month.
+- Payment is by card, Apple Pay or Link on Stripe's secure checkout. Stripe emails a receipt for every payment.
+- Clients manage billing, cards and cancellation at https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00
+
+## How the service works
+
+- M&M Websites provides the website, its code, the hosting and the domain as a service while the monthly plan is active. They belong to M&M Websites and cannot be transferred or handed to someone else.
+- If the monthly plan is cancelled or payments stop, the site is taken offline, the domain is paused and updates stop.
+- Clients keep the rights to their own business name, logo, photos and the words they supply.
+
+## Work
+
+- [Legendary Detailing case study](https://mnmwebsitesforyou.com/work/legendary-detailing/): a mobile-first site for a mobile auto detailer in Memphis, TN, with a two-step booking request form and a live price estimate.
+
+## Pages
+
+- [Home](https://mnmwebsitesforyou.com/): services, process, pricing, FAQ and the project form.
+- [Terms of Service](https://mnmwebsitesforyou.com/terms/)
+- [Refund and Cancellation Policy](https://mnmwebsitesforyou.com/refunds/)
+- [Privacy Policy](https://mnmwebsitesforyou.com/privacy/)
+
+## Contact
+
+- Email: mnmwebsitesforyou@gmail.com
+- Start a project: https://mnmwebsitesforyou.com/#start
