@@ -1,5 +1,7 @@
 # Grokbot prompt: launch a finished site on its domain, with full SEO setup
 
+> **Superseded.** Grokbot controls Michael's desktop, so use the desktop version instead: [`docs/grokbot-launch-prompt.md` in legendary-detailing](https://github.com/M-M-Websites/legendary-detailing/blob/main/docs/grokbot-launch-prompt.md). It works through the dashboards and `scripts/launch.sh`, with no APIs or tokens. This older version is kept for reference.
+
 Paste everything below the line into Grokbot when a site is built and the `hr-*` build steps have run. Grokbot asks for the domain, then does everything else itself.
 
 ---
