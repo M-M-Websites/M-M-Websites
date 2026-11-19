@@ -480,6 +480,31 @@ async function launch() {
     }
   });
 
+  await test('contrast: the see-through sticky header and phone dock stay readable over every section', async () => {
+    for (const colorScheme of ['light', 'dark']) {
+      for (const opts of [{ viewport: { width: 1440, height: 900 } }, { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }]) {
+        for (const route of ['/', '/work/legendary-detailing/']) {
+          const { ctx, page } = await openPage(browser, base, { opts: { ...opts, colorScheme, reducedMotion: 'reduce' }, route });
+          await page.addScriptTag({ path: AXE });
+          const bad = await page.evaluate(async () => {
+            const out = new Set();
+            for (let y = 0; y < document.body.scrollHeight; y += 240) {
+              window.scrollTo({ top: y, behavior: 'instant' });
+              await new Promise((r) => setTimeout(r, 60));
+              const include = ['.masthead', '#dock'].filter((s) => document.querySelector(s)).map((s) => [s]);
+              // eslint-disable-next-line no-undef
+              const res = await axe.run({ include }, { runOnly: ['color-contrast'] });
+              res.violations.forEach((v) => v.nodes.forEach((n) => out.add(`${n.target.join(' ')} @${y}px: ${n.any[0].message.replace(/\. Expected.*/, '')}`)));
+            }
+            return [...out];
+          });
+          eq(bad.length, 0, `${route} ${colorScheme} @${opts.viewport.width}: ${bad.join(' | ')}`);
+          await ctx.close();
+        }
+      }
+    }
+  });
+
   await test('accessibility: keyboard reaches and operates the form; focus is visible', async () => {
     const { ctx, page } = await openPage(browser, base, { config: { formEmail: 'studio@example.com' } });
     await page.keyboard.press('Tab');
