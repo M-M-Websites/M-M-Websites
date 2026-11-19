@@ -1,6 +1,6 @@
 # M&M Websites
 
-> M&M Websites designs, builds, hosts and maintains websites for local service businesses (detailers, trades, salons, restaurants and similar). It is a fully managed service: $600 one time to build the site, then $45 a month to keep it online and up to date.
+> M&M Websites designs, builds, hosts and maintains websites for local service businesses (detailers, trades, salons, restaurants and similar). It is a fully managed service: $999.99 one time to build the site, then $74.99 a month to keep it online and up to date. SEO optimization is an optional extra at $249.99 a month.
 
 ## What M&M Websites does
 
@@ -12,9 +12,10 @@
 
 ## Pricing and payment
 
-- Website setup: $600 one time.
-- Website maintenance: $45 a month.
-- Due at signup: $645 (setup plus the first month). After that, $45 is billed automatically each month.
+- Website setup: $999.99 one time.
+- Website updates and maintenance: $74.99 a month (hosting, the domain, security and ongoing updates).
+- Due at signup: $1,074.98 (setup plus the first month). After that, $74.99 is billed automatically each month.
+- SEO optimization (optional): $249.99 a month. Monthly Google Search Console care, Google Business Profile upkeep, page and keyword improvements, and a monthly report with real Search Console numbers. No ranking guarantees.
 - Payment is by card, Apple Pay or Link on Stripe's secure checkout. Stripe emails a receipt for every payment.
 - Clients manage billing, cards and cancellation at https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00
 

@@ -1,6 +1,6 @@
 ---
 name: client-change
-description: Handle a client maintenance request (new photo, changed price, hours, service, wording) as part of the $45/month plan - edit every place the fact appears, update the tests, ship with ship-site, and draft a reply for Michael to send. Flags requests that are bigger than an update. Use when Michael forwards a change request from a client.
+description: Handle a client maintenance request (new photo, changed price, hours, service, wording) as part of the $74.99/month plan - edit every place the fact appears, update the tests, ship with ship-site, and draft a reply for Michael to send. Flags requests that are bigger than an update. Use when Michael forwards a change request from a client.
 ---
 
 # Client change
@@ -9,7 +9,7 @@ description: Handle a client maintenance request (new photo, changed price, hour
 
 1. **Nothing goes to clients or prospects without Michael's approval.** Draft the reply only; Michael reviews and sends it. Never email or message the client yourself.
 2. **The only public email is `mnmwebsitesforyou@gmail.com`.** Never use or write `hello@mnmwebsitesforyou.com`.
-3. **Pricing is $600 one-time setup + $45 a month maintenance.** Never quote a price for extra work; Michael decides that.
+3. **Pricing is $999.99 one-time setup + $74.99 a month updates and maintenance, plus optional SEO optimization at $249.99 a month.** Never quote a price for extra work; Michael decides that.
 4. **Payments are card, Apple Pay or Link only.**
 5. **Stripe is fully set up. Don't touch it.** Billing questions go to Michael and the "Manage billing" portal link.
 6. **One cold email per business, ever.** No follow-ups.

@@ -9,7 +9,7 @@ description: Set up a new client website repo from the M&M Websites / Legendary 
 
 1. **Nothing goes to clients or prospects without Michael's approval.** Write drafts only; Michael reviews and sends. Never send email, post, or submit forms on anyone's behalf.
 2. **The only public email is `mnmwebsitesforyou@gmail.com`.** Never use or write `hello@mnmwebsitesforyou.com`.
-3. **Pricing is $600 one-time setup + $45 a month maintenance.** Never quote anything else unless Michael says so.
+3. **Pricing is $999.99 one-time setup + $74.99 a month updates and maintenance, plus optional SEO optimization at $249.99 a month.** Never quote anything else unless Michael says so.
 4. **Payments are card, Apple Pay or Link only.** Never mention Cash App, Klarna, Amazon Pay, bank debit, PayPal or any other method.
 5. **Stripe is fully set up. Don't touch it**: no new products, prices, payment links, portal or branding changes.
 6. **One cold email per business, ever.** No follow-ups.

@@ -29,20 +29,23 @@ Nothing on the site states client counts, years in business, testimonials, addre
 
 ## Ownership (business rule)
 
-Clients **do not** own the website, its code, the hosting or the domain: M&M Websites provides them as a service while the $45 monthly plan is active, and they can't be transferred or handed to anyone else. If a client stops paying or cancels, the site goes offline, the domain is paused, updates stop and there's no access to the code. Clients keep the rights to their own logo, photos and words. The home page FAQ, `terms/` and `refunds/` all say this, and the *ownership* test fails if any page promises otherwise. See `CLAUDE.md` for the full list of content rules.
+Clients **do not** own the website, its code, the hosting or the domain: M&M Websites provides them as a service while the $74.99 monthly plan is active, and they can't be transferred or handed to anyone else. If a client stops paying or cancels, the site goes offline, the domain is paused, updates stop and there's no access to the code. Clients keep the rights to their own logo, photos and words. The home page FAQ, `terms/` and `refunds/` all say this, and the *ownership* test fails if any page promises otherwise. See `CLAUDE.md` for the full list of content rules.
 
 ## Pricing and payments (Stripe)
 
-The *Pricing* section on the home page shows the two real prices, which every client pays:
+The *Pricing* section on the home page shows the real prices. Every client pays setup and the monthly plan; SEO is optional:
 
 | Stripe product | Price | Stripe price ID |
 |---|---|---|
-| Website setup | $600, one time | `price_1UbzNXAhdcfBYyxakwU9CyVi` |
-| Website maintenance | $45 a month | `price_1UbzNiAhdcfBYyxa5o85qYoq` |
+| Website setup | $999.99, one time | `price_1UdeObAhdcfBYyxamiO7ppAo` |
+| Website updates and maintenance | $74.99 a month | `price_1UdeOeAhdcfBYyxab3g8U55o` |
+| SEO optimization (optional) | $249.99 a month | `price_1UdeOiAhdcfBYyxa6HqRkE0K` |
 
-**Start my website** (in the Pricing section and the phone action bar) opens a Stripe Payment Link (`https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00`) that charges $645 at signup (setup plus the first month), then $45 every month. It also asks for the client's business name and phone number. No API keys or server code are involved.
+The old $600 / $45 prices and the $645 link are retired in Stripe; existing subscriptions on them keep their price.
 
-**To change a price:** create a new Price in Stripe and a new Payment Link (prices can't be edited in place), then update the `PRICING` block in `index.html`, the FAQ answer *How much does a website cost?*, the hero note, the JSON-LD offers in the `<head>`, the case study's closing paragraph, and `PAY_LINK` in `tests/site.test.cjs`. The tests check that the amounts on the page are exactly $45, $600 and $645, so they'll flag anything you miss.
+**Start my website** (in the Pricing section and the phone action bar) opens a Stripe Payment Link (`https://buy.stripe.com/aFa6oGcdibNs7tHbfEaEE01`) that charges $1,074.98 at signup (setup plus the first month), then $74.99 every month. **Add SEO** opens a separate link (`https://buy.stripe.com/8x2eVc5OU8Bg9BP1F4aEE02`) for the $249.99 monthly SEO plan. It also asks for the client's business name and phone number. No API keys or server code are involved.
+
+**To change a price:** create a new Price in Stripe and a new Payment Link (prices can't be edited in place), then update the `PRICING` block in `index.html`, the FAQ answer *How much does a website cost?*, the hero note, the JSON-LD offers in the `<head>`, the case study's closing paragraph, and `PAY_LINK` in `tests/site.test.cjs`. The tests check that the amounts on the page are exactly $999.99, $74.99, $1,074.98 and $249.99, so they'll flag anything you miss.
 
 **Checkout** accepts cards, Apple Pay and Link only, asks the client to accept the Terms of Service, and Stripe emails a receipt for every payment. Failed monthly payments are retried automatically (Smart Retries). The site says exactly this; don't mention other payment methods unless they're turned on in Stripe.
 
@@ -56,7 +59,7 @@ The *Pricing* section on the home page shows the two real prices, which every cl
 
 `terms/`, `privacy/` and `refunds/` hold plain-language Terms of Service, Privacy Policy and Refund and Cancellation Policy pages (last updated November 15, 2026). They are linked in every footer, listed in `sitemap.xml` and covered by the tests. The Terms page URL is also the one to set as the Stripe account's Terms of Service link.
 
-> **Have a lawyer review these pages.** They were written from the business facts (Georgia sole proprietor, $600 setup plus $45 a month through Stripe, month to month, FormSubmit form, Cloudflare analytics, the refund rules) as a sensible starting point, not as legal advice. If any of those facts change, update the pages and their "Last updated" date.
+> **Have a lawyer review these pages.** They were written from the business facts (Georgia sole proprietor, $999.99 setup plus $74.99 a month, and optional $249.99 a month SEO, through Stripe, month to month, FormSubmit form, Cloudflare analytics, the refund rules) as a sensible starting point, not as legal advice. If any of those facts change, update the pages and their "Last updated" date.
 
 ## Hosting on Cloudflare (mnmwebsitesforyou.com)
 

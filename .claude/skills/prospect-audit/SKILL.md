@@ -9,7 +9,7 @@ description: Audit a local business's current website as an outreach prospect - 
 
 1. **Nothing goes to clients or prospects without Michael's approval.** The email is a draft file only; Michael reviews and sends it. Never send email, fill in a contact form, DM or call anyone.
 2. **The only public email is `mnmwebsitesforyou@gmail.com`.** Never use or write `hello@mnmwebsitesforyou.com`.
-3. **Pricing is $600 one-time setup + $45 a month maintenance.** If the draft mentions price, use exactly that.
+3. **Pricing is $999.99 one-time setup + $74.99 a month updates and maintenance, plus optional SEO optimization at $249.99 a month.** If the draft mentions price, use exactly that.
 4. **Payments are card, Apple Pay or Link only.**
 5. **Stripe is fully set up. Don't touch it.**
 6. **One cold email per business, ever.** Never draft a follow-up, a second email, or a "just checking in" for a business already in the log.
@@ -32,6 +32,6 @@ description: Audit a local business's current website as an outreach prospect - 
    - Does the page load fast on mobile (LCP)?
 7. **Pick exactly three problems.** Choose the three that most affect whether a visitor contacts them. Each must have: a one-line plain-English problem, the evidence (screenshot file + what to look at, or the Lighthouse metric and value), and why it matters for getting calls or bookings. No more and no fewer than three. Don't exaggerate or speculate.
 8. **Write `outreach/audits/<slug>/audit.md`** with: business, URL, date, the Lighthouse scores, the conversion checklist, the three problems with evidence, and the list of files in the folder.
-9. **Draft the cold email** as `outreach/audits/<slug>/email-draft.md`: short, specific and polite. Name the three problems in plain words, offer to fix them, mention the price only as $600 setup + $45 a month if at all, link `https://mnmwebsitesforyou.com` and sign off with `mnmwebsitesforyou@gmail.com`. No fake urgency, no invented stats, no ownership promises, and no follow-up email.
+9. **Draft the cold email** as `outreach/audits/<slug>/email-draft.md`: short, specific and polite. Name the three problems in plain words, offer to fix them, mention the price only as $999.99 setup + $74.99 a month (and optional SEO at $249.99 a month) if at all, link `https://mnmwebsitesforyou.com` and sign off with `mnmwebsitesforyou@gmail.com`. No fake urgency, no invented stats, no ownership promises, and no follow-up email.
 10. **Update the log row** to status `draft ready - awaiting Michael`, with the audit path. Michael changes it to `sent` after he sends it; if he decides not to, he marks it `skipped`. Either way the business is never emailed again.
 11. **Report to Michael:** the three problems, the scores, and the paths to `audit.md` and `email-draft.md`.

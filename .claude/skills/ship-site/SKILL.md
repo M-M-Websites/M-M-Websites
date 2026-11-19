@@ -9,7 +9,7 @@ description: Ship a change to the M&M Websites site or a client site safely - ru
 
 1. **Nothing goes to clients or prospects without Michael's approval.** Write drafts only; Michael reviews and sends.
 2. **The only public email is `mnmwebsitesforyou@gmail.com`.** Never use or write `hello@mnmwebsitesforyou.com`.
-3. **Pricing is $600 one-time setup + $45 a month maintenance.**
+3. **Pricing is $999.99 one-time setup + $74.99 a month updates and maintenance, plus optional SEO optimization at $249.99 a month.**
 4. **Payments are card, Apple Pay or Link only.** Never mention any other method.
 5. **Stripe is fully set up. Don't touch it.** Shipping never changes Stripe; only the site's existing `#pay-link` and "Manage billing" links are used.
 6. **One cold email per business, ever.** No follow-ups.
@@ -21,7 +21,7 @@ description: Ship a change to the M&M Websites site or a client site safely - ru
 1. **Sync first.** `git fetch origin` and `git status -sb`. If `main` is behind, rebase onto `origin/main` and re-read anything a teammate changed before continuing. Never force-push `main`.
 2. **Run the tests.** `cd tests && npm install && npm test` (set `CHROME_PATH` to an installed Chromium if needed). Every test must pass. If one fails, fix the cause; never skip, delete or weaken a test to get green. If behaviour changed on purpose, update the test and say so.
 3. **Check the content rules by hand** across every changed page (and `assets/img/og-image.jpg` if copy changed):
-   - Prices appear only as $600 setup, $45 a month and $645 due at signup.
+   - Prices appear only as $999.99 setup, $74.99 a month, $1,074.98 due at signup and $249.99 a month for SEO.
    - Payment methods mentioned are only card, Apple Pay and Link.
    - The only email is `mnmwebsitesforyou@gmail.com`; grep for `hello@` and fix any hit.
    - No ownership wording ("you own", "yours to keep", "in your name", "hand over", "move it"). The FAQ, `terms/` section 5 and 7 and `refunds/` section 5 still agree.

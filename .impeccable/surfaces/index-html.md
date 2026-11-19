@@ -15,7 +15,7 @@ THESIS: The site is the key board on a service-shop wall: owners hand M&M the ke
 
 OWN-WORLD: Pale hammertone grey-green painted steel ground with a punched pegboard hole grid; dark enamel steel bands; die-cut plastic key tags (rounded tag with a punched hole, ring through it) in signal yellow, cobalt, tomato and kelly green, each with a big stencil job number; ink-black text; Big Shoulders display (condensed, signage), Overpass text (highway sign lineage).
 
-STORY: Visitor sees "Hand us the keys." and the flat deal ($600 once, $45/month, fully managed), sees real work hung as Job 001, reads services and steps as numbered tags, understands they never touch the site, and either taps the yellow "Start my website" tag or asks a question.
+STORY: Visitor sees "Hand us the keys." and the flat deal ($999.99 once, $74.99/month, fully managed, optional SEO $249.99/month), sees real work hung as Job 001, reads services and steps as numbered tags, understands they never touch the site, and either taps the yellow "Start my website" tag or asks a question.
 
 FIRST VIEWPORT: Left/top: huge condensed headline "Hand us the keys." with the deal line and the two actions. Right/below: the key board panel: a steel plate with a hook rail holding four colour tags (Website, Domain, Hosting, Updates) plus the Job 001 tag for Legendary Detailing; the primary action is itself the yellow tag-shaped button.
 

@@ -9,7 +9,7 @@ description: Add a finished client site to the M&M Websites portfolio - take scr
 
 1. **Nothing goes to clients or prospects without Michael's approval.** If the client should be told about the case study, draft the message for Michael; don't send it. Get Michael's confirmation that the client agreed to be featured.
 2. **The only public email is `mnmwebsitesforyou@gmail.com`.** Never use or write `hello@mnmwebsitesforyou.com`.
-3. **Pricing is $600 one-time setup + $45 a month maintenance.** The client's own prices may appear only inside their screenshots.
+3. **Pricing is $999.99 one-time setup + $74.99 a month updates and maintenance, plus optional SEO optimization at $249.99 a month.** The client's own prices may appear only inside their screenshots.
 4. **Payments are card, Apple Pay or Link only.**
 5. **Stripe is fully set up. Don't touch it.**
 6. **One cold email per business, ever.** No follow-ups.

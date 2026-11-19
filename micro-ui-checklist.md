@@ -93,7 +93,7 @@ Checked on the home page, the Legendary Detailing case study, terms, privacy, re
 | MU-087 | DONE | `theme-color` #d8ded5 light / #141b18 dark, matching the header. |
 | MU-088 | DONE | `ProfessionalService` JSON-LD (M&M is an online studio with no public address, so `address`/`geo`/hours are omitted rather than invented) plus FAQPage; `robots.txt` names `sitemap.xml`. |
 | MU-089 | DONE | At 375×667 the headline, "for local service businesses" and "Start my website" are above the fold (`.impeccable/review/mobile.png`). |
-| MU-090 | DONE | $600 setup and $45/month shown in hero, pricing tags and FAQ. |
+| MU-090 | DONE | $999.99 setup, $74.99/month and optional $249.99/month SEO shown in hero, pricing tags, SEO section and FAQ. |
 | MU-091 | DONE | Email is a `mailto:` link built from `config.js` with a copy button; no phone or address is published. |
 | MU-092 | DONE | Link text is descriptive ("Read the case study", "See the job", "Manage billing"); no "click here". |
 | MU-093 | DONE | Curly quotes and apostrophes, real "…", `&nbsp;` where needed; grep finds no `...` in content. |

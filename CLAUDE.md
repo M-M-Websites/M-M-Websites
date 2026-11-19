@@ -2,7 +2,8 @@
 
 ## Business model (do not contradict this anywhere)
 
-- Every client pays **$600 one time** for website setup and **$45 a month** for maintenance (Stripe Payment Link in `index.html`, `#pay-link`).
+- Every client pays **$999.99 one time** for website setup and **$74.99 a month** for updates and maintenance ($1,074.98 due at signup; Stripe Payment Link `https://buy.stripe.com/aFa6oGcdibNs7tHbfEaEE01` in `index.html`, `#pay-link`).
+- **SEO optimization** is an optional extra at **$249.99 a month** (Stripe Payment Link `https://buy.stripe.com/8x2eVc5OU8Bg9BP1F4aEE02`, `#seo-pay-link`). It covers monthly Google Search Console care, Google Business Profile upkeep, page and keyword improvements, and a monthly report with real Search Console numbers. Never promise rankings, traffic, calls or sales numbers.
 - **Clients do not own the website, its code, the hosting or the domain.** M&M Websites owns and runs all of it and provides it as a service while the monthly plan is active. Clients cannot transfer it, copy it or hand it to anyone else.
 - **If a client stops paying or cancels:** the site is taken offline (no longer public), the domain is paused, updates stop, and there is no access to the code.
 - Clients keep the rights to their own business name, logo, photos and the words they supply.

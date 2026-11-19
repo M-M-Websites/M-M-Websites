@@ -1,6 +1,6 @@
 # Claude skills for M&M Websites
 
-Business skills (client sites, shipping, changes, audits, case studies) and design skills live in this folder. **Existing business rules in `CLAUDE.md` still win.** Do not invent testimonials, stats, or awards. Pricing stays $600 setup + $45/month. Clients do not own the site, code, hosting, or domain. The only public email is `mnmwebsitesforyou@gmail.com`. Drafts only go out after Michael approves them.
+Business skills (client sites, shipping, changes, audits, case studies) and design skills live in this folder. **Existing business rules in `CLAUDE.md` still win.** Do not invent testimonials, stats, or awards. Pricing is $999.99 setup + $74.99/month, with optional SEO at $249.99/month. Clients do not own the site, code, hosting, or domain. The only public email is `mnmwebsitesforyou@gmail.com`. Drafts only go out after Michael approves them.
 
 ## Design skills
 

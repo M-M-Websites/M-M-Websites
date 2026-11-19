@@ -22,7 +22,7 @@ Then work through every phase below without stopping to ask. Ask a question only
 
 1. **No invented facts.** No reviews, ratings, testimonials, client counts, years in business, stats, awards, prices, hours, addresses or phone numbers that aren't already confirmed in the repo. A missing fact stays missing. Never add `aggregateRating`, `review` or `priceRange` to structured data unless the repo's tests and `CLAUDE.md` allow it.
 2. **No ownership promises.** Clients do not own the website, code, hosting or domain; M&M Websites provides them as a service while the monthly plan is active. If they stop paying, the site goes offline, the domain is paused and updates stop. Never write "you own", "yours to keep", "in your name", "hand it over" or "move it" anywhere, including `llms.txt`.
-3. **Pricing** is $600 one-time setup + $45 a month ($645 due at signup). **Payments** are card, Apple Pay or Link only. The only M&M email is `mnmwebsitesforyou@gmail.com` (never `hello@…`). Never change anything in Stripe.
+3. **Pricing** is $999.99 one-time setup + $74.99 a month ($1,074.98 due at signup), plus optional SEO at $249.99 a month. **Payments** are card, Apple Pay or Link only. The only M&M email is `mnmwebsitesforyou@gmail.com` (never `hello@…`). Never change anything in Stripe.
 4. **The domain is registered and held by M&M Websites** in M&M's registrar and Cloudflare accounts, never in a client's.
 5. **Secrets stay in the secret store.** Never print, log, commit or echo keys and tokens, including in your report.
 6. **Never skip, delete or weaken a test** to get green. Fix the cause.

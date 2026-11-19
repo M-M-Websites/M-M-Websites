@@ -19,7 +19,9 @@ const HEADERS = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');
 const CSP = (HEADERS.match(/Content-Security-Policy:\s*(.+)/) || [])[1];
 const SITE = (fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
 const PAGES = ['/', '/work/legendary-detailing/', '/terms/', '/privacy/', '/refunds/'];
-const PAY_LINK = 'https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00';
+const PAY_LINK = 'https://buy.stripe.com/aFa6oGcdibNs7tHbfEaEE01';
+const SEO_LINK = 'https://buy.stripe.com/8x2eVc5OU8Bg9BP1F4aEE02';
+const PRICES = ['$1,074.98', '$249.99', '$74.99', '$999.99'];
 const PORTAL_LINK = 'https://billing.stripe.com/p/login/7sY28qcdi8Bg29nbfEaEE00';
 
 /* ---------- tiny test runner ---------- */
@@ -197,7 +199,7 @@ async function launch() {
     const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
     const text = await page.evaluate(() => document.body.innerText);
     const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].sort();
-    eq(JSON.stringify(amounts), JSON.stringify(['$45', '$600', '$645']), 'only the real prices appear');
+    eq(JSON.stringify(amounts), JSON.stringify(PRICES), 'only the real prices appear');
     assert(!/lorem|ipsum|TODO|FIXME|testimonial|award|years in business/i.test(text), 'placeholder or invented-claim text found');
     eq(await page.locator('a[href^="tel:"], a[href^="sms:"]').count(), 0, 'no phone links while unset');
     assert((await page.locator('a[href="mailto:mnmwebsitesforyou@gmail.com"]').count()) >= 1, 'business email link shown');
@@ -212,8 +214,8 @@ async function launch() {
     eq(ld.email, 'mnmwebsitesforyou@gmail.com', 'JSON-LD email');
     for (const k of ['address', 'telephone', 'aggregateRating', 'review', 'priceRange', 'foundingDate', 'numberOfEmployees', 'sameAs']) assert(!(k in ld), `JSON-LD must not contain ${k} while unconfirmed`);
     const offers = ld.hasOfferCatalog.itemListElement;
-    eq(offers.find((o) => o.price)?.price, '600.00', 'JSON-LD setup price');
-    eq(offers.find((o) => o.priceSpecification)?.priceSpecification.price, '45.00', 'JSON-LD monthly price');
+    eq(offers.find((o) => o.price)?.price, '999.99', 'JSON-LD setup price');
+    eq(JSON.stringify(offers.filter((o) => o.priceSpecification).map((o) => o.priceSpecification.price)), JSON.stringify(['74.99', '249.99']), 'JSON-LD monthly prices (maintenance, SEO)');
     // no unexpected personal or client contact details in published files
     const allowedEmail = /mnmwebsitesforyou@gmail\.com/g;
     const published = execFileSync('git', ['ls-files', '--others', '--cached', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' })
@@ -394,15 +396,19 @@ async function launch() {
   });
 
   /* 9b. Pricing and the Stripe payment link */
-  await test('pricing: both prices, the total and a working link to the Stripe payment page', async () => {
+  await test('pricing: setup, monthly and SEO prices, the total, and working links to the Stripe payment pages', async () => {
     const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } });
     const bill = await page.locator('#pricing').innerText();
-    assert(/Website setup[\s\S]*\$600[\s\S]*one time/.test(bill), `setup line: ${bill}`);
-    assert(/Website maintenance[\s\S]*\$45[\s\S]*a month/.test(bill), `maintenance line: ${bill}`);
-    assert(/Due at signup[\s\S]*\$645/.test(bill), 'total due at signup');
+    assert(/Website setup[\s\S]*\$999\.99[\s\S]*one time/.test(bill), `setup line: ${bill}`);
+    assert(/Updates and maintenance[\s\S]*\$74\.99[\s\S]*a month/.test(bill), `maintenance line: ${bill}`);
+    assert(/Due at signup[\s\S]*\$1,074\.98/.test(bill), 'total due at signup');
+    const seo = await page.locator('#seo').innerText();
+    assert(/SEO optimization[\s\S]*\$249\.99[\s\S]*a month/.test(seo), `SEO plan: ${seo}`);
+    assert(!/guarantee(d)? (#1|first|top|rank)|\d+ ?% (more|increase)|\d+x /i.test(seo), 'SEO section must not promise rankings or invented numbers');
+    eq(await page.getAttribute('#seo-pay-link', 'href'), SEO_LINK, 'SEO payment link');
     eq(await page.getAttribute('#pay-link', 'href'), PAY_LINK, 'payment link');
     const links = await page.$$eval('a[href*="buy.stripe.com"]', (a) => [...new Set(a.map((x) => x.href))]);
-    eq(JSON.stringify(links), JSON.stringify([PAY_LINK]), 'one payment link used everywhere');
+    eq(JSON.stringify(links.sort()), JSON.stringify([PAY_LINK, SEO_LINK].sort()), 'only the website and SEO payment links are used');
     let navigated = '';
     await page.route('https://buy.stripe.com/**', (r) => { navigated = r.request().url(); return r.fulfill({ contentType: 'text/html', body: '<title>stub</title>' }); });
     await page.click('#pay-link');
@@ -416,17 +422,17 @@ async function launch() {
   await test('policies: terms, privacy and refund pages say the real facts and are linked from every footer', async () => {
     const { ctx, page, problems } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
     const facts = {
-      '/terms/': [/Georgia/, /\$600/, /\$45 a month/, /month to month/i, /cancel/i, /Stripe/],
+      '/terms/': [/Georgia/, /\$999\.99/, /\$74\.99 a month/, /\$249\.99 a month/, /can’t guarantee/, /month to month/i, /cancel/i, /Stripe/],
       '/privacy/': [/FormSubmit/, /Cloudflare Web Analytics/, /Stripe/, /never sell|do not sell/i],
       '/refunds/': [/before (we begin|design work starts)/i, /non-refundable/i, /not prorated/i, /stops all future billing/i],
     };
     for (const [route, checks] of Object.entries(facts)) {
       await page.goto(base + route, { waitUntil: 'networkidle' });
       const text = await page.evaluate(() => document.querySelector('main').innerText);
-      assert(/Last updated November 1[56], 2026/.test(text), `${route} shows the last-updated date`);
+      assert(/Last updated November 1[569], 2026/.test(text), `${route} shows the last-updated date`);
       assert(text.includes('mnmwebsitesforyou@gmail.com'), `${route} gives the contact email`);
       for (const re of checks) assert(re.test(text), `${route} should mention ${re}`);
-      const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].filter((a) => !['$45', '$600'].includes(a));
+      const amounts = [...new Set(text.match(/\$\s?\d[\d,.]*/g) || [])].filter((a) => !PRICES.includes(a.replace(/[.,]$/, '')));
       eq(amounts.length, 0, `${route} only real prices (${amounts})`);
     }
     for (const route of PAGES) {
@@ -773,7 +779,7 @@ async function launch() {
     for (const route of ['/terms/', '/refunds/']) {
       await page.goto(base + route, { waitUntil: 'networkidle' });
       eq(await page.locator(`main a[href="${PORTAL_LINK}"]`).count() >= 1, true, `${route} links Manage billing in the policy text`);
-      assert(/Last updated November 15, 2026/.test(await page.locator('main').innerText()), `${route} dated today`);
+      assert(/Last updated November 19, 2026/.test(await page.locator('main').innerText()), `${route} dated today`);
     }
     await ctx.close();
   });

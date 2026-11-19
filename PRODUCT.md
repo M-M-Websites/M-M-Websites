@@ -16,7 +16,7 @@ M&M Websites designs, builds, hosts and maintains websites for these businesses.
 
 ## Positioning
 
-Fully managed for one flat price. Every client pays $600 once for setup and $45 a month for maintenance; M&M builds the site, hosts it, runs the domain and makes updates, so the owner never touches it. Template builders leave the work to the owner; freelancers usually hand off and disappear.
+Fully managed for one flat price. Every client pays $999.99 once for setup and $74.99 a month for updates and maintenance, with optional SEO at $249.99 a month; M&M builds the site, hosts it, runs the domain and makes updates, so the owner never touches it. Template builders leave the work to the owner; freelancers usually hand off and disappear.
 
 ## Operating Context
 
