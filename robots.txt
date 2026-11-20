@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /tests/
 Disallow: /scripts/
+Disallow: /clients/
 
 Sitemap: https://mnmwebsitesforyou.com/sitemap.xml
