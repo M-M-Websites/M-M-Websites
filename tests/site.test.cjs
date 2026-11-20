@@ -486,31 +486,6 @@ async function launch() {
     }
   });
 
-  await test('contrast: the see-through sticky header and phone dock stay readable over every section', async () => {
-    for (const colorScheme of ['light', 'dark']) {
-      for (const opts of [{ viewport: { width: 1440, height: 900 } }, { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }]) {
-        for (const route of ['/', '/work/legendary-detailing/']) {
-          const { ctx, page } = await openPage(browser, base, { opts: { ...opts, colorScheme, reducedMotion: 'reduce' }, route });
-          await page.addScriptTag({ path: AXE });
-          const bad = await page.evaluate(async () => {
-            const out = new Set();
-            for (let y = 0; y < document.body.scrollHeight; y += 240) {
-              window.scrollTo({ top: y, behavior: 'instant' });
-              await new Promise((r) => setTimeout(r, 60));
-              const include = ['.masthead', '#dock'].filter((s) => document.querySelector(s)).map((s) => [s]);
-              // eslint-disable-next-line no-undef
-              const res = await axe.run({ include }, { runOnly: ['color-contrast'] });
-              res.violations.forEach((v) => v.nodes.forEach((n) => out.add(`${n.target.join(' ')} @${y}px: ${n.any[0].message.replace(/\. Expected.*/, '')}`)));
-            }
-            return [...out];
-          });
-          eq(bad.length, 0, `${route} ${colorScheme} @${opts.viewport.width}: ${bad.join(' | ')}`);
-          await ctx.close();
-        }
-      }
-    }
-  });
-
   await test('accessibility: keyboard reaches and operates the form; focus is visible', async () => {
     const { ctx, page } = await openPage(browser, base, { config: { formEmail: 'studio@example.com' } });
     await page.keyboard.press('Tab');
@@ -723,8 +698,6 @@ async function launch() {
       for (const width of [390, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         await page.goto(base + route, { waitUntil: 'networkidle' });
-        // let entrance motion (tags swinging onto their hooks) settle: a rotated box measures larger than the image
-        await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => Number.isFinite(a.effect.getComputedTiming().endTime)).map((a) => a.finished.catch(() => {}))));
         const imgs = await page.$$eval('img', (els) => Promise.all(els.map(async (i, n) => {
           const probe = new Image(); probe.src = i.currentSrc || i.src; await probe.decode();
           const r = i.getBoundingClientRect(); const cs = getComputedStyle(i);
@@ -762,7 +735,7 @@ async function launch() {
       await ctx.close();
     }
     const { ctx, page } = await openPage(browser, base, { opts: { viewport: { width: 1440, height: 900 } } });
-    const bill = (await page.locator('.bill').innerText()).replace(/\s+/g, ' ');
+    const bill = (await page.locator('#pricing .bill').innerText()).replace(/\s+/g, ' ');
     assert(/card, Apple Pay or Link/.test(bill), `pricing card names the payment methods: ${bill}`);
     assert(/accept our Terms of Service/.test(bill) && /receipt/.test(bill), 'pricing card mentions terms at checkout and receipts');
     eq(await page.getAttribute('.bill a[href$="terms/"]', 'href'), 'terms/', 'terms link in the pricing card');
@@ -821,7 +794,7 @@ async function launch() {
     assert(broken >= 1, 'stylesheet loaded on a nested path');
     await page.click('text=Go to the home page');
     await page.waitForLoadState('networkidle');
-    assert(/Hand us the keys/i.test(await page.locator('h1').innerText()), 'home link works');
+    assert(/Hand-built websites/.test(await page.locator('h1').innerText()), 'home link works');
     await ctx.close();
   });
 

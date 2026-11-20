@@ -1,5 +1,5 @@
-Big Shoulders — Copyright 2019 The Big Shoulders Project Authors (https://github.com/xotypeco/big_shoulders)
-Overpass — Copyright 2021 The Overpass Project Authors (https://github.com/RedHatOfficial/Overpass)
+Bricolage Grotesque — Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
+JetBrains Mono — Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
 
 Both fonts are licensed under the SIL Open Font License, Version 1.1:
 

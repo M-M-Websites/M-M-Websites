@@ -4,7 +4,7 @@ The studio website for **M&M Websites**, a small web design studio that designs 
 
 - **Stack:** hand-written HTML, CSS and vanilla JavaScript. No framework, no build step. Live as a Cloudflare Worker with Static Assets (`mnm-websites`). Wrangler can deploy it; Netlify still works as an alternative.
 - **Pages:** home (`index.html`), the Legendary Detailing case study (`work/legendary-detailing/`), the Terms of Service (`terms/`), Privacy Policy (`privacy/`) and Refund and Cancellation Policy (`refunds/`) pages, and a branded `404.html`.
-- **Quality:** 36-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
+- **Quality:** 35-test Playwright + axe-core suite, all passing. Lighthouse 100 for Accessibility, Best Practices and SEO on every page, mobile and desktop (see *Testing*).
 
 ---
 
@@ -112,14 +112,14 @@ One-time setup already done:
 
 ## Design notes
 
-The identity is **the key board** on a service shop's wall: owners hand M&M the keys (website, domain, hosting, updates) and every job hangs, numbered, on a hook. The full system is recorded in [`DESIGN.md`](DESIGN.md) (tokens + rules) with a machine-readable sidecar in `.impeccable/design.json`; `.interface-design/system.md` is the short consistency file, `PRODUCT.md` the product brief.
+The identity is a **printer's proof**: warm paper (`--paper`), near-black ink (`--ink`) and one red pencil (`--red`) used for markup. The signature element is the hero's *proof*: a real screenshot of client work on a phone, with crop marks and red-pencil annotations that draw themselves in. The same red pencil underlines the headline, numbers the process steps and marks list items.
 
-- **Palette:** pale hammertone steel (`--steel`), pegboard panels (`--panel`), enamel plates and dark enamel bands, ink text, and four key-tag colours: yellow (primary action), cobalt (links), green, tomato (errors). Yellow always carries ink text.
-- **Type:** Big Shoulders (condensed signage, variable) for the headline, section titles and stencil-cut numbers; Overpass (variable) for everything else. Eight size tokens `--fs-1 … --fs-8`. Both fonts are self-hosted in `assets/fonts/` under the SIL Open Font License (`OFL.txt`).
-- **Light and dark themes** follow the visitor's system setting. Dark is the same board after hours: deep grey-green steel, a visible mid-steel pegboard, tags keep their colours.
-- **Motion:** one authored moment. Tags drop onto their hooks on load (staggered) and swing from the hook on hover or focus. UI feedback runs 120–300ms. Everything is still under `prefers-reduced-motion`, and without JavaScript the page is complete.
-- **Details:** punched holes and split rings on every tag, a key-shaped primary button, a pegboard hole grid, rivets on the form plate, tag-shaped choice chips, a phone-only action bar, a copy button that flips to "Copied", a shimmer on screenshots until they load, inline errors with an icon, and print styles.
-- **Checks:** `micro-ui-checklist.md` records all 100 micro-UI items with evidence.
+- **Type:** Bricolage Grotesque (variable, optical sizes) for everything, JetBrains Mono for annotations and captions. Both are self-hosted in `assets/fonts/` under the SIL Open Font License (`OFL.txt`).
+- **Light and dark themes** follow the visitor's system setting. Dark is designed, not inverted: lower saturation, a lighter red for text (`--red-ink`), and the same contrast targets.
+- **Motion:** headline rise with a blur-in, pencil marks drawing, staggered scroll reveals, a slow float on the proof phone, red rules drawing under the service rows and the process ruler. Small UI feedback runs 120–300ms; buttons lift on hover and press in slightly. All of it is skipped for `prefers-reduced-motion`, and without JavaScript the page is complete and still.
+- **Details:** paper grain behind the content, a perforated receipt edge on the pricing card, arrow icons that nudge on hover, a nav that marks the section in view, a phone-only action bar (*Ask a question* / *Start my website*) that appears after the hero and gets out of the way at pricing and the form, a copy button for the email address with a short confirmation toast, a shimmer on screenshots until they load, error messages with an icon and a subtle shake, debounced re-validation, and a loading spinner plus a "Still sending…" message on slow sends.
+- **Tokens** at the top of `assets/css/site.css`: the colour palette (light and dark), a 4px spacing scale, a radius scale, a three-level layered shadow scale, three control heights (44/48/56px) and motion timings. Text colours meet WCAG AA contrast in both themes.
+- **Typography:** curly apostrophes and real ellipses (the tests check), balanced headline wrapping, tabular numbers for prices and step numbers.
 
 ---
 
@@ -189,4 +189,4 @@ If you change the one-line inline script in a page's `<head>`, update its `sha25
 ## Credits
 
 - **Case study screenshots:** taken from the Legendary Detailing site; photography is Legendary Detailing's own.
-- **Typefaces:** Big Shoulders (The Big Shoulders Project Authors) and Overpass (The Overpass Project Authors), both SIL OFL 1.1.
+- **Typefaces:** Bricolage Grotesque (The Bricolage Grotesque Project Authors) and JetBrains Mono (The JetBrains Mono Project Authors), both SIL OFL 1.1.

@@ -91,10 +91,6 @@
     var setOpen = function (open, returnFocus) {
       toggle.setAttribute('aria-expanded', String(open));
       navList.classList.toggle('is-open', open);
-      /* while the menu is open the page behind it is inert and does not scroll */
-      $$('main, footer, .dock').forEach(function (el) { el.inert = open; });
-      document.documentElement.classList.toggle('menu-open', open);
-      if (open) { var first = $('a', navList); if (first) first.focus(); }
       if (!open && returnFocus) toggle.focus();
     };
     toggle.addEventListener('click', function () { setOpen(toggle.getAttribute('aria-expanded') !== 'true'); });
@@ -163,92 +159,10 @@
       update();
     }).observe(hero);
     var bo = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { state.blocked[en.target.id || en.target.className] = en.isIntersecting; });
+      entries.forEach(function (en) { state.blocked[en.target.id || 'footer'] = en.isIntersecting; });
       update();
     });
-    ['.seo__plan', '#pricing', '#start', '.footer'].forEach(function (sel) { var b = $(sel); if (b) bo.observe(b); });
-  }
-
-  /* ---------- film: load and play the key-board loop only when it's on screen ---------- */
-  var film = $('.film__video');
-  if (film && !reduceMotion && 'IntersectionObserver' in window) {
-    var filmLoaded = false;
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          if (!filmLoaded) {
-            filmLoaded = true;
-            [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (t) {
-              var src = film.getAttribute('data-src-' + t[0]);
-              if (!src) return;
-              var el = document.createElement('source'); el.src = src; el.type = t[1]; film.appendChild(el);
-            });
-            film.load();
-          }
-          var p = film.play(); if (p && p.catch) p.catch(function () {});
-        } else if (filmLoaded) { film.pause(); }
-      });
-    }, { rootMargin: '200px 0px' }).observe(film);
-  }
-
-  /* ---------- SEO illustration: pick a trade, watch the search, see "Your business" rise ---------- */
-  var serp = $('.serp');
-  if (serp) {
-    var qEl = $('#serp-query', serp), list = $('.serp__results', serp), you = $('.serp__result--you', serp);
-    var trades = $$('.serp__trade', serp), typing = null, rankTimer = null;
-    var place = function (top) {
-      // FLIP: remember where each result is, move "you" in the DOM, then animate from the old spot
-      var items = $$('.serp__result', list);
-      var before = items.map(function (li) { return li.getBoundingClientRect().top; });
-      if (top) list.insertBefore(you, list.firstElementChild); else list.appendChild(you);
-      if (reduceMotion) return;
-      items.forEach(function (li, i) {
-        var dy = before[i] - li.getBoundingClientRect().top;
-        if (!dy) return;
-        li.animate([{ transform: 'translateY(' + dy + 'px)' }, { transform: 'none' }], { duration: 520, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
-      });
-    };
-    var run = function (query) {
-      clearInterval(typing); clearTimeout(rankTimer);
-      if (reduceMotion) { qEl.textContent = query; place(true); return; }
-      place(false);
-      var i = 0; qEl.textContent = '';
-      typing = setInterval(function () {
-        i += 1; qEl.textContent = query.slice(0, i);
-        if (i >= query.length) { clearInterval(typing); rankTimer = setTimeout(function () { place(true); }, 450); }
-      }, 55);
-    };
-    trades.forEach(function (b) {
-      b.addEventListener('click', function () {
-        trades.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-        run(b.getAttribute('data-query'));
-      });
-    });
-    if ('IntersectionObserver' in window) {
-      var seen = false;
-      new IntersectionObserver(function (entries, obs) {
-        if (!seen && entries[0].isIntersecting) { seen = true; obs.disconnect(); run(trades[0].getAttribute('data-query')); }
-      }, { threshold: 0.5 }).observe(serp);
-    }
-  }
-
-  /* ---------- concept designs: a gentle 3D tilt that follows the pointer (mouse only) ---------- */
-  if (!reduceMotion && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    $$('[data-tilt]').forEach(function (card) {
-      var media = $('.concept__media', card); if (!media) return;
-      var frame = 0;
-      card.addEventListener('pointermove', function (e) {
-        if (frame) return;
-        frame = requestAnimationFrame(function () {
-          frame = 0;
-          var r = media.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-          media.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
-          media.style.setProperty('--rx', (-y * 6).toFixed(2) + 'deg');
-        });
-      });
-      card.addEventListener('pointerleave', function () { media.style.setProperty('--ry', '0deg'); media.style.setProperty('--rx', '0deg'); });
-    });
+    ['#pricing', '#start', '.footer'].forEach(function (sel) { var b = $(sel); if (b) bo.observe(b); });
   }
 
   /* ---------- toast: short confirmations; pauses while hovered ---------- */
@@ -266,15 +180,7 @@
   var copyBtn = $('#copy-email');
   if (copyBtn && CFG.businessEmail) {
     copyBtn.addEventListener('click', function () {
-      var ok = function () {
-        toast('Email address copied');
-        var label = copyBtn.lastChild, path = $('path', copyBtn), was = copyBtn._d = copyBtn._d || path.getAttribute('d');
-        label.textContent = 'Copied';
-        path.setAttribute('d', 'M4 10.5 8 14.5 16 5.5');
-        copyBtn.classList.add('is-copied');
-        clearTimeout(copyBtn._t);
-        copyBtn._t = setTimeout(function () { label.textContent = 'Copy'; path.setAttribute('d', was); copyBtn.classList.remove('is-copied'); }, 2000);
-      };
+      var ok = function () { toast('Email address copied'); };
       var fail = function () { toast('Couldn\u2019t copy. The address is ' + CFG.businessEmail); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(CFG.businessEmail).then(ok, fail);
       else fail();
