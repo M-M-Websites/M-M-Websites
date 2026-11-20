@@ -216,6 +216,13 @@ a:hover { text-decoration-color: var(--red); }
 }
 .nav__list a:hover { background: var(--paper-2); }
 .nav__list a[aria-current="true"] { color: var(--red-ink); }
+/* SEO services: our lead service, highlighted in the header */
+.nav__list a.nav__seo { background: var(--red-tint); color: var(--red-ink); font-weight: 700; }
+@media (hover: hover) and (pointer: fine) { .nav__list a.nav__seo:hover { background: var(--red); color: var(--paper); } }
+@media (min-width: 760px) and (max-width: 1099px) {
+  .nav__list a { padding: 0 0.6rem; font-size: 0.94rem; }
+  .nav__seo-more { display: none; }
+}
 .nav__list a[aria-current="true"]::after { content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 8px; height: 2px; border-radius: 2px; background: var(--red); }
 .nav__toggle {
   display: inline-flex; align-items: center; gap: 0.55rem; min-height: var(--h-s); min-width: var(--h-s); padding: 0 var(--s-3);
