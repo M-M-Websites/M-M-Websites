@@ -41,7 +41,7 @@ The *Pricing* section on the home page shows the real prices. Every client pays 
 | Website updates and maintenance | $74.99 a month | `price_1UdeOeAhdcfBYyxab3g8U55o` |
 | SEO optimization (optional) | $249.99 a month | `price_1UdeOiAhdcfBYyxa6HqRkE0K` |
 
-The old $600 / $45 prices and the $645 link are retired in Stripe; existing subscriptions on them keep their price.
+The old $600 setup + $45/month link (`https://buy.stripe.com/7sY28qcdi8Bg29nbfEaEE00`, $645 at signup) stays active in Stripe for clients Michael sends it to directly; the website uses only the new links. Existing subscriptions keep their price.
 
 **Start my website** (in the Pricing section and the phone action bar) opens a Stripe Payment Link (`https://buy.stripe.com/aFa6oGcdibNs7tHbfEaEE01`) that charges $1,074.98 at signup (setup plus the first month), then $74.99 every month. **Add SEO** opens a separate link (`https://buy.stripe.com/8x2eVc5OU8Bg9BP1F4aEE02`) for the $249.99 monthly SEO plan. It also asks for the client's business name and phone number. No API keys or server code are involved.
 
