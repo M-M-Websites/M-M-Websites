@@ -203,12 +203,17 @@ main a:not([class]) { text-decoration-thickness: 1.5px; text-underline-offset: 0
   .nav__a:hover::after { transform: scaleX(1); }
 }
 .nav__cta { display: none; }
+/* header call button: a round outlined icon button, the number lives in the hero, dock and footer */
 .top__phone {
-  display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; min-width: 44px; justify-content: center;
-  font-weight: 700; text-decoration: none; color: var(--c-ink); font-variant-numeric: tabular-nums; border-radius: var(--r-1); white-space: nowrap;
+  display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px;
+  text-decoration: none; color: var(--c-red); border: 1.5px solid var(--c-line); border-radius: var(--r-pill);
+  background: var(--c-bg); touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 140ms var(--ease-out);
 }
-.top__phone .i { color: var(--c-red); }
-@media (hover: hover) and (pointer: fine) { .top__phone:hover { color: var(--c-red); } }
+.top__phone .i { width: 20px; height: 20px; }
+.top__phone-n { display: none; }
+.top__phone:active { transform: scale(0.95); }
+@media (hover: hover) and (pointer: fine) { .top__phone:hover { background: var(--c-red); border-color: var(--c-red); color: var(--c-white); } }
 .nav__toggle {
   display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; min-width: 44px; padding: 0 var(--s-3);
   background: var(--c-surface); border: 0; border-radius: var(--r-1); font-weight: 650; touch-action: manipulation;
@@ -240,7 +245,7 @@ main a:not([class]) { text-decoration-thickness: 1.5px; text-underline-offset: 0
 @media (min-width: 1140px) {
   .nav__toggle { display: none !important; }
 }
-@media (max-width: 1499px) { .top__phone-n { display: none; } }
+
 @media (min-width: 1140px) and (max-width: 1279px) { .nav__a { padding: 0 var(--s-2); font-size: 0.875rem; } .nav__a::after { left: var(--s-2); right: var(--s-2); } }
 @media (max-width: 379px) {
   .nav__word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -692,7 +697,7 @@ a.way:active { transform: scale(0.98); }
 .foot__phone .i { color: var(--c-red-on-dark); }
 .foot__h { font-size: var(--t-0); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-white); margin-bottom: var(--s-3); }
 .foot__list { list-style: none; display: grid; gap: var(--s-2); }
-.foot__list a, .foot__list li { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; }
+.foot__list a, .foot__list li { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .foot__list .i { color: var(--c-red-on-dark); width: 1.1em; height: 1.1em; }
 .foot__contact li { min-height: 44px; }
 .foot__legal { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--c-dark-line); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); font-size: var(--t-0); }
@@ -749,7 +754,7 @@ a.way:active { transform: scale(0.98); }
 .whys--plain li::before { content: none; }
 
 /* phones and tablets: the menu button sits on the right edge, the call icon before it */
-@media (max-width: 1139px) { .top__phone { order: 1; } .nav { order: 2; } }
+@media (max-width: 1139px) { .top__phone { order: 1; } .top__cta { order: 2; } .nav { order: 3; } }
 
 /* one section per screen: short sections fill the screen under the header, content centred */
 .pick, .comm, .area, .faq, .signs, .steps, .duo, .record, .ways, .svcs, .why {

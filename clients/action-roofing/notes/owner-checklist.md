@@ -20,7 +20,7 @@ Go through this with Robert before launch. "Site now" is what the preview does t
 | 14 | Logo and photos | None supplied | Text wordmark; AI-generated illustrations (see `assets.md`) |
 | 15 | Approved testimonials | None | Review section built, not rendered (`REVIEWS = []`) |
 | 16 | Community story approval | Clarksville Now article | Shown with link (`community_story` switch) |
-| 17 | Inquiry recipient and follow-up | actionroofing@gmail.com proposed | Form in preview mode, sends nothing |
+| 17 | Inquiry recipient and follow-up | actionroofing123@gmail.com proposed | Form in preview mode, sends nothing |
 | 18 | Form, storage and analytics setup | None configured | No analytics, no cookies; privacy page is a draft |
 
 Also confirm: the Facebook page is theirs (`facebook` switch), and the FAQ answers on each page read the way Robert would answer.

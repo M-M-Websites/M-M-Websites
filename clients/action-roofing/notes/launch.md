@@ -15,7 +15,7 @@
 
 | Integration | Status | What's needed |
 |---|---|---|
-| Estimate form delivery | Preview mode (`formAction: ''`) | Owner confirms the inbox (proposed actionroofing@gmail.com). Set `formAction` in `assets/js/config.js` to `https://formsubmit.co/<address>`, add `https://formsubmit.co` to the client domain's CSP (`connect-src`, `form-action`), send one test, have the owner click FormSubmit's activation email. No keys live in client code. |
+| Estimate form delivery | Preview mode (`formAction: ''`) | Owner confirms the inbox (proposed actionroofing123@gmail.com). Set `formAction` in `assets/js/config.js` to `https://formsubmit.co/<address>`, add `https://formsubmit.co` to the client domain's CSP (`connect-src`, `form-action`), send one test, have the owner click FormSubmit's activation email. No keys live in client code. |
 | Form spam protection | Honeypot + minimum fill time in the page; FormSubmit adds its own captcha (`_captcha=true`) | Nothing more unless spam shows up |
 | Photo uploads | Checked in the browser (type, 10 MB, 5 max) | FormSubmit attaches them to the email; confirm the size limit with the plan in use |
 | Analytics | None | Optional: Cloudflare Web Analytics (cookieless), then update the privacy page |

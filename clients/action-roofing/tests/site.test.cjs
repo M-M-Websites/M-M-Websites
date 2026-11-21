@@ -18,7 +18,7 @@ const { chromium } = req('playwright');
 const AXE = fs.readFileSync(require.resolve('axe-core/axe.min.js', { paths: [__dirname, path.join(ROOT, 'tests')] }), 'utf8');
 
 const PAGES = ['', 'roof-repair/', 'roof-replacement/', 'storm-damage-roof-repair/', 'siding-gutters/', 'about/', 'service-areas/', 'contact/', 'privacy/'];
-const PHONE = '(931) 645-4784', TEL = 'tel:+19316454784', EMAIL = 'actionroofing@gmail.com';
+const PHONE = '(931) 645-4784', TEL = 'tel:+19316454784', EMAIL = 'actionroofing123@gmail.com';
 const WIDTHS = [320, 390, 768, 1024, 1440];
 
 /* ---------- a small server that applies /_headers like Cloudflare ---------- */
