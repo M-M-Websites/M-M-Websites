@@ -7,3 +7,6 @@ tests/test-results/
 *service-account*.json
 *-sa-key*.json
 .indexnow-sent.json
+
+# design-skill working files (gate history), never published
+.taste-skill/

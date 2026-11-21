@@ -1,0 +1,3 @@
+# Preview: keep crawlers out until launch. At launch set PREVIEW = False in scripts/build.py.
+User-agent: *
+Disallow: /
