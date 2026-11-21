@@ -11,6 +11,12 @@ Use these whenever you build or restyle a client site. The goal is to avoid the 
 3. **impeccable** — Clean visual design, critique, polish, and anti-slop review from [pbakaus/impeccable](https://github.com/pbakaus/impeccable). The markdown playbooks are installed; the official engine binary was not downloaded (see `impeccable/SOURCE.md`).
 4. **Emil Kowalski animation and design skills** from [emilkowalski/skills](https://github.com/emilkowalski/skills): `emil-design-eng` (main design-engineering skill), plus `animate`, `review-animations`, `improve-animations`, `find-animation-opportunities`, `remove-animations`, `choreograph`, `animation-performance`, `animation-vocabulary`, `apple-design`, `gestures`, `pick-ui-library`, `prototype`, `mobile-native`, `break-ui`, and `learn-taste`. Skipped as not relevant to M&M web client sites: `animate-expo`, `write-swift`, `ask-emil`, `ask-sonner`.
 
+## Reference videos
+
+Notes on outside material Michael wants future sites to learn from, each split into what we take and what we don't. Read them before designing a client site.
+
+- [`../references/2026-11-claude-75-websites-video.md`](../references/2026-11-claude-75-websites-video.md): Skill Leap AI's "You Won't Believe the Websites Claude Can Build Now". Main lesson: one signature moment that comes from the client's trade (water filling a pipe for a plumber), in its own section.
+
 ## Micro UI 100
 
 **micro-ui-100** — The shared list of 100 checkable micro UI practices (MU-001 to MU-100). Every build or redesign implements all of them where applicable and ships a `micro-ui-checklist.md` marking each DONE (with evidence) or N/A (with a reason).
