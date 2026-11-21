@@ -10,3 +10,5 @@ tests/test-results/
 
 # design-skill working files (gate history), never published
 .taste-skill/
+# local review screenshots of client previews
+clients/*/screenshots/

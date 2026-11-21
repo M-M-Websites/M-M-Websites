@@ -966,7 +966,7 @@ privacy = head(p, 'privacy/', 'Privacy Policy | Action Roofing, Clarksville, TN'
         <h2 class="h3">How the form sends it</h2>
         <p>When the form is connected, your request is delivered to Action Roofing by email through a form-delivery service over an encrypted connection. Until then, the form doesn’t send anything. You can always call <a href="tel:{B['tel']}">{B['phone']}</a> instead.</p>
         <h2 class="h3">Cookies and tracking</h2>
-        <p>This website doesn’t set advertising or tracking cookies and doesn’t use third-party analytics. The web host keeps standard server logs, such as IP addresses and the pages requested, to keep the site running and secure.</p>
+        <p>This website doesn’t set advertising or tracking cookies. Its host, Cloudflare, counts page visits with Cloudflare Web Analytics, which uses no cookies and doesn’t identify you. The host also keeps standard server logs, such as IP addresses and the pages requested, to keep the site running and secure.</p>
         <h2 class="h3">Links to other sites</h2>
         <p>Some pages link to other websites, such as the BBB and Clarksville Now. Their own privacy policies apply when you visit them.</p>
         <h2 class="h3">Your choices</h2>

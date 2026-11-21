@@ -83,7 +83,7 @@ Checked 2026-11-21 in Chromium at 320, 390, 768, 1024, 1440 (tests) plus 1280×7
 | MU-077 | DONE | `font-display: swap` plus a metric-matched local fallback (`size-adjust`, `ascent-override`); self-hosted WOFF2 subset |
 | MU-078 | DONE | One font preload; no third-party origins |
 | MU-079 | DONE | LH mobile: Performance 98–100, LCP 2.0–2.4 s, CLS 0, TBT 0 ms (home, roof replacement, about, contact) |
-| MU-080 | DONE | No cookies, no analytics, no third-party scripts |
+| MU-080 | DONE | No cookies set; the only third-party script is Cloudflare's cookieless Web Analytics beacon, which the host injects (1 origin), and the privacy page says so |
 | MU-081 | DONE | Scripts `defer`; main.js about 7 KB gzipped; content, nav and phone work with JS off (test) |
 | MU-082 | N/A | The preview is served from M&M's host, whose `_headers` caches only its own `/assets/*`. The client domain's own `_headers` with immutable asset caching is a launch step (`notes/launch.md`) |
 | MU-083 | DONE | Unique titles of 47–60 characters and descriptions of 120–160 characters with a call to action (test) |
